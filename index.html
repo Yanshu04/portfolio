@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title></title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>YANSHU SHINGALA | Portfolio</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script src="tailwind.config.js"></script>
+<link rel="stylesheet" href="style.css"/>
+</head>
+<body class="bg-surface text-on-surface font-body-md overflow-x-hidden">
+
+<!-- TopNavBar -->
+<header class="fixed top-0 z-50 flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-unit bg-surface dark:bg-surface-dim border-b-[4px] border-on-surface dark:border-on-surface shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+  <div class="font-section-heading text-section-heading font-black text-on-surface dark:text-on-surface uppercase tracking-tighter">YS</div>
+  <nav class="hidden md:flex gap-gutter items-center">
+    <a class="text-on-surface-variant dark:text-outline-variant font-label-mono hover:text-primary dark:hover:text-primary-fixed transition-all duration-75 uppercase" href="#projects">PROJECTS</a>
+    <a class="text-on-surface-variant dark:text-outline-variant font-label-mono hover:text-primary dark:hover:text-primary-fixed transition-all duration-75 uppercase" href="#about">ABOUT</a>
+    <a class="text-on-surface-variant dark:text-outline-variant font-label-mono hover:text-primary dark:hover:text-primary-fixed transition-all duration-75 uppercase" href="#skills">SKILLS</a>
+    <a class="text-on-surface-variant dark:text-outline-variant font-label-mono hover:text-primary dark:hover:text-primary-fixed transition-all duration-75 uppercase" href="#contact">CONTACT</a>
+  </nav>
+  <div class="font-label-mono text-label-mono text-primary dark:text-primary-fixed-dim uppercase hidden md:block">Available for work</div>
+</header>
+
+<main class="pt-[68px]">
+
+  <!-- Hero Section -->
+  <section class="grid grid-cols-1 md:grid-cols-2 min-h-[819px] border-b-[4px] border-on-surface">
+    <!-- Left Hero -->
+    <div class="p-margin-mobile md:p-margin-desktop flex flex-col justify-center gap-gutter bg-surface">
+      <span class="font-label-mono text-label-mono text-on-surface-variant opacity-50">SECTION MARKER / 2026</span>
+      <div class="w-32 h-32 bg-bauhaus-yellow border-[4px] border-on-surface shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] flex items-center justify-center">
+        <span class="font-display-mobile text-on-surface">YS</span>
+      </div>
+      <div>
+        <h1 class="font-display text-[64px] md:text-[84px] font-black uppercase leading-none tracking-tighter text-on-surface">YANSHU<br/>SHINGALA</h1>
+        <p class="font-section-heading text-[24px] text-bauhaus-blue mt-unit uppercase font-bold">Data Science · AI · Machine Learning</p>
+      </div>
+      <div class="flex flex-wrap gap-unit">
+        <a class="bg-bauhaus-red text-white border-[4px] border-on-surface rounded-full px-gutter py-unit font-label-mono text-label-mono shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all uppercase" href="#projects">View Projects →</a>
+        <a class="bg-transparent text-on-surface border-[4px] border-on-surface rounded-full px-gutter py-unit font-label-mono text-label-mono shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all uppercase" href="#contact">Get in Touch →</a>
+      </div>
+    </div>
+    <!-- Right Hero (Abstract Bauhaus) -->
+    <div class="bg-[#1040C0] relative overflow-hidden flex items-center justify-center min-h-[400px] md:min-h-full dot-grid">
+      <div class="relative w-64 h-64">
+        <div class="absolute top-0 left-0 w-48 h-48 bg-white rounded-full border-[4px] border-on-surface"></div>
+        <div class="absolute bottom-0 right-0 w-48 h-48 bg-bauhaus-yellow border-[4px] border-on-surface"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-40 h-40 bg-bauhaus-red rounded-full border-[4px] border-on-surface"></div>
+      </div>
+      <div class="absolute bottom-margin-desktop right-margin-desktop">
+        <div class="w-24 h-4 bg-on-surface"></div>
+        <div class="w-24 h-4 bg-on-surface mt-2"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tech Ticker -->
+  <div class="bg-bauhaus-yellow border-b-[4px] border-on-surface py-gutter overflow-hidden">
+    <div class="marquee font-label-mono text-label-mono text-on-surface">
+      <div class="marquee-content gap-gutter items-center">
+        <span class="flex items-center gap-2"><span class="w-4 h-4 bg-on-surface"></span>PYTHON</span>
+        <span class="flex items-center gap-2"><span class="w-4 h-4 bg-on-surface"></span>TENSORFLOW</span>
+        <span class="flex items-center gap-2"><span class="w-4 h-4 bg-on-surface"></span>PYTORCH</span>
+        <span class="flex items-center gap-2"><span class="w-4 h-4 bg-on-surface"></span>REACT</span>
+        <span class="flex items-center gap-2"><span class="w-4 h-4 bg-on-surface"></span>PANDAS</span>
+        <span class="flex items-center gap-2"><span class="w-4 h-4 bg-on-surface"></span>NUMPY</span>
+        <span class="flex items-center gap-2"><span class="w-4 h-4 bg-on-surface"></span>SCIKIT-LEARN</span>
+        <span class="flex items-center gap-2"><span class="w-4 h-4 bg-on-surface"></span>D3.JS</span>
+        <span class="flex items-center gap-2"><span class="w-4 h-4 bg-on-surface"></span>FASTAPI</span>
+        <!-- Duplicate for infinite loop -->
+        <span class="flex items-center gap-2"><span class="w-4 h-4 bg-on-surface"></span>PYTHON</span>
+        <span class="flex items-center gap-2"><span class="w-4 h-4 bg-on-surface"></span>TENSORFLOW</span>
+        <span class="flex items-center gap-2"><span class="w-4 h-4 bg-on-surface"></span>PYTORCH</span>
+        <span class="flex items-center gap-2"><span class="w-4 h-4 bg-on-surface"></span>REACT</span>
+        <span class="flex items-center gap-2"><span class="w-4 h-4 bg-on-surface"></span>PANDAS</span>
+        <span class="flex items-center gap-2"><span class="w-4 h-4 bg-on-surface"></span>NUMPY</span>
+        <span class="flex items-center gap-2"><span class="w-4 h-4 bg-on-surface"></span>SCIKIT-LEARN</span>
+        <span class="flex items-center gap-2"><span class="w-4 h-4 bg-on-surface"></span>D3.JS</span>
+        <span class="flex items-center gap-2"><span class="w-4 h-4 bg-on-surface"></span>FASTAPI</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- About Section [01] -->
+  <section class="grid grid-cols-1 md:grid-cols-2 bg-[#F0F0F0] border-b-[4px] border-on-surface" id="about">
+    <div class="p-margin-mobile md:p-margin-desktop border-b-[4px] md:border-b-0 md:border-r-[4px] border-on-surface">
+      <h2 class="font-section-heading text-section-heading mb-gutter uppercase">ABOUT [01]</h2>
+      <div class="space-y-gutter">
+        <p class="font-body-lg text-on-surface leading-relaxed">
+          I am a Data Scientist and AI researcher dedicated to deciphering high-dimensional chaos. My work sits at the intersection of mathematical rigor and visual clarity, transforming complex datasets into actionable geometric insights.
+        </p>
+        <p class="font-body-lg text-on-surface leading-relaxed">
+          With a foundation in Constructivist principles, I believe information is a structural medium. I build systems that don't just calculate—they communicate.
+        </p>
+      </div>
+    </div>
+    <div class="p-margin-mobile md:p-margin-desktop grid grid-cols-2 gap-gutter">
+      <div class="bg-white p-gutter border-[4px] border-on-surface shadow-[8px_8px_0px_0px_rgba(208,32,32,1)] flex flex-col justify-center">
+        <span class="font-display-mobile text-bauhaus-red">5</span>
+        <span class="font-label-mono text-label-mono uppercase">Projects</span>
+      </div>
+      <div class="bg-bauhaus-blue p-gutter border-[4px] border-on-surface shadow-[8px_8px_0px_0px_rgba(255,255,255,1)] flex flex-col justify-center text-white">
+        <span class="font-display-mobile">10+</span>
+        <span class="font-label-mono text-label-mono uppercase">Technologies</span>
+      </div>
+      <div class="bg-bauhaus-yellow p-gutter border-[4px] border-on-surface shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] flex flex-col justify-center">
+        <span class="font-display-mobile">2</span>
+        <span class="font-label-mono text-label-mono uppercase">Degrees</span>
+      </div>
+      <div class="bg-white p-gutter border-[4px] border-on-surface shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] flex flex-col justify-center">
+        <span class="font-display-mobile">∞</span>
+        <span class="font-label-mono text-label-mono uppercase">Curiosity</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Section [02] -->
+  <section class="bg-bauhaus-blue p-margin-mobile md:p-margin-desktop border-b-[4px] border-on-surface" id="projects">
+    <h2 class="font-section-heading text-section-heading text-white mb-gutter uppercase">PROJECTS [02]</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+      <!-- Project Card 1 -->
+      <div class="bg-white border-[4px] border-on-surface p-gutter shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] relative overflow-hidden flex flex-col gap-unit">
+        <div class="absolute -top-4 -right-4 w-16 h-16 bg-bauhaus-red rounded-full border-[4px] border-on-surface"></div>
+        <span class="font-label-mono text-label-mono text-bauhaus-blue uppercase">Machine Learning</span>
+        <h3 class="font-section-heading text-[24px] uppercase font-black">Email Spam Detection</h3>
+        <p class="font-body-md">Robust NLP model for filtering malicious correspondence with 99% accuracy using specialized vectorization techniques.</p>
+        <div class="mt-auto pt-gutter">
+          <a class="font-label-mono text-label-mono border-b-[4px] border-bauhaus-red inline-block uppercase" href="#">View Case Study</a>
+        </div>
+      </div>
+      <!-- Project Card 2 -->
+      <div class="bg-white border-[4px] border-on-surface p-gutter shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] relative overflow-hidden flex flex-col gap-unit">
+        <div class="absolute -top-4 -right-4 w-16 h-16 bg-bauhaus-yellow border-[4px] border-on-surface"></div>
+        <span class="font-label-mono text-label-mono text-bauhaus-blue uppercase">Data Viz</span>
+        <h3 class="font-section-heading text-[24px] uppercase font-black">Financial Dashboard</h3>
+        <p class="font-body-md">Real-time analytical interface for tracking global market shifts and fiscal anomalies using D3.js and React.</p>
+        <div class="mt-auto pt-gutter">
+          <div class="flex gap-4">
+            <a class="font-label-mono text-label-mono border-b-[4px] border-bauhaus-yellow inline-block uppercase font-bold" href="#">GO LIVE</a>
+            <a class="font-label-mono text-label-mono border-b-[4px] border-bauhaus-yellow inline-block uppercase font-bold" href="#">GITHUB</a>
+          </div>
+        </div>
+      </div>
+      <!-- Project Card 3 -->
+      <div class="bg-white border-[4px] border-on-surface p-gutter shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] relative overflow-hidden flex flex-col gap-unit">
+        <div class="absolute -top-4 -right-4 w-16 h-16 bg-bauhaus-blue border-[4px] border-on-surface"></div>
+        <span class="font-label-mono text-label-mono text-bauhaus-blue uppercase">AI Model</span>
+        <h3 class="font-section-heading text-[24px] uppercase font-black">StockIQ Predictor</h3>
+        <p class="font-body-md">Long Short-Term Memory (LSTM) network designed to forecast equity volatility based on sentiment analysis.</p>
+        <div class="mt-auto pt-gutter">
+          <a class="font-label-mono text-label-mono border-b-[4px] border-bauhaus-blue inline-block uppercase" href="#">View Case Study</a>
+        </div>
+      </div>
+      <!-- Project Card 4 -->
+      <div class="md:col-span-2 bg-white border-[4px] border-on-surface p-gutter shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] relative overflow-hidden flex flex-col md:flex-row gap-gutter items-center">
+        <div class="w-full md:w-1/2 h-full min-h-[200px] bg-bauhaus-yellow relative border-[4px] border-on-surface">
+          <div class="absolute inset-0 dot-grid opacity-20"></div>
+          <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 bg-bauhaus-red border-[4px] border-on-surface rotate-45"></div>
+        </div>
+        <div class="w-full md:w-1/2 flex flex-col gap-unit">
+          <span class="font-label-mono text-label-mono text-bauhaus-blue uppercase">Creative Tech</span>
+          <h3 class="font-section-heading text-[24px] uppercase font-black">AR Drawing Canvas</h3>
+          <p class="font-body-md">Immersive spatial drawing application leveraging computer vision to map 3D strokes in physical environments.</p>
+          <a class="font-label-mono text-label-mono border-b-[4px] border-bauhaus-red self-start uppercase" href="#">View Case Study</a>
+        </div>
+      </div>
+      <!-- Project Card 5 -->
+      <div class="bg-white border-[4px] border-on-surface p-gutter shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] relative overflow-hidden flex flex-col gap-unit">
+        <div class="absolute -top-4 -right-4 w-16 h-16 border-[4px] border-on-surface" style="clip-path: polygon(50% 0%, 0% 100%, 100% 100%); background: #1040C0;"></div>
+        <span class="font-label-mono text-label-mono text-bauhaus-blue uppercase">Utility</span>
+        <h3 class="font-section-heading text-[24px] uppercase font-black">AI Study Planner</h3>
+        <p class="font-body-md">Adaptive scheduling agent that optimizes learning paths using genetic algorithms and user feedback.</p>
+        <div class="mt-auto pt-gutter">
+          <a class="font-label-mono text-label-mono border-b-[4px] border-bauhaus-blue inline-block uppercase" href="#">View Case Study</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills Section [03] -->
+  <section class="bg-[#F0F0F0] p-margin-mobile md:p-margin-desktop border-b-[4px] border-on-surface" id="skills">
+    <h2 class="font-section-heading text-section-heading mb-gutter uppercase">SKILLS [03]</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter">
+      <!-- Languages -->
+      <div class="bg-white border-[4px] border-on-surface shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+        <div class="bg-bauhaus-red p-unit border-b-[4px] border-on-surface">
+          <span class="font-label-mono text-label-mono text-white uppercase">Languages</span>
+        </div>
+        <div class="p-gutter flex flex-wrap gap-2">
+          <span class="px-unit py-1 border-[2px] border-on-surface rounded-full text-label-mono">PYTHON</span>
+          <span class="px-unit py-1 border-[2px] border-on-surface rounded-full text-label-mono">JAVA</span>
+          <span class="px-unit py-1 border-[2px] border-on-surface rounded-full text-label-mono">SQL</span>
+          <span class="px-unit py-1 border-[2px] border-on-surface rounded-full text-label-mono">C++</span>
+        </div>
+      </div>
+      <!-- ML/AI -->
+      <div class="bg-white border-[4px] border-on-surface shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+        <div class="bg-bauhaus-blue p-unit border-b-[4px] border-on-surface">
+          <span class="font-label-mono text-label-mono text-white uppercase">ML/AI</span>
+        </div>
+        <div class="p-gutter flex flex-wrap gap-2">
+          <span class="px-unit py-1 border-[2px] border-on-surface rounded-full text-label-mono">TENSORFLOW</span>
+          <span class="px-unit py-1 border-[2px] border-on-surface rounded-full text-label-mono">PYTORCH</span>
+          <span class="px-unit py-1 border-[2px] border-on-surface rounded-full text-label-mono">NLP</span>
+          <span class="px-unit py-1 border-[2px] border-on-surface rounded-full text-label-mono">COMPUTER VISION</span>
+        </div>
+      </div>
+      <!-- Data & Viz -->
+      <div class="bg-white border-[4px] border-on-surface shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+        <div class="bg-bauhaus-yellow p-unit border-b-[4px] border-on-surface">
+          <span class="font-label-mono text-label-mono text-on-surface uppercase">Data &amp; Viz</span>
+        </div>
+        <div class="p-gutter flex flex-wrap gap-2">
+          <span class="px-unit py-1 border-[2px] border-on-surface rounded-full text-label-mono">PANDAS</span>
+          <span class="px-unit py-1 border-[2px] border-on-surface rounded-full text-label-mono">D3.JS</span>
+          <span class="px-unit py-1 border-[2px] border-on-surface rounded-full text-label-mono">MATPLOTLIB</span>
+          <span class="px-unit py-1 border-[2px] border-on-surface rounded-full text-label-mono">TABLEAU</span>
+        </div>
+      </div>
+      <!-- Frontend -->
+      <div class="bg-white border-[4px] border-on-surface shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+        <div class="bg-bauhaus-red p-unit border-b-[4px] border-on-surface">
+          <span class="font-label-mono text-label-mono text-white uppercase">Frontend</span>
+        </div>
+        <div class="p-gutter flex flex-wrap gap-2">
+          <span class="px-unit py-1 border-[2px] border-on-surface rounded-full text-label-mono">REACT</span>
+          <span class="px-unit py-1 border-[2px] border-on-surface rounded-full text-label-mono">TAILWIND</span>
+          <span class="px-unit py-1 border-[2px] border-on-surface rounded-full text-label-mono">NEXT.JS</span>
+          <span class="px-unit py-1 border-[2px] border-on-surface rounded-full text-label-mono">TYPESCRIPT</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Education Section [04] -->
+  <section class="bg-bauhaus-red p-margin-mobile md:p-margin-desktop border-b-[4px] border-on-surface" id="education">
+    <h2 class="font-section-heading text-section-heading text-white mb-gutter uppercase">EDUCATION [04]</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+      <div class="bg-white border-[4px] border-on-surface p-gutter shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+        <div class="flex justify-between items-start mb-unit">
+          <h3 class="font-section-heading text-[24px] uppercase font-black">B.Tech in CSE</h3>
+          <span class="bg-bauhaus-yellow px-unit py-1 font-label-mono text-[12px] border-[2px] border-on-surface uppercase">In Progress</span>
+        </div>
+        <p class="font-body-lg font-bold mb-unit uppercase">Tech Institute of Excellence</p>
+        <p class="font-body-md mb-gutter">Specialization in AI and Machine Learning. Cumulative GPA: 9.2/10.0</p>
+        <div class="border-t-[4px] border-on-surface pt-unit">
+          <span class="font-label-mono text-label-mono uppercase text-bauhaus-red">Core Subjects:</span>
+          <p class="font-label-mono text-[12px] mt-1 opacity-70">DATA STRUCTURES, ALGORITHMS, NEURAL NETWORKS, OS, DBMS</p>
+        </div>
+      </div>
+      <div class="bg-white border-[4px] border-on-surface p-gutter shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+        <div class="flex justify-between items-start mb-unit">
+          <h3 class="font-section-heading text-[24px] uppercase font-black">Diploma in IT</h3>
+          <span class="bg-bauhaus-blue text-white px-unit py-1 font-label-mono text-[12px] border-[2px] border-on-surface uppercase">Completed</span>
+        </div>
+        <p class="font-body-lg font-bold mb-unit uppercase">Polytechnic Foundation</p>
+        <p class="font-body-md mb-gutter">Foundational computer science principles. Final Grade: Distinction.</p>
+        <div class="border-t-[4px] border-on-surface pt-unit">
+          <span class="font-label-mono text-label-mono uppercase text-bauhaus-blue">Core Subjects:</span>
+          <p class="font-label-mono text-[12px] mt-1 opacity-70">NETWORKING, WEB DEV, SOFTWARE ENG, SYSTEMS ANALYSIS</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section [05] -->
+  <section class="bg-bauhaus-yellow p-margin-mobile md:p-margin-desktop border-b-[4px] border-on-surface" id="contact">
+    <h2 class="font-section-heading text-section-heading mb-gutter uppercase tracking-tighter">LET'S <i class="italic">TALK.</i> [05]</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+      <div class="flex flex-col justify-center gap-gutter">
+        <div class="flex items-center gap-gutter p-gutter bg-white border-[4px] border-on-surface shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+          <span class="material-symbols-outlined text-[40px] text-bauhaus-red">mail</span>
+          <div>
+            <span class="font-label-mono text-label-mono block uppercase">Email</span>
+            <span class="font-body-lg font-bold">hello@yanshushingala.dev</span>
+          </div>
+        </div>
+        <div class="flex items-center gap-gutter p-gutter bg-white border-[4px] border-on-surface shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+          <span class="material-symbols-outlined text-[40px] text-bauhaus-blue">pin_drop</span>
+          <div>
+            <span class="font-label-mono text-label-mono block uppercase">Location</span>
+            <span class="font-body-lg font-bold">Gujarat, India</span>
+          </div>
+        </div>
+        <div class="flex items-center gap-gutter p-gutter bg-white border-[4px] border-on-surface shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+          <span class="material-symbols-outlined text-[40px] text-bauhaus-red">link</span>
+          <div>
+            <span class="font-label-mono text-label-mono block uppercase">Socials</span>
+            <div class="flex gap-4 mt-1">
+              <a class="font-bold underline uppercase" href="#">LinkedIn</a>
+              <a class="font-bold underline uppercase" href="#">Github</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="bg-white border-[4px] border-on-surface p-gutter shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+        <form class="space-y-gutter" id="contact-form">
+          <div>
+            <label class="font-label-mono text-label-mono block mb-unit uppercase">Full Name</label>
+            <input class="w-full bg-white border-[4px] border-on-surface p-unit focus:bg-bauhaus-yellow focus:outline-none placeholder:opacity-30 uppercase font-label-mono" placeholder="WASSILY KANDINSKY" type="text"/>
+          </div>
+          <div>
+            <label class="font-label-mono text-label-mono block mb-unit uppercase">Email Address</label>
+            <input class="w-full bg-white border-[4px] border-on-surface p-unit focus:bg-bauhaus-yellow focus:outline-none placeholder:opacity-30 uppercase font-label-mono" placeholder="WASSILY@BAUHAUS.EDU" type="email"/>
+          </div>
+          <div>
+            <label class="font-label-mono text-label-mono block mb-unit uppercase">Message</label>
+            <textarea class="w-full bg-white border-[4px] border-on-surface p-unit focus:bg-bauhaus-yellow focus:outline-none placeholder:opacity-30 uppercase font-label-mono" placeholder="DESCRIBE YOUR PROJECT OR INQUIRY..." rows="4"></textarea>
+          </div>
+          <button class="w-full bg-on-surface text-white p-gutter border-[4px] border-on-surface font-label-mono text-label-mono uppercase shadow-[4px_4px_0px_0px_rgba(208,32,32,1)] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all" type="submit">Send Message →</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- Footer -->
+<footer class="flex flex-col md:flex-row justify-between items-center gap-unit px-margin-mobile md:px-margin-desktop py-gutter bg-on-surface dark:bg-on-surface text-surface border-t-[4px] border-error dark:border-error">
+  <div class="font-section-heading text-surface-bright dark:text-on-surface uppercase">YS</div>
+  <div class="font-label-mono text-label-mono uppercase opacity-70">© 2026 YANSHU SHINGALA</div>
+  <div class="flex gap-gutter">
+    <a class="font-label-mono text-label-mono uppercase hover:text-tertiary-fixed-dim transition-colors text-surface-variant dark:text-outline" href="#">GITHUB</a>
+    <a class="font-label-mono text-label-mono uppercase hover:text-tertiary-fixed-dim transition-colors text-surface-variant dark:text-outline" href="#">LINKEDIN</a>
+    <a class="font-label-mono text-label-mono uppercase hover:text-tertiary-fixed-dim transition-colors text-surface-variant dark:text-outline" href="#">RESUME</a>
+  </div>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Outfit", ui-sans-serif, system-ui, sans-serif;
+  
+  --color-bauhaus-red: #D02020;
+  --color-bauhaus-blue: #1040C0;
+  --color-bauhaus-yellow: #F0C020;
+  --color-bauhaus-black: #1d1b20;
+  --color-bauhaus-bg: #fdf7ff;
+  --color-bauhaus-gray: #F0F0F0;
+}
+
+@layer base {
+  body {
+    @apply bg-bauhaus-bg text-bauhaus-black font-sans antialiased;
+  }
+}
+
+@layer utilities {
+  .dot-grid {
+    background-image: radial-gradient(circle, #ffffff 1.5px, transparent 1.5px);
+    background-size: 20px 20px;
+  }
+  
+  .neo-shadow {
+    box-shadow: 8px 8px 0px 0px rgba(29, 27, 32, 1);
+  }
+
+  .neo-shadow-sm {
+    box-shadow: 4px 4px 0px 0px rgba(29, 27, 32, 1);
+  }
+
+  .neo-shadow-red {
+    box-shadow: 8px 8px 0px 0px #D02020;
+  }
+
+  .neo-shadow-blue {
+    box-shadow: 8px 8px 0px 0px #1040C0;
+  }
+
+  .neo-shadow-yellow {
+    box-shadow: 8px 8px 0px 0px #F0C020;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+[id] {
+  scroll-margin-top: 80px;
+}
