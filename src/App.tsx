@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   ArrowRight,
   ExternalLink,
@@ -61,6 +61,99 @@ export default function App() {
       document.documentElement.classList.remove("dark");
       localStorage.setItem("yanshu_portfolio_theme", "light");
     }
+  };
+
+  // Scroll and drag navigation handlers for 3D vertical slider
+  const [wheelCooldown, setWheelCooldown] = useState<boolean>(false);
+  const [startY, setStartY] = useState<number | null>(null);
+  const stageRef = useRef<HTMLDivElement | null>(null);
+
+  // Keep refs of state variables so the vanilla wheel listener always has fresh states
+  const activeIdxRef = useRef(activeIdx);
+  const wheelCooldownRef = useRef(wheelCooldown);
+  const layoutModeRef = useRef(layoutMode);
+
+  useEffect(() => {
+    activeIdxRef.current = activeIdx;
+    wheelCooldownRef.current = wheelCooldown;
+    layoutModeRef.current = layoutMode;
+  }, [activeIdx, wheelCooldown, layoutMode]);
+
+  useEffect(() => {
+    const handleWheelVanilla = (e: WheelEvent) => {
+      if (layoutModeRef.current !== "carousel") return;
+      if (Math.abs(e.deltaY) < 35) return;
+
+      // Prevent the main browser window from scrolling
+      e.preventDefault();
+
+      if (wheelCooldownRef.current) return;
+
+      setWheelCooldown(true);
+      if (e.deltaY > 0) {
+        setActiveIdx((activeIdxRef.current + 1) % PROJECTS.length);
+      } else {
+        setActiveIdx((activeIdxRef.current - 1 + PROJECTS.length) % PROJECTS.length);
+      }
+
+      setTimeout(() => {
+        setWheelCooldown(false);
+      }, 850); // cooldown matches transition time + buffer
+    };
+
+    const currentStage = stageRef.current;
+    if (currentStage) {
+      currentStage.addEventListener("wheel", handleWheelVanilla, { passive: false });
+    }
+    return () => {
+      if (currentStage) {
+        currentStage.removeEventListener("wheel", handleWheelVanilla);
+      }
+    };
+  }, []);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    if (layoutMode !== "carousel") return;
+    setStartY(e.touches[0].clientY);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (startY === null || layoutMode !== "carousel") return;
+    const currentY = e.touches[0].clientY;
+    const diffY = startY - currentY;
+
+    if (Math.abs(diffY) > 50) {
+      if (diffY > 0) {
+        setActiveIdx((prev) => (prev + 1) % PROJECTS.length);
+      } else {
+        setActiveIdx((prev) => (prev - 1 + PROJECTS.length) % PROJECTS.length);
+      }
+      setStartY(null);
+    }
+  };
+
+  const handleMouseDown = (e: React.MouseEvent) => {
+    if (layoutMode !== "carousel") return;
+    setStartY(e.clientY);
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (startY === null || layoutMode !== "carousel") return;
+    const currentY = e.clientY;
+    const diffY = startY - currentY;
+
+    if (Math.abs(diffY) > 60) {
+      if (diffY > 0) {
+        setActiveIdx((prev) => (prev + 1) % PROJECTS.length);
+      } else {
+        setActiveIdx((prev) => (prev - 1 + PROJECTS.length) % PROJECTS.length);
+      }
+      setStartY(null);
+    }
+  };
+
+  const handleMouseUp = () => {
+    setStartY(null);
   };
 
   return (
@@ -168,8 +261,17 @@ export default function App() {
         {/* 1. Carousel Slider Layout */}
         {layoutMode === "carousel" && (
           <div className="relative w-full max-w-5xl mx-auto py-6">
-            {/* Stage Area - Height configured for vertical overlapping cards */}
-            <div className="relative h-[1100px] sm:h-[1050px] w-full flex items-center justify-center overflow-hidden">
+            {/* Stage Area - Height configured for vertical overlapping cards. Touch/drag/scroll listeners enabled */}
+            <div 
+              ref={stageRef}
+              onTouchStart={handleTouchStart}
+              onTouchMove={handleTouchMove}
+              onMouseDown={handleMouseDown}
+              onMouseMove={handleMouseMove}
+              onMouseUp={handleMouseUp}
+              onMouseLeave={handleMouseUp}
+              className="relative h-[1100px] sm:h-[1050px] w-full flex items-center justify-center overflow-hidden select-none cursor-grab active:cursor-grabbing"
+            >
               {PROJECTS.map((project, idx) => {
                 // Calculate difference from active index
                 let diff = idx - activeIdx;
@@ -217,7 +319,13 @@ export default function App() {
                         setActiveIdx(idx);
                       }
                     }}
-                    className={`absolute w-full max-w-3xl px-4 transition-all duration-500 ease-out transform cursor-pointer ${positionClass} ${scaleClass} ${opacityClass} ${zIndexClass} ${isCenter ? 'max-h-[780px] sm:max-h-[850px] overflow-y-auto' : 'h-auto overflow-hidden'}`}
+                    onWheel={(e) => {
+                      if (isCenter) {
+                        // Stop propagation so vertical scrolls inside the card content work normally
+                        e.stopPropagation();
+                      }
+                    }}
+                    className={`absolute w-full max-w-3xl px-4 transition-all duration-500 ease-out transform ${positionClass} ${scaleClass} ${opacityClass} ${zIndexClass} ${isCenter ? 'max-h-[780px] sm:max-h-[850px] overflow-y-auto cursor-default' : 'h-auto overflow-hidden cursor-pointer'}`}
                   >
                     <ProjectCard
                       project={project}
@@ -227,36 +335,6 @@ export default function App() {
                   </div>
                 );
               })}
-            </div>
-            
-            {/* Carousel Controls */}
-            <div className="relative z-45 flex justify-center items-center gap-6 mt-8">
-              <button
-                onClick={() => setActiveIdx((activeIdx - 1 + PROJECTS.length) % PROJECTS.length)}
-                className="w-12 h-12 border-2 border-white light:border-black text-white light:text-black hover:bg-[#DC3D24] hover:text-white flex items-center justify-center transition-colors bg-black light:bg-[#fbfbf9] cursor-pointer font-mono text-sm shadow-bauhaus-sm"
-              >
-                ↑
-              </button>
-              
-              {/* Dots */}
-              <div className="flex gap-3">
-                {PROJECTS.map((_, idx) => (
-                  <button
-                    key={idx}
-                    onClick={() => setActiveIdx(idx)}
-                    className={`w-3.5 h-3.5 border-2 border-white light:border-black transition-all cursor-pointer ${
-                      activeIdx === idx ? "bg-[#DC3D24]" : "bg-neutral-750 hover:bg-neutral-500 light:bg-neutral-300"
-                    }`}
-                  />
-                ))}
-              </div>
-              
-              <button
-                onClick={() => setActiveIdx((activeIdx + 1) % PROJECTS.length)}
-                className="w-12 h-12 border-2 border-white light:border-black text-white light:text-black hover:bg-[#DC3D24] hover:text-white flex items-center justify-center transition-colors bg-black light:bg-[#fbfbf9] cursor-pointer font-mono text-sm shadow-bauhaus-sm"
-              >
-                ↓
-              </button>
             </div>
           </div>
         )}

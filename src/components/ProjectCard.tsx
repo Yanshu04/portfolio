@@ -22,7 +22,7 @@ export default function ProjectCard({ project, isActive = true, layout = "vertic
 
   if (layout === "horizontal") {
     return (
-      <div className="bg-[#161619] light:bg-[#fbfbf9] border-2 border-white light:border-black p-6 md:p-8 flex flex-col md:flex-row gap-6 md:gap-8 justify-between h-full group shadow-bauhaus">
+      <div className="bg-[#161619] light:bg-[#fbfbf9] border-2 border-white light:border-black p-6 md:p-8 flex flex-col md:flex-row gap-6 md:gap-8 justify-between h-full group shadow-bauhaus select-none">
         {/* Left Column: Image and Tags */}
         <div className="w-full md:w-[42%] flex flex-col justify-start">
           <div className="overflow-hidden bg-black aspect-video border-2 border-neutral-800 light:border-black relative mb-4">
