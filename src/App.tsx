@@ -63,9 +63,9 @@ export default function App() {
     }
   };
 
-  // Scroll and drag navigation handlers for 3D vertical slider
+  // Scroll and drag navigation handlers for 3D horizontal slider
   const [wheelCooldown, setWheelCooldown] = useState<boolean>(false);
-  const [startY, setStartY] = useState<number | null>(null);
+  const [startX, setStartX] = useState<number | null>(null);
   const stageRef = useRef<HTMLDivElement | null>(null);
 
   // Keep refs of state variables so the vanilla wheel listener always has fresh states
@@ -114,46 +114,46 @@ export default function App() {
 
   const handleTouchStart = (e: React.TouchEvent) => {
     if (layoutMode !== "carousel") return;
-    setStartY(e.touches[0].clientY);
+    setStartX(e.touches[0].clientX);
   };
 
   const handleTouchMove = (e: React.TouchEvent) => {
-    if (startY === null || layoutMode !== "carousel") return;
-    const currentY = e.touches[0].clientY;
-    const diffY = startY - currentY;
+    if (startX === null || layoutMode !== "carousel") return;
+    const currentX = e.touches[0].clientX;
+    const diffX = startX - currentX;
 
-    if (Math.abs(diffY) > 50) {
-      if (diffY > 0) {
+    if (Math.abs(diffX) > 50) {
+      if (diffX > 0) {
         setActiveIdx((prev) => (prev + 1) % PROJECTS.length);
       } else {
         setActiveIdx((prev) => (prev - 1 + PROJECTS.length) % PROJECTS.length);
       }
-      setStartY(null);
+      setStartX(null);
     }
   };
 
   const handleMouseDown = (e: React.MouseEvent) => {
     if (layoutMode !== "carousel") return;
-    setStartY(e.clientY);
+    setStartX(e.clientX);
   };
 
   const handleMouseMove = (e: React.MouseEvent) => {
-    if (startY === null || layoutMode !== "carousel") return;
-    const currentY = e.clientY;
-    const diffY = startY - currentY;
+    if (startX === null || layoutMode !== "carousel") return;
+    const currentX = e.clientX;
+    const diffX = startX - currentX;
 
-    if (Math.abs(diffY) > 60) {
-      if (diffY > 0) {
+    if (Math.abs(diffX) > 60) {
+      if (diffX > 0) {
         setActiveIdx((prev) => (prev + 1) % PROJECTS.length);
       } else {
         setActiveIdx((prev) => (prev - 1 + PROJECTS.length) % PROJECTS.length);
       }
-      setStartY(null);
+      setStartX(null);
     }
   };
 
   const handleMouseUp = () => {
-    setStartY(null);
+    setStartX(null);
   };
 
   return (
@@ -261,7 +261,7 @@ export default function App() {
         {/* 1. Carousel Slider Layout */}
         {layoutMode === "carousel" && (
           <div className="relative w-full max-w-5xl mx-auto py-6">
-            {/* Stage Area - Height configured for vertical overlapping cards. Touch/drag/scroll listeners enabled */}
+            {/* Stage Area - Height configured for horizontal overlapping cards. Touch/drag/scroll listeners enabled */}
             <div 
               ref={stageRef}
               onTouchStart={handleTouchStart}
@@ -270,7 +270,7 @@ export default function App() {
               onMouseMove={handleMouseMove}
               onMouseUp={handleMouseUp}
               onMouseLeave={handleMouseUp}
-              className="relative h-[1100px] sm:h-[1050px] w-full flex items-center justify-center overflow-hidden select-none cursor-grab active:cursor-grabbing"
+              className="relative h-[1060px] sm:h-[980px] w-full flex items-start pt-8 sm:pt-12 justify-center overflow-hidden select-none cursor-grab active:cursor-grabbing"
             >
               {PROJECTS.map((project, idx) => {
                 // Calculate difference from active index
@@ -284,7 +284,7 @@ export default function App() {
                 const isCenter = diff === 0;
                 const isLeft = diff === -1;
                 const isRight = diff === 1;
-                const isVisible = Math.abs(diff) <= 1; // Only render top, center, bottom
+                const isVisible = Math.abs(diff) <= 1; // Only render left, center, right
                 
                 if (!isVisible) return null;
                 
@@ -295,19 +295,19 @@ export default function App() {
                 let zIndexClass = "";
                 
                 if (isCenter) {
-                  positionClass = "translate-y-0 translate-x-0";
+                  positionClass = "translate-x-0 translate-y-0";
                   scaleClass = "scale-100";
                   opacityClass = "opacity-100";
                   zIndexClass = "z-30";
                 } else if (isLeft) {
-                  positionClass = "-translate-y-[35%] md:-translate-y-[45%] translate-x-0";
-                  scaleClass = "scale-[0.88] pointer-events-none md:pointer-events-auto";
-                  opacityClass = "opacity-25 md:opacity-40";
+                  positionClass = "-translate-x-[30%] md:-translate-x-[55%] lg:-translate-x-[70%] translate-y-0";
+                  scaleClass = "scale-[0.85] pointer-events-none md:pointer-events-auto";
+                  opacityClass = "opacity-20 md:opacity-40";
                   zIndexClass = "z-10";
                 } else if (isRight) {
-                  positionClass = "translate-y-[35%] md:translate-y-[45%] translate-x-0";
-                  scaleClass = "scale-[0.88] pointer-events-none md:pointer-events-auto";
-                  opacityClass = "opacity-25 md:opacity-40";
+                  positionClass = "translate-x-[30%] md:translate-x-[55%] lg:translate-x-[70%] translate-y-0";
+                  scaleClass = "scale-[0.85] pointer-events-none md:pointer-events-auto";
+                  opacityClass = "opacity-20 md:opacity-40";
                   zIndexClass = "z-10";
                 }
                 
@@ -325,12 +325,11 @@ export default function App() {
                         e.stopPropagation();
                       }
                     }}
-                    className={`absolute w-full max-w-3xl px-4 transition-all duration-500 ease-out transform ${positionClass} ${scaleClass} ${opacityClass} ${zIndexClass} ${isCenter ? 'max-h-[780px] sm:max-h-[850px] overflow-y-auto cursor-default' : 'h-auto overflow-hidden cursor-pointer'}`}
+                    className={`absolute top-4 sm:top-8 w-full max-w-md px-4 transition-all duration-500 ease-out transform ${positionClass} ${scaleClass} ${opacityClass} ${zIndexClass} ${isCenter ? 'max-h-[900px] overflow-y-auto cursor-default' : 'h-auto overflow-hidden cursor-pointer'}`}
                   >
                     <ProjectCard
                       project={project}
                       isActive={isCenter}
-                      layout="horizontal"
                     />
                   </div>
                 );
