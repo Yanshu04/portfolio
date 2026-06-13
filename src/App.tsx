@@ -22,6 +22,7 @@ import Header from "./components/Header";
 import ProjectCard from "./components/ProjectCard";
 import ContactForm from "./components/ContactForm";
 import FadeInSection from "./components/FadeInSection";
+import Education from "./components/Education";
 import { PROJECTS, SKILL_CATEGORIES } from "./data";
 
 
@@ -403,6 +404,9 @@ export default function App() {
           </div>
         </div>
       </section>
+
+      {/* Education Section */}
+      <Education />
 
       {/* Get In Touch Section containing the interactive Guestbook */}
       <section className="py-24 md:py-32 px-6 md:px-20 max-w-7xl mx-auto border-t-2 border-neutral-800 light:border-black" id="contact">

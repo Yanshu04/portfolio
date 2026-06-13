@@ -26,6 +26,7 @@ export default function Header({ darkMode, onToggleTheme }: HeaderProps) {
     { label: "Work", href: "#work" },
     { label: "Skills", href: "#skills" },
     { label: "About", href: "#about" },
+    { label: "Education", href: "#education" },
     { label: "Contact", href: "#contact" }
   ];
 
