@@ -217,11 +217,12 @@ export default function App() {
                         setActiveIdx(idx);
                       }
                     }}
-                    className={`absolute w-full max-w-md transition-all duration-500 ease-out transform cursor-pointer ${positionClass} ${scaleClass} ${opacityClass} ${zIndexClass} ${isCenter ? 'max-h-[780px] sm:max-h-[850px] overflow-y-auto' : 'h-auto overflow-hidden'}`}
+                    className={`absolute w-full max-w-3xl px-4 transition-all duration-500 ease-out transform cursor-pointer ${positionClass} ${scaleClass} ${opacityClass} ${zIndexClass} ${isCenter ? 'max-h-[780px] sm:max-h-[850px] overflow-y-auto' : 'h-auto overflow-hidden'}`}
                   >
                     <ProjectCard
                       project={project}
                       isActive={isCenter}
+                      layout="horizontal"
                     />
                   </div>
                 );
