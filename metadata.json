@@ -1,0 +1,6 @@
+{
+  "name": "Yanshu Shingala Portfolio",
+  "description": "A developer portfolio featuring AI/ML and full-stack projects, interactive sandboxes, and modern design principles.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,488 @@
+import React, { useState, useEffect } from "react";
+import {
+  ArrowRight,
+  ExternalLink,
+  Code,
+  Sparkles,
+  Cpu,
+  Layers,
+  Globe,
+  Terminal,
+  Mail,
+  Github,
+  Linkedin,
+  FileText,
+  Sliders,
+  CheckCircle,
+  HelpCircle,
+  Layers3
+} from "lucide-react";
+
+import Header from "./components/Header";
+import ProjectCard from "./components/ProjectCard";
+import ContactForm from "./components/ContactForm";
+import FadeInSection from "./components/FadeInSection";
+import { PROJECTS, SKILL_CATEGORIES } from "./data";
+
+
+export default function App() {
+  const [darkMode, setDarkMode] = useState<boolean>(true);
+  const [selectedSkillCategory, setSelectedSkillCategory] = useState<string | null>("frontend");
+  const [activeIdx, setActiveIdx] = useState<number>(0);
+
+  const [layoutMode, setLayoutMode] = useState<"carousel" | "grid">("carousel");
+
+  // Load theme preference on mount
+  useEffect(() => {
+    const storedTheme = localStorage.getItem("yanshu_portfolio_theme");
+    if (storedTheme === "light") {
+      setDarkMode(false);
+      document.documentElement.classList.add("light");
+      document.documentElement.classList.remove("dark");
+    } else {
+      setDarkMode(true);
+      document.documentElement.classList.add("dark");
+      document.documentElement.classList.remove("light");
+    }
+  }, []);
+
+  // Handle light/dark mode toggling
+  const handleToggleTheme = () => {
+    const newDark = !darkMode;
+    setDarkMode(newDark);
+    if (newDark) {
+      document.documentElement.classList.add("dark");
+      document.documentElement.classList.remove("light");
+      localStorage.setItem("yanshu_portfolio_theme", "dark");
+    } else {
+      document.documentElement.classList.add("light");
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("yanshu_portfolio_theme", "light");
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-[#121212] text-[#FAF8F5] light:bg-[#FAF8F5] light:text-[#121212] transition-colors duration-300 overflow-x-hidden selection:bg-[#DC3D24] selection:text-white font-sans">
+      {/* Top Header sticky layer */}
+      <Header darkMode={darkMode} onToggleTheme={handleToggleTheme} />
+
+      {/* Hero Section */}
+      <section className="relative min-h-screen flex flex-col justify-center items-start px-6 md:px-20 max-w-7xl mx-auto pt-20">
+        {/* Subtle geometric structural grid overlay lines */}
+        <div className="absolute inset-0 pointer-events-none opacity-[0.03] dark:opacity-[0.05] flex justify-between px-20">
+          <div className="w-[1px] h-full bg-white"></div>
+          <div className="w-[1px] h-full bg-white hidden md:block"></div>
+          <div className="w-[1px] h-full bg-white hidden md:block"></div>
+          <div className="w-[1px] h-full bg-white"></div>
+        </div>
+
+        <FadeInSection className="w-full relative z-10 space-y-8">
+          <span className="text-[#E3B448] light:text-blue-800 font-mono text-xs uppercase tracking-[0.25em] font-black block">
+            Portfolio 2024 / AI • FULL-STACK
+          </span>
+          
+          <h1 className="font-title text-5xl md:text-7xl font-black uppercase tracking-tighter leading-none text-white light:text-black">
+            Yanshu<br />Shingala
+          </h1>
+
+          <div className="border-l-4 border-[#DC3D24] pl-6 max-w-2xl">
+            <p className="text-[17px] md:text-[18px] text-neutral-300 light:text-neutral-700 leading-relaxed font-sans">
+              I build AI-powered tools and interactive browser experiences — from real-time hand tracking to deployed ML models.
+            </p>
+          </div>
+
+          <div className="flex flex-col sm:flex-row gap-6 pt-4">
+            <a
+              href="#work"
+              className="px-8 py-4 font-mono text-xs font-black uppercase tracking-widest bg-[#DC3D24] text-white border-2 border-white light:border-black shadow-bauhaus-sm transition-all text-center flex items-center justify-center gap-2 cursor-pointer"
+            >
+              <span>Explore Selected Work</span>
+              <ArrowRight className="w-4 h-4" />
+            </a>
+            
+            <a
+              href="https://github.com/Yanshu04"
+              target="_blank"
+              rel="noreferrer"
+              className="px-8 py-4 bg-[#E3B448] text-black border-2 border-white light:border-black shadow-bauhaus-sm transition-all text-center flex items-center justify-center gap-2 cursor-pointer"
+            >
+              <span>GitHub Codebases</span>
+              <ExternalLink className="w-4 h-4 text-black" />
+            </a>
+          </div>
+        </FadeInSection>
+
+        {/* Anchor link to move down */}
+        <div className="absolute bottom-10 left-6 md:left-20 animate-bounce">
+          <a href="#work" className="text-[10px] font-mono uppercase tracking-widest text-neutral-500 hover:text-[#adc6ff] transition-colors">
+            ↓ Scroll to explore
+          </a>
+        </div>
+      </section>
+
+      {/* Selected Work Section */}
+      <section className="py-24 md:py-32 px-6 md:px-20 max-w-7xl mx-auto border-t-2 border-neutral-800 light:border-black" id="work">
+        <FadeInSection className="mb-16">
+          <span className="text-[#DC3D24] font-mono text-xs uppercase tracking-widest font-black block mb-2">
+            STRETCHING BOUNDARIES OF ML
+          </span>
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+            <div>
+              <h2 className="font-title text-[28px] md:text-[36px] font-black uppercase tracking-tight text-white light:text-black mb-2">
+                Selected Work
+              </h2>
+              <div className="w-24 h-2 bg-[#2E86AB]"></div>
+            </div>
+            
+            {/* Dynamic Layout Switcher */}
+            <div className="flex bg-black light:bg-[#f5f2eb] border-2 border-white light:border-black p-1 font-mono text-[10px] sm:text-xs select-none">
+              <button
+                onClick={() => setLayoutMode("carousel")}
+                className={`px-3 py-1.5 font-black uppercase tracking-wider transition-all cursor-pointer border-2 ${
+                  layoutMode === "carousel"
+                    ? "bg-[#DC3D24] text-white border-white light:border-black"
+                    : "border-transparent text-neutral-400 hover:text-white light:text-neutral-600 light:hover:text-black"
+                }`}
+              >
+                3D Slider
+              </button>
+              <button
+                onClick={() => setLayoutMode("grid")}
+                className={`px-3 py-1.5 font-black uppercase tracking-wider transition-all cursor-pointer border-2 ${
+                  layoutMode === "grid"
+                    ? "bg-[#DC3D24] text-white border-white light:border-black"
+                    : "border-transparent text-neutral-400 hover:text-white light:text-neutral-600 light:hover:text-black"
+                }`}
+              >
+                Grid View
+              </button>
+            </div>
+          </div>
+        </FadeInSection>
+
+        {/* 1. Carousel Slider Layout */}
+        {layoutMode === "carousel" && (
+          <div className="relative w-full max-w-5xl mx-auto py-6">
+            {/* Stage Area - Height increased to 860px (desktop) / 920px (mobile) to prevent clipping */}
+            <div className="relative h-[1060px] sm:h-[980px] w-full flex items-start pt-8 sm:pt-12 justify-center overflow-hidden">
+              {PROJECTS.map((project, idx) => {
+                // Calculate difference from active index
+                let diff = idx - activeIdx;
+                
+                // Wrap around for carousel loop
+                const len = PROJECTS.length;
+                if (diff < -len / 2) diff += len;
+                if (diff > len / 2) diff -= len;
+                
+                const isCenter = diff === 0;
+                const isLeft = diff === -1;
+                const isRight = diff === 1;
+                const isVisible = Math.abs(diff) <= 1; // Only render left, center, right
+                
+                if (!isVisible) return null;
+                
+                // Determine position and styling
+                let positionClass = "";
+                let scaleClass = "";
+                let opacityClass = "";
+                let zIndexClass = "";
+                
+                if (isCenter) {
+                  positionClass = "translate-x-0";
+                  scaleClass = "scale-100";
+                  opacityClass = "opacity-100";
+                  zIndexClass = "z-30";
+                } else if (isLeft) {
+                  positionClass = "-translate-x-[30%] md:-translate-x-[55%] lg:-translate-x-[70%]";
+                  scaleClass = "scale-[0.85] pointer-events-none md:pointer-events-auto";
+                  opacityClass = "opacity-20 md:opacity-40";
+                  zIndexClass = "z-10";
+                } else if (isRight) {
+                  positionClass = "translate-x-[30%] md:translate-x-[55%] lg:translate-x-[70%]";
+                  scaleClass = "scale-[0.85] pointer-events-none md:pointer-events-auto";
+                  opacityClass = "opacity-20 md:opacity-40";
+                  zIndexClass = "z-10";
+                }
+                
+                return (
+                  <div
+                    key={project.id}
+                    onClick={() => {
+                      if (!isCenter) {
+                        setActiveIdx(idx);
+                      }
+                    }}
+                    className={`absolute top-4 sm:top-8 w-full max-w-md transition-all duration-500 ease-out transform cursor-pointer ${positionClass} ${scaleClass} ${opacityClass} ${zIndexClass} ${isCenter ? 'max-h-[900px] overflow-y-auto' : 'h-auto overflow-hidden'}`}
+                  >
+                    <ProjectCard
+                      project={project}
+                      isActive={isCenter}
+                    />
+                  </div>
+                );
+              })}
+            </div>
+            
+            {/* Carousel Controls */}
+            <div className="flex justify-center items-center gap-6 mt-8">
+              <button
+                onClick={() => setActiveIdx((activeIdx - 1 + PROJECTS.length) % PROJECTS.length)}
+                className="w-12 h-12 border-2 border-white light:border-black text-white light:text-black hover:bg-[#DC3D24] hover:text-white flex items-center justify-center transition-colors bg-black light:bg-[#fbfbf9] cursor-pointer font-mono text-sm shadow-bauhaus-sm"
+              >
+                ←
+              </button>
+              
+              {/* Dots */}
+              <div className="flex gap-3">
+                {PROJECTS.map((_, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => setActiveIdx(idx)}
+                    className={`w-3.5 h-3.5 border-2 border-white light:border-black transition-all cursor-pointer ${
+                      activeIdx === idx ? "bg-[#DC3D24]" : "bg-neutral-750 hover:bg-neutral-500 light:bg-neutral-300"
+                    }`}
+                  />
+                ))}
+              </div>
+              
+              <button
+                onClick={() => setActiveIdx((activeIdx + 1) % PROJECTS.length)}
+                className="w-12 h-12 border-2 border-white light:border-black text-white light:text-black hover:bg-[#DC3D24] hover:text-white flex items-center justify-center transition-colors bg-black light:bg-[#fbfbf9] cursor-pointer font-mono text-sm shadow-bauhaus-sm"
+              >
+                →
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* 2. Showcase Grid Layout */}
+        {layoutMode === "grid" && (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full mt-6">
+            {PROJECTS.map((project, idx) => (
+              <div key={project.id} className="flex flex-col h-full">
+                <ProjectCard
+                  project={project}
+                  isActive={true}
+                />
+              </div>
+            ))}
+          </div>
+        )}
+
+
+
+      </section>
+
+      {/* Skills Matrix / How I WorkSection */}
+      <section className="py-24 md:py-32 px-6 md:px-20 max-w-7xl mx-auto border-t-2 border-neutral-800 light:border-black" id="skills">
+        <FadeInSection className="mb-16">
+          <span className="text-[#E3B448] light:text-blue-800 font-mono text-xs uppercase tracking-widest font-black block mb-2">
+            ARCHITECTURAL SCHEMATICS
+          </span>
+          <h2 className="font-title text-[28px] md:text-[36px] font-black uppercase tracking-tight text-white light:text-black mb-4">
+            How I Work
+          </h2>
+          <div className="w-24 h-2 bg-[#DC3D24]"></div>
+        </FadeInSection>
+
+        {/* 3 Column Skill Blocks */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {SKILL_CATEGORIES.map((cat) => (
+            <div key={cat.id} className="h-full">
+              <FadeInSection className="h-full">
+                <button
+                  onClick={() => setSelectedSkillCategory(cat.id === selectedSkillCategory ? null : cat.id)}
+                  className={`w-full text-left p-6 md:p-8 border-2 h-full transition-all group flex flex-col justify-between cursor-pointer shadow-bauhaus ${
+                    selectedSkillCategory === cat.id
+                      ? "bg-[#161619] light:bg-[#fbfbf9] border-[#DC3D24]"
+                      : "bg-[#161619]/50 light:bg-[#f5f2eb] border-neutral-850 light:border-neutral-300 hover:border-white light:hover:border-black"
+                  }`}
+                >
+                  <div>
+                    <span className="font-mono text-[#2E86AB] light:text-blue-800 text-xs font-black uppercase block tracking-wider mb-6">
+                      {cat.num} / {cat.title}
+                    </span>
+                    <p className="text-[16px] md:text-[18px] text-neutral-400 light:text-neutral-700 leading-relaxed mb-6">
+                      {cat.description}
+                    </p>
+                  </div>
+
+                  <div className="text-xs font-mono text-[#DC3D24] font-black uppercase tracking-wider flex items-center gap-1">
+                    <span>{selectedSkillCategory === cat.id ? "Minimize details" : "Explode Technologies"}</span>
+                    <ArrowRight className={`w-4 h-4 transform transition-transform ${selectedSkillCategory === cat.id ? "rotate-90" : "group-hover:translate-x-1"}`} />
+                  </div>
+                </button>
+              </FadeInSection>
+            </div>
+          ))}
+        </div>
+
+        {/* Collapsible details panel listing all chips & libraries used */}
+        {selectedSkillCategory && (
+          <FadeInSection className="mt-8">
+            <div className="bg-[#161619] light:bg-[#fbfbf9] border-2 border-white light:border-black p-6 md:p-8 animate-slide-up shadow-bauhaus">
+              <span className="text-[10px] font-mono uppercase tracking-widest text-[#E3B448] light:text-blue-700 block mb-4 font-black">
+                [{SKILL_CATEGORIES.find(c => c.id === selectedSkillCategory)?.title.toUpperCase()} PIPELINE STACK]
+              </span>
+              
+              <div className="flex flex-wrap gap-2.5">
+                {SKILL_CATEGORIES.find(c => c.id === selectedSkillCategory)?.technologies.map((tech) => (
+                  <div
+                    key={tech}
+                    className="flex items-center gap-2 px-3.5 py-2 bg-black light:bg-[#f5f2eb] border-2 border-neutral-800 light:border-black text-xs uppercase font-mono font-bold"
+                  >
+                    <span className="w-2 h-2 bg-[#DC3D24]"></span>
+                    <span>{tech}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </FadeInSection>
+        )}
+      </section>
+
+      {/* About Section */}
+      <section className="py-24 md:py-32 px-6 md:px-20 max-w-7xl mx-auto border-t-2 border-neutral-800 light:border-black" id="about">
+        <FadeInSection className="mb-16">
+          <span className="text-[#2E86AB] light:text-blue-805 font-mono text-xs uppercase tracking-widest font-black block mb-2">
+            COMPUTATIONAL CREDENTIALS
+          </span>
+          <h2 className="font-title text-[28px] md:text-[36px] font-black uppercase tracking-tight text-white light:text-black mb-4">
+            About
+          </h2>
+          <div className="w-24 h-2 bg-[#E3B448]"></div>
+        </FadeInSection>
+
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+          {/* Prose section */}
+          <div className="lg:col-span-7">
+            <FadeInSection className="space-y-6">
+              <p className="text-[17px] md:text-[18px] text-neutral-300 light:text-neutral-800 leading-snug font-sans">
+                I am a developer dedicated to technical precision and academic rigor. My work explores the intersection of high-end browser interfaces and heavy computational intelligence. I believe in software that is functional, fast, and fundamentally logical.
+              </p>
+              
+              <p className="text-[17px] md:text-[18px] text-neutral-400 light:text-slate-600 leading-relaxed font-sans">
+                With comprehensive exploration of full-stack integration patterns and machine learning methodologies, I deploy models directly to edge nodes and cloud servers. My builds prioritize zero bloat, high responsiveness, and rigorous telemetry outputs.
+              </p>
+            </FadeInSection>
+          </div>
+
+          {/* Statistics counter panel */}
+          <div className="lg:col-span-5 bg-black light:bg-[#fbfbf9] border-2 border-white light:border-black p-8 flex flex-col gap-6 md:flex-row lg:flex-col md:justify-around lg:justify-start shadow-bauhaus">
+            <FadeInSection className="flex items-start gap-5">
+              <div className="w-11 h-11 bg-black light:bg-[#f5f2eb] text-[#DC3D24] border-2 border-[#DC3D24] flex items-center justify-center font-mono font-black">
+                03
+              </div>
+              <div>
+                <h4 className="text-[#DC3D24] light:text-red-750 text-3xl font-mono font-black leading-none">
+                  3+
+                </h4>
+                <span className="text-[10px] tracking-widest font-mono uppercase text-neutral-400 light:text-neutral-500 mt-1 block font-bold">
+                  Core AI Projects
+                </span>
+              </div>
+            </FadeInSection>
+
+            {/* Divider */}
+            <div className="h-[2px] w-full bg-neutral-800 light:bg-black hidden lg:block"></div>
+            <div className="w-[2px] h-12 bg-neutral-800 light:bg-black hidden md:block lg:hidden"></div>
+
+            <FadeInSection className="flex items-start gap-5">
+              <div className="w-11 h-11 bg-black light:bg-[#f5f2eb] text-[#2E86AB] border-2 border-[#2E86AB] flex items-center justify-center font-mono font-black">
+                AI
+              </div>
+              <div>
+                <h4 className="text-[#2E86AB] light:text-blue-800 text-3xl font-mono font-black leading-none">
+                  SPECIALIST
+                </h4>
+                <span className="text-[10px] tracking-widest font-mono uppercase text-neutral-400 light:text-neutral-500 mt-1 block font-bold">
+                  Focused Specialization
+                </span>
+              </div>
+            </FadeInSection>
+          </div>
+        </div>
+      </section>
+
+      {/* Get In Touch Section containing the interactive Guestbook */}
+      <section className="py-24 md:py-32 px-6 md:px-20 max-w-7xl mx-auto border-t-2 border-neutral-800 light:border-black" id="contact">
+        <FadeInSection className="mb-12 text-center">
+          <span className="text-[#DC3D24] font-mono text-xs uppercase tracking-widest font-black block mb-2">
+            ESTABLISH COMMUNICATION
+          </span>
+          <h2 className="font-title text-[28px] md:text-[36px] font-black uppercase tracking-tight text-white light:text-black mb-4 text-center">
+            Get In Touch
+          </h2>
+          <div className="w-24 h-2 bg-[#2E86AB] mx-auto"></div>
+          <p className="text-[16px] md:text-[18px] text-neutral-400 light:text-slate-600 max-w-lg mx-auto mt-4 text-center">
+            Open for collaborations, technical research opportunities in AI/ML engineering, and premium frontend UI design consulting.
+          </p>
+        </FadeInSection>
+
+        {/* Contact form combined with guest message loops */}
+        <FadeInSection>
+          <ContactForm />
+        </FadeInSection>
+
+        {/* Hotlink link triggers */}
+        <FadeInSection className="mt-16 flex flex-col sm:flex-row gap-6 justify-center items-center font-mono text-xs uppercase tracking-wider font-semibold">
+          <a
+            href="mailto:yanshushingala@gmail.com"
+            className="flex items-center gap-2 hover:text-[#adc6ff] light:hover:text-blue-600 transition-colors"
+          >
+            <Mail className="w-4 h-4 text-blue-500" />
+            <span>yanshushingala@gmail.com</span>
+          </a>
+          
+          <div className="hidden sm:block w-1.5 h-1.5 bg-neutral-800 rounded-full light:bg-slate-300"></div>
+
+          <a
+            href="https://github.com/Yanshu04"
+            target="_blank"
+            rel="noreferrer"
+            className="flex items-center gap-2 hover:text-[#adc6ff] light:hover:text-blue-600 transition-colors"
+          >
+            <Github className="w-4 h-4 text-gray-500" />
+            <span>github.com/Yanshu04</span>
+          </a>
+        </FadeInSection>
+      </section>
+
+      {/* Footer boundary elements */}
+      <footer className="bg-[#08080c] light:bg-slate-100 border-t border-neutral-950 light:border-slate-200 py-16 px-6 md:px-20">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8 text-neutral-400 light:text-slate-500">
+          <div className="font-mono text-lg font-bold tracking-tighter uppercase text-white light:text-slate-900">
+            YS
+          </div>
+
+          <span className="font-mono text-[10px] uppercase tracking-widest text-[#8c909f] light:text-slate-400 text-center md:text-left h-fit leading-none mt-1">
+            © 2024 Yanshu Shingala. Built for technical precision.
+          </span>
+
+          <div className="flex gap-6 font-mono text-xs uppercase tracking-wider font-bold">
+            <a
+              href="mailto:yanshushingala@gmail.com"
+              className="hover:text-[#adc6ff] transition-all underline decoration-blue-500/50 underline-offset-4"
+            >
+              Email
+            </a>
+            <a
+              href="https://github.com/Yanshu04"
+              target="_blank"
+              rel="noreferrer"
+              className="hover:text-[#adc6ff] transition-all underline decoration-blue-500/50 underline-offset-4"
+            >
+              GitHub
+            </a>
+            <a
+              href="#"
+              className="hover:text-[#adc6ff] transition-all underline decoration-blue-500/50 underline-offset-4"
+            >
+              LinkedIn
+            </a>
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
+}

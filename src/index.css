@@ -1,0 +1,115 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400&family=JetBrains+Mono:wght@400;500;700&display=swap');
+@import "tailwindcss";
+
+@custom-variant light (&:where(.light, .light *));
+
+@theme {
+  --font-sans: "Newsreader", "Lora", Georgia, serif;
+  --font-title: "Newsreader", "Lora", Georgia, serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+}
+
+/* Global Reset & Theme Transition Styles */
+html, body {
+  scroll-behavior: smooth;
+  font-family: var(--font-sans);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Sharp Edges / Rectilinear Design Style */
+* {
+  border-radius: 0px !important;
+}
+
+/* Custom Bauhaus Solid Shadows */
+.shadow-bauhaus {
+  box-shadow: 6px 6px 0px 0px #FAF8F5;
+  transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.shadow-bauhaus:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 8px 8px 0px 0px #FAF8F5;
+}
+
+.shadow-bauhaus:active {
+  transform: translate(2px, 2px);
+  box-shadow: 4px 4px 0px 0px #FAF8F5;
+}
+
+.light .shadow-bauhaus {
+  box-shadow: 6px 6px 0px 0px #121212;
+}
+
+.light .shadow-bauhaus:hover {
+  box-shadow: 8px 8px 0px 0px #121212;
+}
+
+.light .shadow-bauhaus:active {
+  box-shadow: 4px 4px 0px 0px #121212;
+}
+
+.shadow-bauhaus-sm {
+  box-shadow: 3px 3px 0px 0px #FAF8F5;
+  transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.shadow-bauhaus-sm:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0px 0px #FAF8F5;
+}
+
+.shadow-bauhaus-sm:active {
+  transform: translate(1px, 1px);
+  box-shadow: 2px 2px 0px 0px #FAF8F5;
+}
+
+.light .shadow-bauhaus-sm {
+  box-shadow: 3px 3px 0px 0px #121212;
+}
+
+.light .shadow-bauhaus-sm:hover {
+  box-shadow: 4px 4px 0px 0px #121212;
+}
+
+.light .shadow-bauhaus-sm:active {
+  box-shadow: 2px 2px 0px 0px #121212;
+}
+
+/* Scrollbar customization */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-track, #121212);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--bg-thumb, #2a2a2a);
+  border: 2px solid var(--bg-border, #000000);
+}
+
+.light ::-webkit-scrollbar-track {
+  --bg-track: #FAF8F5;
+}
+.light ::-webkit-scrollbar-thumb {
+  --bg-thumb: #e5e5e0;
+  --bg-border: #121212;
+}
+
+/* Smooth reveal animation classes */
+.fade-in-section {
+  opacity: 0;
+  transform: translateY(15px);
+  visibility: hidden;
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  will-change: opacity, transform;
+}
+
+.fade-in-section.is-visible {
+  opacity: 1;
+  transform: none;
+  visibility: visible;
+}
