@@ -86,6 +86,20 @@ export default function CaseStudy({ project }: CaseStudyProps) {
         { label: "Execution Layer", value: "Parallel Web Worker" },
         { label: "Theme Coverage", value: "100% Dark Mode native" }
       ]
+    },
+    "speech-asr": {
+      challenge: "Building a continuous voice transcription system directly on local consumer hardware. The pipeline must filter background silence using Google's webrtcvad, extract 40-band log-mel acoustic frames, and run low-latency greedy sequence decoding without exceeding GPU memory ceilings.",
+      process: [
+        "Constructed a 3-layer 2D CNN encoder downsampling time sequences for temporal processing.",
+        "Implemented a 2-layer thread-isolated BiLSTM sequence decoder to model global character dependencies.",
+        "Created a custom character vocab (287 tokens) mapping Latin letters and unicode blocks for Hindi and Gujarati scripts."
+      ],
+      formula: "RawAudio(16kHz) -> webrtcvad -> MelSpectrogram -> CNNEncoder -> BiLSTMDecoder -> CTCLoss",
+      metrics: [
+        { label: "VRAM Occupancy", value: "<4.0 GB VRAM" },
+        { label: "Best Eval Loss", value: "0.9358 (CTC loss)" },
+        { label: "Pipeline Latency", value: "Real-time streaming" }
+      ]
     }
   };
 

@@ -99,6 +99,25 @@ export const PROJECTS: Project[] = [
       { label: "Schedule Logic", value: "Dynamic Priority Scheduler" },
       { label: "UI Library", value: "Lucide + Custom CSS" }
     ]
+  },
+  {
+    id: "speech-asr",
+    title: "Offline Speech ASR",
+    description: "A lightweight, fully offline, real-time speech recognition system built from scratch in PyTorch. Runs entirely locally on low-VRAM edge nodes, transcribing English, Hindi, and Gujarati scripts.",
+    image: "/assets/speech_asr_preview.png",
+    imageAlt: "Speech ASR Visual Spectrogram",
+    tags: ["PyTorch", "Python", "BiLSTM", "webrtcvad"],
+    githubUrl: "https://github.com/Yanshu04/speech-asr",
+    highlights: [
+      "100% Offline Speech Loop: Zero-API local Deep Learning ASR pipeline executing entirely on consumer GPU CUDA nodes.",
+      "Hybrid CNN-BiLSTM-CTC Net: 4.97M param network trained dynamically with Connectionist Temporal Classification loss.",
+      "Google VAD Integration: Ignores background noise by mapping 30ms window speech frame activity indicators."
+    ],
+    specs: [
+      { label: "Model Complexity", value: "4.97M parameters" },
+      { label: "Dataset Size", value: "8,516 training samples" },
+      { label: "Vocab Dimensions", value: "287 multilingual tokens" }
+    ]
   }
 ];
 

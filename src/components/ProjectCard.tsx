@@ -63,7 +63,7 @@ export default function ProjectCard({ project, isActive = true, layout = "vertic
             <h3 className="font-title text-[22px] md:text-[28px] font-black uppercase tracking-tight text-white light:text-black mb-2 flex items-center justify-between">
               <span>{project.title}</span>
               <span className="font-mono text-xs font-bold text-[#E53E3E] light:text-[#2B6CB0]">
-                // 0{project.id === "ar-sketch" ? "1" : project.id === "house-predictor" ? "2" : project.id === "vaani" ? "3" : project.id === "arenahub" ? "4" : "5"}
+                // 0{project.id === "ar-sketch" ? "1" : project.id === "house-predictor" ? "2" : project.id === "vaani" ? "3" : project.id === "arenahub" ? "4" : project.id === "ai-planner" ? "5" : "6"}
               </span>
             </h3>
 
@@ -138,7 +138,7 @@ export default function ProjectCard({ project, isActive = true, layout = "vertic
         <h3 className="font-title text-[20px] md:text-[24px] font-black uppercase tracking-tight text-white light:text-black mb-2 flex items-center justify-between">
           <span>{project.title}</span>
           <span className="font-mono text-xs font-bold text-[#E53E3E] light:text-[#2B6CB0]">
-            // 0{project.id === "ar-sketch" ? "1" : project.id === "house-predictor" ? "2" : project.id === "vaani" ? "3" : project.id === "arenahub" ? "4" : "5"}
+            // 0{project.id === "ar-sketch" ? "1" : project.id === "house-predictor" ? "2" : project.id === "vaani" ? "3" : project.id === "arenahub" ? "4" : project.id === "ai-planner" ? "5" : "6"}
           </span>
         </h3>
 
