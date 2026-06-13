@@ -3,7 +3,7 @@ import FadeInSection from "./FadeInSection";
 
 export default function Education() {
   return (
-    <section className="py-24 md:py-32 px-6 md:px-20 max-w-7xl mx-auto border-t-2 border-neutral-800 light:border-black" id="education">
+    <section className="py-24 md:py-32 px-[8%] md:px-[12%] lg:px-[14%] w-full border-t border-neutral-900 light:border-neutral-200" id="education">
       <FadeInSection className="mb-16">
         <span className="text-[#2E86AB] light:text-blue-800 font-mono text-xs uppercase tracking-widest font-black block mb-2">
           ACADEMIC PIPELINE
@@ -31,7 +31,7 @@ export default function Education() {
                 Tech Institute of Excellence
               </p>
               <p className="text-[16px] md:text-[18px] text-neutral-400 light:text-neutral-700 leading-relaxed mb-6 font-sans">
-                Specialization in Artificial Intelligence and Machine Learning. Cumulative GPA: 9.2/10.0.
+                Specialization in Artificial Intelligence and Machine Learning. Cumulative GPA: 7.0/10.0.
               </p>
             </div>
             

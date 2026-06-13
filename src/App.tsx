@@ -166,7 +166,7 @@ export default function App() {
       <Header darkMode={darkMode} onToggleTheme={handleToggleTheme} />
 
       {/* Hero Section */}
-      <section className="relative min-h-screen flex flex-col justify-center items-start px-6 md:px-24 lg:px-32 max-w-7xl mx-auto pt-20 overflow-hidden z-10">
+      <section className="relative min-h-screen flex flex-col justify-center items-start px-[8%] md:px-[12%] lg:px-[14%] w-full pt-20 overflow-hidden z-10">
         {/* Faint geometric Bauhaus circle representing core neural systems */}
         <div className="absolute right-[-50px] md:right-[5%] top-[20%] md:top-[15%] w-[280px] h-[280px] md:w-[480px] md:h-[480px] border border-neutral-900/80 light:border-neutral-200 rounded-full opacity-40 light:opacity-60 pointer-events-none z-0">
           <div className="absolute inset-4 border border-dashed border-neutral-900/60 light:border-neutral-200/60 rounded-full animate-[spin_90s_linear_infinite]"></div>
@@ -224,7 +224,7 @@ export default function App() {
       <Ticker />
 
       {/* Selected Work Section */}
-      <section className="py-24 md:py-32 px-6 md:px-24 lg:px-32 max-w-7xl mx-auto border-t border-neutral-900 light:border-neutral-200 z-10 relative" id="work">
+      <section className="py-24 md:py-32 px-[8%] md:px-[12%] lg:px-[14%] w-full border-t border-neutral-900 light:border-neutral-200 z-10 relative" id="work">
         <FadeInSection className="mb-16">
           <span className="text-[#E53E3E] font-mono text-xs uppercase tracking-widest font-black block mb-2">
             STRETCHING BOUNDARIES OF ML
@@ -265,7 +265,7 @@ export default function App() {
 
         {/* 1. Carousel Slider Layout */}
         {layoutMode === "carousel" && (
-          <div className="relative w-full max-w-5xl mx-auto py-6">
+          <div className="relative w-full py-6">
             {/* Stage Area - Height configured for horizontal overlapping cards. Touch/drag/scroll listeners enabled */}
             <div 
               ref={stageRef}
@@ -293,28 +293,26 @@ export default function App() {
                 
                 if (!isVisible) return null;
                 
-                // Determine position and styling
-                let positionClass = "";
-                let scaleClass = "";
-                let opacityClass = "";
-                let zIndexClass = "";
-                
-                if (isCenter) {
-                  positionClass = "translate-x-0 translate-y-0";
-                  scaleClass = "scale-100";
-                  opacityClass = "opacity-100";
-                  zIndexClass = "z-30";
-                } else if (isLeft) {
-                  positionClass = "-translate-x-[30%] md:-translate-x-[55%] lg:-translate-x-[70%] translate-y-0";
-                  scaleClass = "scale-[0.85] pointer-events-none md:pointer-events-auto";
-                  opacityClass = "opacity-20 md:opacity-45";
-                  zIndexClass = "z-10";
-                } else if (isRight) {
-                  positionClass = "translate-x-[30%] md:translate-x-[55%] lg:translate-x-[70%] translate-y-0";
-                  scaleClass = "scale-[0.85] pointer-events-none md:pointer-events-auto";
-                  opacityClass = "opacity-20 md:opacity-45";
-                  zIndexClass = "z-10";
-                }
+                // Determine position and styling via React inline CSS (safeguarding dynamic transitions across all viewport sizes)
+                const cardStyle: React.CSSProperties = isCenter
+                  ? {
+                      transform: "translateX(0) scale(1)",
+                      opacity: 1,
+                      zIndex: 30,
+                    }
+                  : isLeft
+                  ? {
+                      transform: "translateX(-95%) scale(0.85)",
+                      opacity: 0.5,
+                      zIndex: 10,
+                      pointerEvents: "auto",
+                    }
+                  : {
+                      transform: "translateX(95%) scale(0.85)",
+                      opacity: 0.5,
+                      zIndex: 10,
+                      pointerEvents: "auto",
+                    };
                 
                 return (
                   <div
@@ -330,7 +328,8 @@ export default function App() {
                         e.stopPropagation();
                       }
                     }}
-                    className={`absolute top-4 sm:top-8 w-full max-w-md px-4 transition-all duration-500 ease-out transform ${positionClass} ${scaleClass} ${opacityClass} ${zIndexClass} ${isCenter ? 'max-h-[900px] overflow-y-auto cursor-default' : 'h-auto overflow-hidden cursor-pointer'}`}
+                    style={cardStyle}
+                    className={`absolute top-4 sm:top-8 w-full max-w-md px-4 transition-all duration-500 ease-out ${isCenter ? 'max-h-[900px] overflow-y-auto cursor-default' : 'h-auto overflow-hidden cursor-pointer'}`}
                   >
                     <ProjectCard
                       project={project}
@@ -384,7 +383,7 @@ export default function App() {
       </section>
 
       {/* Skills Matrix / How I Work Section */}
-      <section className="py-24 md:py-32 px-6 md:px-24 lg:px-32 max-w-7xl mx-auto border-t border-neutral-900 light:border-neutral-200 z-10 relative" id="skills">
+      <section className="py-24 md:py-32 px-[8%] md:px-[12%] lg:px-[14%] w-full border-t border-neutral-900 light:border-neutral-200 z-10 relative" id="skills">
         <FadeInSection className="mb-16">
           <span className="text-[#D69E2E] light:text-[#2B6CB0] font-mono text-xs uppercase tracking-widest font-black block mb-2">
             ARCHITECTURAL SCHEMATICS
@@ -452,7 +451,7 @@ export default function App() {
       </section>
 
       {/* About Section */}
-      <section className="py-24 md:py-32 px-6 md:px-24 lg:px-32 max-w-7xl mx-auto border-t border-neutral-900 light:border-neutral-200 z-10 relative" id="about">
+      <section className="py-24 md:py-32 px-[8%] md:px-[12%] lg:px-[14%] w-full border-t border-neutral-900 light:border-neutral-200 z-10 relative" id="about">
         <FadeInSection className="mb-16">
           <span className="text-[#2B6CB0] font-mono text-xs uppercase tracking-widest font-black block mb-2">
             COMPUTATIONAL CREDENTIALS
@@ -518,7 +517,7 @@ export default function App() {
       <Education />
 
       {/* Get In Touch Section containing the interactive Guestbook */}
-      <section className="py-24 md:py-32 px-6 md:px-24 lg:px-32 max-w-7xl mx-auto border-t border-neutral-900 light:border-neutral-200 z-10 relative" id="contact">
+      <section className="py-24 md:py-32 px-[8%] md:px-[12%] lg:px-[14%] w-full border-t border-neutral-900 light:border-neutral-200 z-10 relative" id="contact">
         <FadeInSection className="mb-12 text-center">
           <span className="text-[#E53E3E] font-mono text-xs uppercase tracking-widest font-black block mb-2">
             ESTABLISH COMMUNICATION
@@ -562,8 +561,8 @@ export default function App() {
       </section>
 
       {/* Footer boundary elements */}
-      <footer className="bg-[#08080c] light:bg-[#f5f2eb] border-t border-neutral-950 light:border-slate-200 py-16 px-6 md:px-24 lg:px-32 relative z-10">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8 text-neutral-400 light:text-slate-500">
+      <footer className="bg-[#08080c] light:bg-[#f5f2eb] border-t border-neutral-950 light:border-slate-200 py-16 px-[8%] md:px-[12%] lg:px-[14%] relative z-10">
+        <div className="w-full flex flex-col md:flex-row justify-between items-center gap-8 text-neutral-400 light:text-slate-500">
           <div className="font-mono text-lg font-bold tracking-tighter uppercase text-white light:text-slate-900">
             YS
           </div>

@@ -39,7 +39,7 @@ export default function Header({ darkMode, onToggleTheme }: HeaderProps) {
             : "bg-transparent border-transparent"
         }`}
       >
-        <div className="max-w-7xl mx-auto px-6 md:px-20 h-full flex items-center justify-between">
+        <div className="w-full px-[8%] md:px-[12%] lg:px-[14%] h-full flex items-center justify-between">
           {/* Logo Name branding - bold title font */}
           <a
             href="#"
