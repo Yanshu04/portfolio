@@ -23,6 +23,7 @@ import ProjectCard from "./components/ProjectCard";
 import ContactForm from "./components/ContactForm";
 import FadeInSection from "./components/FadeInSection";
 import Education from "./components/Education";
+import Ticker from "./components/Ticker";
 import { PROJECTS, SKILL_CATEGORIES } from "./data";
 
 
@@ -77,25 +78,25 @@ export default function App() {
           <div className="w-[1px] h-full bg-white"></div>
         </div>
 
-        <FadeInSection className="w-full relative z-10 space-y-8">
-          <span className="text-[#E3B448] light:text-blue-800 font-mono text-xs uppercase tracking-[0.25em] font-black block">
+        <div className="w-full relative z-10 space-y-8">
+          <span className="text-[#E3B448] light:text-blue-800 font-mono text-xs uppercase tracking-[0.25em] font-black block animate-fade-in-up opacity-0">
             Portfolio 2024 / AI • FULL-STACK
           </span>
           
-          <h1 className="font-title text-5xl md:text-7xl font-black uppercase tracking-tighter leading-none text-white light:text-black">
+          <h1 className="font-title text-5xl md:text-7xl font-black uppercase tracking-tighter leading-none text-white light:text-black animate-fade-in-up opacity-0 delay-100">
             Yanshu<br />Shingala
           </h1>
 
-          <div className="border-l-4 border-[#DC3D24] pl-6 max-w-2xl">
-            <p className="text-[17px] md:text-[18px] text-neutral-300 light:text-neutral-700 leading-relaxed font-sans">
+          <div className="border-l-4 border-[#DC3D24] pl-6 max-w-2xl animate-fade-in-up opacity-0 delay-200">
+            <p className="text-[17px] md:text-[18px] text-neutral-300 light:text-neutral-700 leading-relaxed font-sans font-medium">
               I build AI-powered tools and interactive browser experiences — from real-time hand tracking to deployed ML models.
             </p>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-6 pt-4">
+          <div className="flex flex-col sm:flex-row gap-6 pt-4 animate-fade-in-up opacity-0 delay-300">
             <a
               href="#work"
-              className="px-8 py-4 font-mono text-xs font-black uppercase tracking-widest bg-[#DC3D24] text-white border-2 border-white light:border-black shadow-bauhaus-sm transition-all text-center flex items-center justify-center gap-2 cursor-pointer"
+              className="px-8 py-4 font-mono text-xs font-black uppercase tracking-widest bg-[#DC3D24] text-white border-2 border-white light:border-black shadow-bauhaus-sm transition-all text-center flex items-center justify-center gap-2 cursor-pointer hover:scale-[1.03]"
             >
               <span>Explore Selected Work</span>
               <ArrowRight className="w-4 h-4" />
@@ -105,13 +106,13 @@ export default function App() {
               href="https://github.com/Yanshu04"
               target="_blank"
               rel="noreferrer"
-              className="px-8 py-4 bg-[#E3B448] text-black border-2 border-white light:border-black shadow-bauhaus-sm transition-all text-center flex items-center justify-center gap-2 cursor-pointer"
+              className="px-8 py-4 bg-[#E3B448] text-black border-2 border-white light:border-black shadow-bauhaus-sm transition-all text-center flex items-center justify-center gap-2 cursor-pointer hover:scale-[1.03]"
             >
               <span>GitHub Codebases</span>
               <ExternalLink className="w-4 h-4 text-black" />
             </a>
           </div>
-        </FadeInSection>
+        </div>
 
         {/* Anchor link to move down */}
         <div className="absolute bottom-10 left-6 md:left-20 animate-bounce">
@@ -120,6 +121,9 @@ export default function App() {
           </a>
         </div>
       </section>
+
+      {/* Ticker marquee banner */}
+      <Ticker />
 
       {/* Selected Work Section */}
       <section className="py-24 md:py-32 px-6 md:px-20 max-w-7xl mx-auto border-t-2 border-neutral-800 light:border-black" id="work">
