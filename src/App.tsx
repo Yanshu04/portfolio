@@ -168,8 +168,8 @@ export default function App() {
         {/* 1. Carousel Slider Layout */}
         {layoutMode === "carousel" && (
           <div className="relative w-full max-w-5xl mx-auto py-6">
-            {/* Stage Area - Height increased to 860px (desktop) / 920px (mobile) to prevent clipping */}
-            <div className="relative h-[1060px] sm:h-[980px] w-full flex items-start pt-8 sm:pt-12 justify-center overflow-hidden">
+            {/* Stage Area - Height configured for vertical overlapping cards */}
+            <div className="relative h-[1100px] sm:h-[1050px] w-full flex items-center justify-center overflow-hidden">
               {PROJECTS.map((project, idx) => {
                 // Calculate difference from active index
                 let diff = idx - activeIdx;
@@ -182,7 +182,7 @@ export default function App() {
                 const isCenter = diff === 0;
                 const isLeft = diff === -1;
                 const isRight = diff === 1;
-                const isVisible = Math.abs(diff) <= 1; // Only render left, center, right
+                const isVisible = Math.abs(diff) <= 1; // Only render top, center, bottom
                 
                 if (!isVisible) return null;
                 
@@ -193,19 +193,19 @@ export default function App() {
                 let zIndexClass = "";
                 
                 if (isCenter) {
-                  positionClass = "translate-x-0";
+                  positionClass = "translate-y-0 translate-x-0";
                   scaleClass = "scale-100";
                   opacityClass = "opacity-100";
                   zIndexClass = "z-30";
                 } else if (isLeft) {
-                  positionClass = "-translate-x-[30%] md:-translate-x-[55%] lg:-translate-x-[70%]";
-                  scaleClass = "scale-[0.85] pointer-events-none md:pointer-events-auto";
-                  opacityClass = "opacity-20 md:opacity-40";
+                  positionClass = "-translate-y-[35%] md:-translate-y-[45%] translate-x-0";
+                  scaleClass = "scale-[0.88] pointer-events-none md:pointer-events-auto";
+                  opacityClass = "opacity-25 md:opacity-40";
                   zIndexClass = "z-10";
                 } else if (isRight) {
-                  positionClass = "translate-x-[30%] md:translate-x-[55%] lg:translate-x-[70%]";
-                  scaleClass = "scale-[0.85] pointer-events-none md:pointer-events-auto";
-                  opacityClass = "opacity-20 md:opacity-40";
+                  positionClass = "translate-y-[35%] md:translate-y-[45%] translate-x-0";
+                  scaleClass = "scale-[0.88] pointer-events-none md:pointer-events-auto";
+                  opacityClass = "opacity-25 md:opacity-40";
                   zIndexClass = "z-10";
                 }
                 
@@ -217,7 +217,7 @@ export default function App() {
                         setActiveIdx(idx);
                       }
                     }}
-                    className={`absolute top-4 sm:top-8 w-full max-w-md transition-all duration-500 ease-out transform cursor-pointer ${positionClass} ${scaleClass} ${opacityClass} ${zIndexClass} ${isCenter ? 'max-h-[900px] overflow-y-auto' : 'h-auto overflow-hidden'}`}
+                    className={`absolute w-full max-w-md transition-all duration-500 ease-out transform cursor-pointer ${positionClass} ${scaleClass} ${opacityClass} ${zIndexClass} ${isCenter ? 'max-h-[780px] sm:max-h-[850px] overflow-y-auto' : 'h-auto overflow-hidden'}`}
                   >
                     <ProjectCard
                       project={project}
@@ -229,12 +229,12 @@ export default function App() {
             </div>
             
             {/* Carousel Controls */}
-            <div className="flex justify-center items-center gap-6 mt-8">
+            <div className="relative z-45 flex justify-center items-center gap-6 mt-8">
               <button
                 onClick={() => setActiveIdx((activeIdx - 1 + PROJECTS.length) % PROJECTS.length)}
                 className="w-12 h-12 border-2 border-white light:border-black text-white light:text-black hover:bg-[#DC3D24] hover:text-white flex items-center justify-center transition-colors bg-black light:bg-[#fbfbf9] cursor-pointer font-mono text-sm shadow-bauhaus-sm"
               >
-                ←
+                ↑
               </button>
               
               {/* Dots */}
@@ -254,7 +254,7 @@ export default function App() {
                 onClick={() => setActiveIdx((activeIdx + 1) % PROJECTS.length)}
                 className="w-12 h-12 border-2 border-white light:border-black text-white light:text-black hover:bg-[#DC3D24] hover:text-white flex items-center justify-center transition-colors bg-black light:bg-[#fbfbf9] cursor-pointer font-mono text-sm shadow-bauhaus-sm"
               >
-                →
+                ↓
               </button>
             </div>
           </div>
