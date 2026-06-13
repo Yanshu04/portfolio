@@ -1,11 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400&family=JetBrains+Mono:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap');
 @import "tailwindcss";
 
 @custom-variant light (&:where(.light, .light *));
 
 @theme {
-  --font-sans: "Newsreader", "Lora", Georgia, serif;
-  --font-title: "Newsreader", "Lora", Georgia, serif;
+  --font-sans: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-title: "Syne", sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
 }
 
@@ -21,82 +21,96 @@ html, body {
   border-radius: 0px !important;
 }
 
-/* Custom Bauhaus Solid Shadows */
+/* Architectural Bauhaus Blueprint Grid Overlay */
+.bg-grid-pattern {
+  background-size: 50px 50px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+}
+
+.light .bg-grid-pattern {
+  background-image: 
+    linear-gradient(to right, rgba(0, 0, 0, 0.015) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.015) 1px, transparent 1px);
+}
+
+/* Custom Bauhaus Solid Shadows - Upgraded with premium offset depths */
 .shadow-bauhaus {
-  box-shadow: 6px 6px 0px 0px #FAF8F5;
-  transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  box-shadow: 6px 6px 0px 0px #FAF9F6;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .shadow-bauhaus:hover {
-  transform: translate(-2px, -2px);
-  box-shadow: 8px 8px 0px 0px #FAF8F5;
+  transform: translate(-3px, -3px);
+  box-shadow: 9px 9px 0px 0px #FAF9F6;
 }
 
 .shadow-bauhaus:active {
   transform: translate(2px, 2px);
-  box-shadow: 4px 4px 0px 0px #FAF8F5;
+  box-shadow: 4px 4px 0px 0px #FAF9F6;
 }
 
 .light .shadow-bauhaus {
-  box-shadow: 6px 6px 0px 0px #121212;
+  box-shadow: 6px 6px 0px 0px #0B0B0C;
 }
 
 .light .shadow-bauhaus:hover {
-  box-shadow: 8px 8px 0px 0px #121212;
+  box-shadow: 9px 9px 0px 0px #0B0B0C;
 }
 
 .light .shadow-bauhaus:active {
-  box-shadow: 4px 4px 0px 0px #121212;
+  box-shadow: 4px 4px 0px 0px #0B0B0C;
 }
 
 .shadow-bauhaus-sm {
-  box-shadow: 3px 3px 0px 0px #FAF8F5;
-  transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  box-shadow: 3px 3px 0px 0px #FAF9F6;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .shadow-bauhaus-sm:hover {
-  transform: translate(-1px, -1px);
-  box-shadow: 4px 4px 0px 0px #FAF8F5;
+  transform: translate(-1.5px, -1.5px);
+  box-shadow: 4.5px 4.5px 0px 0px #FAF9F6;
 }
 
 .shadow-bauhaus-sm:active {
   transform: translate(1px, 1px);
-  box-shadow: 2px 2px 0px 0px #FAF8F5;
+  box-shadow: 2px 2px 0px 0px #FAF9F6;
 }
 
 .light .shadow-bauhaus-sm {
-  box-shadow: 3px 3px 0px 0px #121212;
+  box-shadow: 3px 3px 0px 0px #0B0B0C;
 }
 
 .light .shadow-bauhaus-sm:hover {
-  box-shadow: 4px 4px 0px 0px #121212;
+  box-shadow: 4.5px 4.5px 0px 0px #0B0B0C;
 }
 
 .light .shadow-bauhaus-sm:active {
-  box-shadow: 2px 2px 0px 0px #121212;
+  box-shadow: 2px 2px 0px 0px #0B0B0C;
 }
 
 /* Scrollbar customization */
 ::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
+  width: 8px;
+  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--bg-track, #121212);
+  background: var(--bg-track, #0B0B0C);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--bg-thumb, #2a2a2a);
-  border: 2px solid var(--bg-border, #000000);
+  background: var(--bg-thumb, #222225);
+  border: 1px solid var(--bg-border, #000000);
 }
 
 .light ::-webkit-scrollbar-track {
-  --bg-track: #FAF8F5;
+  --bg-track: #FAF9F6;
 }
 .light ::-webkit-scrollbar-thumb {
-  --bg-thumb: #e5e5e0;
-  --bg-border: #121212;
+  --bg-thumb: #e2e1dc;
+  --bg-border: #FAF9F6;
 }
 
 /* Smooth reveal animation classes */
