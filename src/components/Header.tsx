@@ -78,7 +78,10 @@ export default function Header({ darkMode, onToggleTheme }: HeaderProps) {
 
             {/* Action Resume button in Bauhaus style */}
             <a
-              href="#contact"
+              href="yanshu-shingala-resume.pdf"
+              download="Yanshu_Shingala_Resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
               className="px-5 py-2 border-2 border-white light:border-black font-mono text-xs uppercase font-black tracking-widest transition-all shadow-bauhaus-sm"
               style={{
                 backgroundColor: "#E3B448",
@@ -123,12 +126,28 @@ export default function Header({ darkMode, onToggleTheme }: HeaderProps) {
           ))}
 
           <a
-            href="#contact"
+            href="yanshu-shingala-resume.pdf"
+            download="Yanshu_Shingala_Resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
             onClick={() => setIsMobileMenuOpen(false)}
             className="px-8 py-3.5 border-2 border-white light:border-black font-mono text-sm uppercase font-black tracking-widest mt-4 shadow-bauhaus-sm"
             style={{
               backgroundColor: "#E3B448",
               color: "#121212"
+            }}
+          >
+            RESUME
+          </a>
+
+          <a
+            href="#contact"
+            onClick={() => setIsMobileMenuOpen(false)}
+            className="px-8 py-3.5 border-2 border-white light:border-black font-mono text-sm uppercase font-black tracking-widest mt-2 shadow-bauhaus-sm"
+            style={{
+              backgroundColor: "transparent",
+              color: darkMode ? "#FAF8F5" : "#121212",
+              borderColor: darkMode ? "#FAF8F5" : "#121212"
             }}
           >
             GET IN TOUCH
