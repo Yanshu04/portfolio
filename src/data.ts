@@ -2,6 +2,25 @@ import { Project, SkillCategory } from "./types";
 
 export const PROJECTS: Project[] = [
   {
+    id: "ipl-predication",
+    title: "IPL Match Winner Predictor",
+    description: "A machine learning project that predicts IPL match winners from pre-match data, and more importantly, a case study in why honest evaluation matters more than a high accuracy number.",
+    image: "/assets/ipl_predication_preview.svg",
+    imageAlt: "IPL Match Winner Predictor Preview",
+    tags: ["Python", "scikit-learn", "Flask", "HTML/CSS/JavaScript"],
+    githubUrl: "https://github.com/Yanshu04/IPL-Predication",
+    highlights: [
+      "Rebuilt the evaluation pipeline with a chronological train/test split to avoid leakage from future seasons.",
+      "Engineered head-to-head, recent form, and venue-based features using only pre-match data.",
+      "Documented the honest 42.65% result and the cold-start limits for new franchises.",
+    ],
+    specs: [
+      { label: "Honest Accuracy", value: "42.65%" },
+      { label: "Modeling Stack", value: "Logistic Regression / Random Forest" },
+      { label: "Backend", value: "Flask + Pickled Artifacts" },
+    ]
+  },
+  {
     id: "ar-sketch",
     title: "AR Sketch",
     description: "Real-time augmented reality drawing app using MediaPipe hand tracking. Detects 21 hand landmarks at 60fps to let users draw in mid-air using gestures — no controller or special hardware required.",

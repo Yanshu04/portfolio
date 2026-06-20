@@ -3,6 +3,16 @@ import { ExternalLink, Code } from "lucide-react";
 import { Project } from "../types";
 import CaseStudy from "./CaseStudy";
 
+const PROJECT_INDEX: Record<string, string> = {
+  "ipl-predication": "01",
+  "ar-sketch": "02",
+  "house-predictor": "03",
+  vaani: "04",
+  arenahub: "05",
+  "ai-planner": "06",
+  "speech-asr": "07",
+};
+
 interface ProjectCardProps {
   project: Project;
   isActive?: boolean;
@@ -10,6 +20,7 @@ interface ProjectCardProps {
 }
 
 export default function ProjectCard({ project, isActive = true, layout = "vertical" }: ProjectCardProps) {
+  const projectIndex = PROJECT_INDEX[project.id] ?? "00";
 
   // Map tag names to Bauhaus primary colors for a vibrant look
   const getTagColor = (tag: string, index: number) => {
@@ -63,7 +74,7 @@ export default function ProjectCard({ project, isActive = true, layout = "vertic
             <h3 className="font-title text-[22px] md:text-[28px] font-black uppercase tracking-tight text-white light:text-black mb-2 flex items-center justify-between">
               <span>{project.title}</span>
               <span className="font-mono text-xs font-bold text-[#E53E3E] light:text-[#2B6CB0]">
-                // 0{project.id === "ar-sketch" ? "1" : project.id === "house-predictor" ? "2" : project.id === "vaani" ? "3" : project.id === "arenahub" ? "4" : project.id === "ai-planner" ? "5" : "6"}
+                // {projectIndex}
               </span>
             </h3>
 
@@ -138,7 +149,7 @@ export default function ProjectCard({ project, isActive = true, layout = "vertic
         <h3 className="font-title text-[20px] md:text-[24px] font-black uppercase tracking-tight text-white light:text-black mb-2 flex items-center justify-between">
           <span>{project.title}</span>
           <span className="font-mono text-xs font-bold text-[#E53E3E] light:text-[#2B6CB0]">
-            // 0{project.id === "ar-sketch" ? "1" : project.id === "house-predictor" ? "2" : project.id === "vaani" ? "3" : project.id === "arenahub" ? "4" : project.id === "ai-planner" ? "5" : "6"}
+            // {projectIndex}
           </span>
         </h3>
 
