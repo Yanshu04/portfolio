@@ -100,6 +100,20 @@ export default function CaseStudy({ project }: CaseStudyProps) {
         { label: "Best Eval Loss", value: "0.9358 (CTC loss)" },
         { label: "Pipeline Latency", value: "Real-time streaming" }
       ]
+    },
+    "solar-tracker": {
+      challenge: "Designing a responsive Android dashboard that consolidates real-time solar panel telemetry, weather data, and performance forecasting into a single cohesive interface. The core challenge was building a reactive MVVM architecture that keeps the UI state consistent with asynchronous data streams from multiple APIs without introducing jitter or stale reads.",
+      process: [
+        "Architected a clean MVVM separation with Kotlin StateFlow for reactive UI updates from live panel status APIs.",
+        "Integrated a weather REST API scoped to the Rajkot region to derive irradiance-adjusted performance forecasts.",
+        "Designed a Jetpack Compose dashboard with dynamic status cards, health indicators, and a panel efficiency graph."
+      ],
+      formula: "PanelOutput(kW) = Irradiance(W/m²) * PanelArea * Efficiency * (1 - TempCoeff * ΔT)",
+      metrics: [
+        { label: "Platform Target", value: "Android API 26+" },
+        { label: "UI Framework", value: "Jetpack Compose" },
+        { label: "Architecture Pattern", value: "MVVM + StateFlow" }
+      ]
     }
   };
 

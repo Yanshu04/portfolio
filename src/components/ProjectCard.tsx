@@ -11,6 +11,7 @@ const PROJECT_INDEX: Record<string, string> = {
   arenahub: "05",
   "ai-planner": "06",
   "speech-asr": "07",
+  "solar-tracker": "08",
 };
 
 interface ProjectCardProps {

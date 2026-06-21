@@ -480,11 +480,11 @@ export default function App() {
           <div className="lg:col-span-5 bg-black light:bg-[#fbfbf9] border-2 border-white light:border-black p-8 flex flex-col gap-6 md:flex-row lg:flex-col md:justify-around lg:justify-start shadow-bauhaus">
             <FadeInSection className="flex items-start gap-5">
               <div className="w-11 h-11 bg-black light:bg-[#f5f2eb] text-[#E53E3E] border-2 border-[#E53E3E] flex items-center justify-center font-mono font-black">
-                05
+                08
               </div>
               <div>
                 <h4 className="text-[#E53E3E] text-3xl font-mono font-black leading-none">
-                  5+
+                  8+
                 </h4>
                 <span className="text-[10px] tracking-widest font-mono uppercase text-neutral-400 light:text-neutral-500 mt-1 block font-bold">
                   Core AI Projects

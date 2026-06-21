@@ -137,6 +137,25 @@ export const PROJECTS: Project[] = [
       { label: "Dataset Size", value: "8,516 training samples" },
       { label: "Vocab Dimensions", value: "287 multilingual tokens" }
     ]
+  },
+  {
+    id: "solar-tracker",
+    title: "Solar Tracker",
+    description: "An Android application built in Kotlin to manage and monitor solar panel installations. Provides a comprehensive dashboard tracking real-time panel status, weather conditions, and performance forecasts for solar sites in the Rajkot region.",
+    image: "/assets/solar_tracker_preview.png",
+    imageAlt: "Solar Tracker Android App Dashboard",
+    tags: ["Kotlin", "Android", "Jetpack Compose", "REST API"],
+    githubUrl: "https://github.com/Yanshu04/solar-tracker",
+    highlights: [
+      "Real-time solar panel status dashboard with live power output metrics and panel health indicators.",
+      "Integrated weather API for Rajkot region to correlate atmospheric conditions with panel performance forecasts.",
+      "Built with modern Android architecture (MVVM) using Kotlin and Jetpack Compose for a fluid, responsive UI."
+    ],
+    specs: [
+      { label: "Platform", value: "Android (Kotlin)" },
+      { label: "Architecture", value: "MVVM + Jetpack Compose" },
+      { label: "Focus Region", value: "Rajkot Solar Sites" }
+    ]
   }
 ];
 
