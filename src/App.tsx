@@ -32,7 +32,7 @@ export default function App() {
   const [selectedSkillCategory, setSelectedSkillCategory] = useState<string | null>("frontend");
   const [activeIdx, setActiveIdx] = useState<number>(0);
 
-  const [layoutMode, setLayoutMode] = useState<"carousel" | "grid">("carousel");
+  const [layoutMode, setLayoutMode] = useState<"carousel" | "grid">("grid");
 
   // Load theme preference on mount
   useEffect(() => {
@@ -226,13 +226,13 @@ export default function App() {
       {/* Selected Work Section */}
       <section className="py-24 md:py-32 px-[8%] md:px-[12%] lg:px-[14%] w-full border-t border-neutral-900 light:border-neutral-200 z-10 relative" id="work">
         <FadeInSection className="mb-16">
-          <span className="text-[#E53E3E] font-mono text-xs uppercase tracking-widest font-black block mb-2">
-            STRETCHING BOUNDARIES OF ML
+            <span className="text-[#E53E3E] font-mono text-xs uppercase tracking-widest font-black block mb-2">
+            FULL PROJECT SHOWCASE
           </span>
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
             <div>
               <h2 className="font-title text-[28px] md:text-[40px] font-black uppercase tracking-tight text-white light:text-black mb-2">
-                Selected Work
+                All Projects
               </h2>
               <div className="w-24 h-2 bg-[#2B6CB0]"></div>
             </div>
@@ -257,7 +257,7 @@ export default function App() {
                     : "border-transparent text-neutral-400 hover:text-white light:text-neutral-600 light:hover:text-black"
                 }`}
               >
-                Grid View
+                All Projects
               </button>
             </div>
           </div>

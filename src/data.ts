@@ -2,6 +2,44 @@ import { Project, SkillCategory } from "./types";
 
 export const PROJECTS: Project[] = [
   {
+    id: "laika",
+    title: "LAIKA",
+    description: "A local AI knowledge assistant for private document Q&A with hybrid search, multi-turn chat, and clickable citations. Built with a FastAPI backend, a custom React + Vite frontend, and offline Ollama inference.",
+    image: "/assets/laika_preview.svg",
+    imageAlt: "LAIKA Local AI Knowledge Assistant Preview",
+    tags: ["Python", "React", "FastAPI", "ChromaDB"],
+    githubUrl: "https://github.com/Yanshu04/laika",
+    highlights: [
+      "Supports PDF, DOCX, TXT, and MD documents for private local Q&A.",
+      "Combines semantic embeddings and SQLite FTS5 keyword search with RRF ranking.",
+      "Streams answers with preserved chat context and expandable source citations."
+    ],
+    specs: [
+      { label: "Search Modes", value: "Hybrid / Vector / Keyword" },
+      { label: "Backend Stack", value: "FastAPI + ChromaDB + SQLite FTS5" },
+      { label: "LLM Layer", value: "Local Ollama (qwen2.5:3b)" }
+    ]
+  },
+  {
+    id: "ai-resume-analyzer",
+    title: "AI Resume Analyzer",
+    description: "An offline-first resume analysis and improvement app that scores ATS compatibility, matches job descriptions, detects missing sections, and rewrites experience bullets locally.",
+    image: "/assets/ai_resume_analyzer_preview.svg",
+    imageAlt: "AI Resume Analyzer Dashboard Preview",
+    tags: ["TypeScript", "React", "FastAPI", "spaCy"],
+    githubUrl: "https://github.com/Yanshu04/AI-Resume-Analyzer",
+    highlights: [
+      "Scores resumes across ATS, skills, projects, formatting, and content quality signals.",
+      "Matches resumes against job descriptions using local sentence-transformer embeddings.",
+      "Uses offline Ollama rewriting to improve bullets without sending data to external APIs."
+    ],
+    specs: [
+      { label: "Core Analysis", value: "ATS + JD Matching" },
+      { label: "Backend Stack", value: "FastAPI + SQLite + ChromaDB" },
+      { label: "AI Layer", value: "Offline Ollama (qwen2.5:1.5b)" }
+    ]
+  },
+  {
     id: "ipl-predication",
     title: "IPL Match Winner Predictor",
     description: "A machine learning project that predicts IPL match winners from pre-match data, and more importantly, a case study in why honest evaluation matters more than a high accuracy number.",
@@ -79,6 +117,27 @@ export const PROJECTS: Project[] = [
       { label: "Weights Occupance", value: "approx. 14GB disk budget" }
     ]
   },
+
+  {
+    id: "ai-resume-builder",
+    title: "AI Resume Builder",
+    description: "An AI-powered resume builder from scratch with conversational inputs, editor layouts, live template previews, JD optimization, drag-and-drop ordering, imports, versioning, and multi-format exports.",
+    image: "/assets/ai_resume_builder_preview.svg",
+    imageAlt: "AI Resume Builder Project Preview",
+    tags: ["TypeScript", "React", "FastAPI", "Ollama"],
+    githubUrl: "https://github.com/Yanshu04/AI-Resume-Builder",
+    highlights: [
+      "Built a full-stack resume workflow with a React frontend and FastAPI backend.",
+      "Added drag-and-drop resume ordering, live template previews, and versioned document flows.",
+      "Integrated offline Ollama inference for AI-assisted resume generation and optimization."
+    ],
+    specs: [
+      { label: "Frontend Stack", value: "React + TypeScript + Vite" },
+      { label: "Backend Stack", value: "FastAPI + SQLAlchemy" },
+      { label: "AI Layer", value: "Offline Ollama (qwen2.5:1.5b)" }
+    ]
+  },
+  
   {
     id: "arenahub",
     title: "ArenaHub Turf & Gaming",

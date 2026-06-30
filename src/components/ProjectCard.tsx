@@ -4,14 +4,17 @@ import { Project } from "../types";
 import CaseStudy from "./CaseStudy";
 
 const PROJECT_INDEX: Record<string, string> = {
-  "ipl-predication": "01",
-  "ar-sketch": "02",
-  "house-predictor": "03",
-  vaani: "04",
-  arenahub: "05",
-  "ai-planner": "06",
-  "speech-asr": "07",
-  "solar-tracker": "08",
+  laika: "01",
+  "ai-resume-analyzer": "02",
+  "ipl-predication": "03",
+  "ar-sketch": "04",
+  "house-predictor": "05",
+  vaani: "06",
+  "ai-resume-builder": "07",
+  arenahub: "08",
+  "ai-planner": "09",
+  "speech-asr": "10",
+  "solar-tracker": "11",
 };
 
 interface ProjectCardProps {
