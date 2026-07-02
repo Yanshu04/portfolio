@@ -1,0 +1,35 @@
+<svg width="1280" height="720" viewBox="0 0 1280 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1280" height="720" fill="#0B0B0C"/>
+  <rect x="48" y="48" width="1184" height="624" rx="28" fill="#111114" stroke="#F5F2EB" stroke-width="2"/>
+
+  <rect x="96" y="96" width="408" height="528" rx="20" fill="#1B1B21" stroke="#2B6CB0" stroke-width="3"/>
+  <rect x="536" y="96" width="648" height="128" rx="20" fill="#1B1B21" stroke="#E53E3E" stroke-width="3"/>
+  <rect x="536" y="244" width="300" height="168" rx="20" fill="#1B1B21" stroke="#D69E2E" stroke-width="3"/>
+  <rect x="864" y="244" width="320" height="168" rx="20" fill="#1B1B21" stroke="#F5F2EB" stroke-width="3"/>
+  <rect x="536" y="440" width="648" height="184" rx="20" fill="#1B1B21" stroke="#F5F2EB" stroke-width="3"/>
+
+  <text x="140" y="166" fill="#F5F2EB" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="700">DevPulse</text>
+  <text x="140" y="214" fill="#F5F2EB" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="700">Honesty Dashboard</text>
+  <text x="140" y="274" fill="#A3A3A3" font-family="Arial, Helvetica, sans-serif" font-size="20">Local Git history scanning</text>
+  <text x="140" y="308" fill="#A3A3A3" font-family="Arial, Helvetica, sans-serif" font-size="20">Stalled project detection</text>
+  <text x="140" y="342" fill="#A3A3A3" font-family="Arial, Helvetica, sans-serif" font-size="20">Optional offline AI summary</text>
+  <text x="140" y="376" fill="#A3A3A3" font-family="Arial, Helvetica, sans-serif" font-size="20">FastAPI + React + Tailwind</text>
+
+  <rect x="574" y="132" width="150" height="24" rx="12" fill="#E53E3E"/>
+  <rect x="742" y="132" width="132" height="24" rx="12" fill="#2B6CB0"/>
+  <rect x="892" y="132" width="166" height="24" rx="12" fill="#D69E2E"/>
+  <rect x="1076" y="132" width="92" height="24" rx="12" fill="#F5F2EB"/>
+
+  <text x="568" y="300" fill="#F5F2EB" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">Repo Scan</text>
+  <rect x="568" y="322" width="252" height="24" rx="12" fill="#2B2B33"/>
+  <rect x="568" y="358" width="188" height="24" rx="12" fill="#2B2B33"/>
+  <rect x="894" y="300" width="254" height="88" rx="16" fill="#141418" stroke="#2B6CB0" stroke-width="2"/>
+  <text x="922" y="350" fill="#F5F2EB" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700">STALLED</text>
+  <text x="572" y="496" fill="#F5F2EB" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">Commit Activity</text>
+  <rect x="572" y="522" width="152" height="24" rx="12" fill="#E53E3E"/>
+  <rect x="744" y="522" width="116" height="24" rx="12" fill="#2B6CB0"/>
+  <rect x="878" y="522" width="160" height="24" rx="12" fill="#D69E2E"/>
+  <rect x="1056" y="522" width="110" height="24" rx="12" fill="#F5F2EB"/>
+
+  <text x="572" y="592" fill="#A3A3A3" font-family="Arial, Helvetica, sans-serif" font-size="18">FastAPI • GitPython • React • Vite • Tailwind CSS • Ollama</text>
+</svg>

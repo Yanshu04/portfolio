@@ -4,9 +4,10 @@ import { Project } from "../types";
 import CaseStudy from "./CaseStudy";
 
 const PROJECT_INDEX: Record<string, string> = {
+  devpulse: "12",
   laika: "01",
   "ai-resume-analyzer": "02",
-  "ipl-predication": "03",
+  "ipl-predication": "01",
   "ar-sketch": "04",
   "house-predictor": "05",
   vaani: "06",

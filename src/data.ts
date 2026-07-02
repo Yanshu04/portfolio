@@ -1,6 +1,7 @@
 import { Project, SkillCategory } from "./types";
 
 export const PROJECTS: Project[] = [
+  
   {
     id: "laika",
     title: "LAIKA",
@@ -18,6 +19,25 @@ export const PROJECTS: Project[] = [
       { label: "Search Modes", value: "Hybrid / Vector / Keyword" },
       { label: "Backend Stack", value: "FastAPI + ChromaDB + SQLite FTS5" },
       { label: "LLM Layer", value: "Local Ollama (qwen2.5:3b)" }
+    ]
+  },
+  {
+    id: "devpulse",
+    title: "DevPulse",
+    description: "A local Git commit-history honesty dashboard that scans repositories, tracks recent activity, and highlights stalled projects with an optional offline AI summary.",
+    image: "/assets/devpulse_preview.svg",
+    imageAlt: "DevPulse Git Commit History Dashboard Preview",
+    tags: ["TypeScript", "Python", "FastAPI", "React"],
+    githubUrl: "https://github.com/Yanshu04/DevPulse-MVP",
+    highlights: [
+      "Scans local repositories with GitPython to surface commit counts and recent activity.",
+      "Flags stalled projects automatically and sorts them to the top for quick review.",
+      "Supports an optional Ollama-powered status summary for blunt, local project insights."
+    ],
+    specs: [
+      { label: "Backend Stack", value: "FastAPI + GitPython + Uvicorn" },
+      { label: "Frontend Stack", value: "React + Vite + Tailwind CSS" },
+      { label: "AI Layer", value: "Optional Ollama (qwen2.5:3b)" }
     ]
   },
   {
