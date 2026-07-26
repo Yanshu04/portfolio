@@ -217,7 +217,7 @@ export function VaaniVoiceConsoleSimulator() {
             <span className="text-[10px] text-neutral-500 uppercase block mb-2 font-bold select-none border-b border-neutral-900 pb-1">
               SYSTEM CONSOLE BACKEND STDOUT (SCROLLABLE)
             </span>
-            <div className="space-y-1.5 h-44 overflow-y-auto pr-1 text-[11px] font-mono leading-normal text-emerald-300">
+            <div data-lenis-prevent className="space-y-1.5 h-44 overflow-y-auto pr-1 text-[11px] font-mono leading-normal text-emerald-300">
               {terminalLogs.map((log, index) => (
                 <div key={index} className="flex gap-2">
                   <span className="text-neutral-500 select-none">{"$"}</span>

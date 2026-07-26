@@ -29,6 +29,7 @@ import InteractivePlaygrounds from "./components/InteractivePlaygrounds";
 import BackgroundGeometry from "./components/BackgroundGeometry";
 import Hero3DTilt from "./components/Hero3DTilt";
 import GizmoWelcomeIntro from "./components/GizmoWelcomeIntro";
+import SmoothScroll from "./components/SmoothScroll";
 import { PROJECTS, SKILL_CATEGORIES } from "./data";
 
 
@@ -169,6 +170,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-[#0B0B0C] bg-grid-pattern text-[#FAF9F6] light:bg-[#FAF9F6] light:text-[#0B0B0C] transition-colors duration-300 overflow-x-hidden selection:bg-[#E53E3E] selection:text-white font-sans relative">
+      <SmoothScroll />
 
       {/* Conditional Welcome Intro overlay showing only once per session */}
       {showWelcomeIntro && (

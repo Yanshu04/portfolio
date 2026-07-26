@@ -181,7 +181,7 @@ export default function ContactForm() {
             )}
           </div>
 
-          <div className="space-y-4 overflow-y-auto max-h-[320px] pr-1.5 select-none">
+          <div data-lenis-prevent className="space-y-4 overflow-y-auto max-h-[320px] pr-1.5 select-none">
             {messageLog.length === 0 ? (
               <div className="text-center py-12 text-neutral-400 light:text-neutral-600 font-mono text-xs md:text-sm">
                 <HelpCircle className="w-8 h-8 text-neutral-800 light:text-neutral-400 mx-auto mb-2.5" />
