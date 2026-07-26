@@ -1,0 +1,325 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap');
+@import "tailwindcss";
+
+@custom-variant light (&:where(.light, .light *));
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-title: "Syne", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+}
+
+/* Global Reset & Theme Transition Styles */
+html, body {
+  scroll-behavior: smooth;
+  font-family: var(--font-sans);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Sharp Edges / Rectilinear Design Style */
+* {
+  border-radius: 0px !important;
+}
+
+/* Architectural Bauhaus Blueprint Grid Overlay */
+.bg-grid-pattern {
+  background-size: 50px 50px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+}
+
+.light .bg-grid-pattern {
+  background-image: 
+    linear-gradient(to right, rgba(0, 0, 0, 0.015) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.015) 1px, transparent 1px);
+}
+
+/* Custom Bauhaus Solid Shadows - Upgraded with premium offset depths */
+.shadow-bauhaus {
+  box-shadow: 6px 6px 0px 0px #FAF9F6;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.shadow-bauhaus:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 9px 9px 0px 0px #FAF9F6;
+}
+
+.shadow-bauhaus:active {
+  transform: translate(2px, 2px);
+  box-shadow: 4px 4px 0px 0px #FAF9F6;
+}
+
+.light .shadow-bauhaus {
+  box-shadow: 6px 6px 0px 0px #0B0B0C;
+}
+
+.light .shadow-bauhaus:hover {
+  box-shadow: 9px 9px 0px 0px #0B0B0C;
+}
+
+.light .shadow-bauhaus:active {
+  box-shadow: 4px 4px 0px 0px #0B0B0C;
+}
+
+.shadow-bauhaus-sm {
+  box-shadow: 3px 3px 0px 0px #FAF9F6;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.shadow-bauhaus-sm:hover {
+  transform: translate(-1.5px, -1.5px);
+  box-shadow: 4.5px 4.5px 0px 0px #FAF9F6;
+}
+
+.shadow-bauhaus-sm:active {
+  transform: translate(1px, 1px);
+  box-shadow: 2px 2px 0px 0px #FAF9F6;
+}
+
+.light .shadow-bauhaus-sm {
+  box-shadow: 3px 3px 0px 0px #0B0B0C;
+}
+
+.light .shadow-bauhaus-sm:hover {
+  box-shadow: 4.5px 4.5px 0px 0px #0B0B0C;
+}
+
+.light .shadow-bauhaus-sm:active {
+  box-shadow: 2px 2px 0px 0px #0B0B0C;
+}
+
+/* Scrollbar customization */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-track, #0B0B0C);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--bg-thumb, #222225);
+  border: 1px solid var(--bg-border, #000000);
+}
+
+.light ::-webkit-scrollbar-track {
+  --bg-track: #FAF9F6;
+}
+.light ::-webkit-scrollbar-thumb {
+  --bg-thumb: #e2e1dc;
+  --bg-border: #FAF9F6;
+}
+
+/* ============================================================
+   SCROLL-TRIGGERED ENTRANCE ANIMATIONS
+   Only transform + opacity are animated (no width/height/margin)
+   ============================================================ */
+
+/* FadeInSection base — hidden state (instant reset when not visible) */
+.fade-in-section {
+  opacity: 0;
+  transform: translateY(28px);
+  visibility: hidden;
+  /* NO transition here — exit is instant so re-entry always starts clean */
+  will-change: opacity, transform;
+}
+
+/* Smooth entrance only — transition lives on is-visible, not on base */
+.fade-in-section.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  visibility: visible;
+  transition: opacity 0.55s ease-out, transform 0.55s ease-out;
+}
+
+/* --- STAGGER CHILDREN ---
+   Use transitions (not keyframe animations) so:
+   1. The visible end-state is held by the is-visible parent rule (no fill-mode needed)
+   2. Reset on exit is instant (transition only on is-visible .stagger-child)
+   3. Each child staggers via transition-delay */
+
+/* Base (hidden) state — no transition so reset to this state is instant */
+.fade-in-section .stagger-child {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+/* Visible state — transition IN smoothly with stagger delay */
+.fade-in-section.is-visible .stagger-child {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.45s ease-out, transform 0.45s ease-out;
+}
+
+/* Per-child stagger delays (applied to the visible transition) */
+.fade-in-section.is-visible .stagger-child:nth-child(1)  { transition-delay: 0ms; }
+.fade-in-section.is-visible .stagger-child:nth-child(2)  { transition-delay: 70ms; }
+.fade-in-section.is-visible .stagger-child:nth-child(3)  { transition-delay: 140ms; }
+.fade-in-section.is-visible .stagger-child:nth-child(4)  { transition-delay: 210ms; }
+.fade-in-section.is-visible .stagger-child:nth-child(5)  { transition-delay: 280ms; }
+.fade-in-section.is-visible .stagger-child:nth-child(6)  { transition-delay: 350ms; }
+.fade-in-section.is-visible .stagger-child:nth-child(7)  { transition-delay: 420ms; }
+.fade-in-section.is-visible .stagger-child:nth-child(8)  { transition-delay: 490ms; }
+.fade-in-section.is-visible .stagger-child:nth-child(9)  { transition-delay: 560ms; }
+.fade-in-section.is-visible .stagger-child:nth-child(10) { transition-delay: 630ms; }
+.fade-in-section.is-visible .stagger-child:nth-child(11) { transition-delay: 700ms; }
+.fade-in-section.is-visible .stagger-child:nth-child(12) { transition-delay: 770ms; }
+
+/* Hover micro-transitions for cards (only transform + opacity) */
+.hover-lift {
+  transition: transform 0.2s ease-out, opacity 0.2s ease-out, box-shadow 0.2s ease-out;
+}
+.hover-lift:hover {
+  transform: translateY(-4px);
+}
+.hover-lift:focus-visible {
+  transform: translateY(-4px);
+  outline: 2px solid #E53E3E;
+  outline-offset: 3px;
+}
+
+
+/* Custom Keyframe Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Animation Utilities */
+.animate-fade-in-up {
+  animation: fadeInUp 0.55s ease-out forwards;
+}
+
+.animate-fade-in-down {
+  animation: fadeInDown 0.55s ease-out forwards;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.55s ease-out forwards;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.45s ease-out forwards;
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 25s linear infinite;
+}
+
+/* Staggered Delay classes */
+.delay-75 { animation-delay: 75ms; }
+.delay-100 { animation-delay: 100ms; }
+.delay-150 { animation-delay: 150ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-400 { animation-delay: 400ms; }
+.delay-500 { animation-delay: 500ms; }
+
+/* ============================================================
+   PREFERS-REDUCED-MOTION — PHASE 3 CHECK
+   Disables ALL transform/opacity transitions for users who
+   have requested reduced motion in their OS settings.
+   Covers: FadeInSection, stagger-child, animate-* utilities,
+   hover-lift, and Hero inline animate-fade-in-up classes.
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  /* Kill all keyframe animations */
+  .animate-fade-in-up,
+  .animate-fade-in-down,
+  .animate-scale-in,
+  .animate-slide-up,
+  .animate-marquee,
+  .animate-bounce {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  /* Kill scroll-triggered entrance — show immediately, no transition */
+  .fade-in-section,
+  .fade-in-section.is-visible {
+    opacity: 1 !important;
+    transform: none !important;
+    visibility: visible !important;
+    transition: none !important;
+  }
+
+  /* Kill stagger children — transitions and animations both killed */
+  .fade-in-section .stagger-child,
+  .fade-in-section.is-visible .stagger-child {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    animation: none !important;
+    transition-delay: 0ms !important;
+  }
+
+  /* Kill hover lifts */
+  .hover-lift,
+  .hover-lift:hover,
+  .hover-lift:focus-visible {
+    transform: none !important;
+    transition: none !important;
+  }
+
+  /* Kill Bauhaus ring spin */
+  .animate-\[spin_90s_linear_infinite\] {
+    animation: none !important;
+  }
+
+  /* Catch-all: collapse all remaining durations */
+  * {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}

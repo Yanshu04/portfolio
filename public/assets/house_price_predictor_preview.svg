@@ -1,0 +1,38 @@
+<svg width="1280" height="720" viewBox="0 0 1280 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1280" height="720" fill="#0B0B0C"/>
+  <rect x="48" y="48" width="1184" height="624" rx="28" fill="#111114" stroke="#F5F2EB" stroke-width="2"/>
+  
+  {/* Side controls dashboard mockup */}
+  <rect x="96" y="96" width="382" height="528" rx="20" fill="#1B1B21" stroke="#E53E3E" stroke-width="3"/>
+  <text x="140" y="170" fill="#F5F2EB" font-family="Arial, Helvetica, sans-serif" font-size="36" font-weight="700">HOUSE PRICE</text>
+  <text x="140" y="215" fill="#F5F2EB" font-family="Arial, Helvetica, sans-serif" font-size="36" font-weight="700">PREDICTOR</text>
+  <text x="140" y="270" fill="#A3A3A3" font-family="Arial, Helvetica, sans-serif" font-size="20">Ames Iowa dataset</text>
+  <text x="140" y="305" fill="#A3A3A3" font-family="Arial, Helvetica, sans-serif" font-size="20">XGBoost Regressor model</text>
+  
+  {/* Sliders in mockup */}
+  <rect x="140" y="360" width="294" height="12" rx="6" fill="#2B2B33"/>
+  <circle cx="280" cy="366" r="14" fill="#E53E3E"/>
+  <text x="140" y="395" fill="#A3A3A3" font-family="Arial, Helvetica, sans-serif" font-size="16">Overall Quality: 7/10</text>
+  
+  <rect x="140" y="430" width="294" height="12" rx="6" fill="#2B2B33"/>
+  <circle cx="340" cy="436" r="14" fill="#2B6CB0"/>
+  <text x="140" y="465" fill="#A3A3A3" font-family="Arial, Helvetica, sans-serif" font-size="16">Living Area: 1,800 sqft</text>
+
+  <rect x="140" y="500" width="294" height="12" rx="6" fill="#2B2B33"/>
+  <circle cx="210" cy="506" r="14" fill="#D69E2E"/>
+  <text x="140" y="535" fill="#A3A3A3" font-family="Arial, Helvetica, sans-serif" font-size="16">Year Built: 2005</text>
+  
+  {/* Right details panels */}
+  <rect x="516" y="96" width="668" height="220" rx="20" fill="#1B1B21" stroke="#D69E2E" stroke-width="3"/>
+  <text x="560" y="160" fill="#F5F2EB" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">Appraised Valuation Output</text>
+  <rect x="560" y="190" width="582" height="90" rx="14" fill="#0B0B0C" stroke="#2B2B33" stroke-width="2"/>
+  <text x="590" y="250" fill="#10B981" font-family="Arial, Helvetica, sans-serif" font-size="52" font-weight="700" letter-spacing="1">$234,500</text>
+  
+  {/* Bottom analysis panels */}
+  <rect x="516" y="348" width="668" height="276" rx="20" fill="#1B1B21" stroke="#2B6CB0" stroke-width="3"/>
+  <text x="560" y="410" fill="#F5F2EB" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">API Telemetry Info</text>
+  <rect x="560" y="435" width="580" height="24" rx="12" fill="#2B2B33"/>
+  <rect x="560" y="475" width="460" height="24" rx="12" fill="#2B2B33"/>
+  
+  <text x="560" y="560" fill="#FAF9F6" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700">Flask REST API • XGBoost • Render</text>
+</svg>

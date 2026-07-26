@@ -1,0 +1,15 @@
+<svg width="1200" height="675" viewBox="0 0 1200 675" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="675" fill="#0B0B0C"/>
+  <rect x="48" y="48" width="1104" height="579" rx="28" fill="#141416" stroke="#E53E3E" stroke-width="6"/>
+  <circle cx="980" cy="170" r="110" fill="#D69E2E" opacity="0.95"/>
+  <circle cx="230" cy="480" r="148" fill="#2B6CB0" opacity="0.92"/>
+  <rect x="124" y="126" width="460" height="60" rx="8" fill="#FAF9F6"/>
+  <rect x="124" y="214" width="610" height="26" rx="5" fill="#9CA3AF"/>
+  <rect x="124" y="256" width="538" height="26" rx="5" fill="#9CA3AF"/>
+  <rect x="124" y="298" width="460" height="26" rx="5" fill="#9CA3AF"/>
+  <rect x="124" y="370" width="250" height="88" rx="14" fill="#E53E3E"/>
+  <rect x="394" y="370" width="250" height="88" rx="14" fill="#D69E2E"/>
+  <rect x="664" y="370" width="250" height="88" rx="14" fill="#2B6CB0"/>
+  <text x="124" y="560" fill="#FAF9F6" font-family="Arial, Helvetica, sans-serif" font-size="56" font-weight="700" letter-spacing="2">IPL MATCH WINNER PREDICTOR</text>
+  <text x="124" y="612" fill="#9CA3AF" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="400">Chronological split • leak-free evaluation • honest 42.65% result</text>
+</svg>

@@ -1,0 +1,38 @@
+<svg width="1280" height="720" viewBox="0 0 1280 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1280" height="720" fill="#0B0B0C"/>
+  <rect x="48" y="48" width="1184" height="624" rx="28" fill="#111114" stroke="#F5F2EB" stroke-width="2"/>
+  
+  {/* Side Controls panel mockup */}
+  <rect x="96" y="96" width="382" height="528" rx="20" fill="#1B1B21" stroke="#2B6CB0" stroke-width="3"/>
+  <text x="140" y="170" fill="#F5F2EB" font-family="Arial, Helvetica, sans-serif" font-size="44" font-weight="700">AR SKETCH</text>
+  <text x="140" y="220" fill="#FAF9F6" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700">MediaPipe Tracker</text>
+  <text x="140" y="270" fill="#A3A3A3" font-family="Arial, Helvetica, sans-serif" font-size="18">60 FPS WebAssembly GPU</text>
+  <text x="140" y="305" fill="#A3A3A3" font-family="Arial, Helvetica, sans-serif" font-size="18">21 keypoint hand landmarks</text>
+  
+  {/* UI Controls in mockup */}
+  <rect x="140" y="356" width="294" height="34" rx="8" fill="#E53E3E" opacity="0.95"/>
+  <text x="160" y="378" fill="#FAF9F6" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="700">BRUSH STYLE: NEON</text>
+
+  <rect x="140" y="416" width="294" height="34" rx="8" fill="#2B6CB0" opacity="0.95"/>
+  <text x="160" y="438" fill="#FAF9F6" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="700">TRACKING SENSITIVITY: 95%</text>
+  
+  {/* Interactive Canvas Canvas view with hand lines */}
+  <rect x="516" y="96" width="668" height="528" rx="20" fill="#0B0B0C" stroke="#E53E3E" stroke-width="3"/>
+  <text x="560" y="150" fill="#A3A3A3" font-family="Arial, Helvetica, sans-serif" font-size="16">WEBCAM SIGNAL ACTIVE</text>
+  
+  {/* Custom hand skeleton vector graph */}
+  <circle cx="750" cy="350" r="10" fill="#FAF9F6"/>
+  <circle cx="790" cy="310" r="8" fill="#2B6CB0"/>
+  <circle cx="830" cy="280" r="8" fill="#2B6CB0"/>
+  <circle cx="870" cy="260" r="8" fill="#2B6CB0"/>
+  
+  <line x1="750" y1="350" x2="790" y2="310" stroke="#2B6CB0" stroke-width="4"/>
+  <line x1="790" y1="310" x2="830" y2="280" stroke="#2B6CB0" stroke-width="4"/>
+  <line x1="830" y1="280" x2="870" y2="260" stroke="#2B6CB0" stroke-width="4"/>
+
+  {/* Draw lines */}
+  <path d="M 870 260 Q 950 200 1020 320 T 1120 400" fill="none" stroke="#E53E3E" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" opacity="0.8"/>
+  <circle cx="1120" cy="400" r="16" fill="#E53E3E" opacity="0.4"/>
+  
+  <text x="560" y="580" fill="#FAF9F6" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700">TypeScript • MediaPipe SDK • Canvas API • Vite</text>
+</svg>
