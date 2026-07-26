@@ -24,38 +24,72 @@ export default function ContactForm() {
     }
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!name || !email || !message) return;
 
     setIsSubmitting(true);
 
-    setTimeout(() => {
-      const newMessage: ContactMessage = {
-        name,
-        email,
-        subject: subject || "General Inquiry",
-        message,
-        timestamp: new Date().toLocaleString()
-      };
+    const newMessage: ContactMessage = {
+      name,
+      email,
+      subject: subject || "General Inquiry",
+      message,
+      timestamp: new Date().toLocaleString()
+    };
 
+    try {
+      // Send directly to Yanshu's email inbox via FormSubmit API endpoint
+      const response = await fetch("https://formsubmit.co/ajax/yanshushingala@gmail.com", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify({
+          name: name,
+          email: email,
+          _subject: subject ? `Portfolio Transmission: ${subject}` : `New Portfolio Transmission from ${name}`,
+          message: message,
+          _replyto: email,
+          _template: "table"
+        })
+      });
+
+      // Save locally to guest logs regardless
       const updated = [newMessage, ...messageLog];
       setMessageLog(updated);
       localStorage.setItem("yanshu_portfolio_messages", JSON.stringify(updated));
 
-      // Reset Form fields
+      if (!response.ok) {
+        // Mailto fallback if endpoint fails
+        window.open(
+          `mailto:yanshushingala@gmail.com?subject=${encodeURIComponent(subject || "Portfolio Transmission")}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`)}`
+        );
+      }
+    } catch (err) {
+      console.error("FormSubmit transmission error, triggering mailto fallback:", err);
+      const updated = [newMessage, ...messageLog];
+      setMessageLog(updated);
+      localStorage.setItem("yanshu_portfolio_messages", JSON.stringify(updated));
+      
+      window.open(
+        `mailto:yanshushingala@gmail.com?subject=${encodeURIComponent(subject || "Portfolio Transmission")}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`)}`
+      );
+    } finally {
+      // Reset form fields
       setName("");
       setEmail("");
       setSubject("");
       setMessage("");
-      
+
       setIsSubmitting(false);
       setSubmitSuccess(true);
 
       setTimeout(() => {
         setSubmitSuccess(false);
-      }, 5000);
-    }, 1200);
+      }, 6000);
+    }
   };
 
   const clearGuestbook = () => {
@@ -156,7 +190,7 @@ export default function ContactForm() {
             {submitSuccess && (
               <div className="flex items-center gap-2 text-emerald-500 light:text-emerald-700 font-mono text-xs md:text-sm font-bold">
                 <CheckCircle className="w-4 h-4" />
-                <span>LOGGED SECURELY IN GUESTBOOK</span>
+                <span>TRANSMISSION DISPATCHED TO YANSHU'S INBOX! 📩</span>
               </div>
             )}
           </div>
