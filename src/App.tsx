@@ -125,16 +125,15 @@ export default function App() {
   }, []);
 
   const handleTouchStart = (e: React.TouchEvent) => {
-    if (layoutMode !== "carousel") return;
     setStartX(e.touches[0].clientX);
   };
 
   const handleTouchMove = (e: React.TouchEvent) => {
-    if (startX === null || layoutMode !== "carousel") return;
+    if (startX === null) return;
     const currentX = e.touches[0].clientX;
     const diffX = startX - currentX;
 
-    if (Math.abs(diffX) > 50) {
+    if (Math.abs(diffX) > 40) {
       if (diffX > 0) {
         setActiveIdx((prev) => (prev + 1) % PROJECTS.length);
       } else {
@@ -145,16 +144,15 @@ export default function App() {
   };
 
   const handleMouseDown = (e: React.MouseEvent) => {
-    if (layoutMode !== "carousel") return;
     setStartX(e.clientX);
   };
 
   const handleMouseMove = (e: React.MouseEvent) => {
-    if (startX === null || layoutMode !== "carousel") return;
+    if (startX === null) return;
     const currentX = e.clientX;
     const diffX = startX - currentX;
 
-    if (Math.abs(diffX) > 60) {
+    if (Math.abs(diffX) > 50) {
       if (diffX > 0) {
         setActiveIdx((prev) => (prev + 1) % PROJECTS.length);
       } else {
@@ -267,8 +265,8 @@ export default function App() {
               <div className="w-24 h-2 bg-[#2B6CB0]"></div>
             </div>
 
-            {/* Dynamic Layout Switcher */}
-            <div className="flex bg-black light:bg-[#f5f2eb] border-2 border-white light:border-black p-1 font-mono text-[10px] sm:text-xs select-none shadow-bauhaus-sm">
+            {/* Dynamic Layout Switcher (Desktop viewports only) */}
+            <div className="hidden md:flex bg-black light:bg-[#f5f2eb] border-2 border-white light:border-black p-1 font-mono text-[10px] sm:text-xs select-none shadow-bauhaus-sm">
               <button
                 onClick={() => setLayoutMode("carousel")}
                 className={`px-4 py-1.5 font-black uppercase tracking-wider transition-all cursor-pointer border-2 ${
@@ -293,124 +291,124 @@ export default function App() {
           </div>
         </FadeInSection>
 
-        {/* 1. Carousel Slider Layout */}
-        {layoutMode === "carousel" && (
-          <div className="relative w-full py-6">
-            {/* Stage Area - Height configured for horizontal overlapping cards. Touch/drag/scroll listeners enabled */}
-            <div 
-              ref={stageRef}
-              onTouchStart={handleTouchStart}
-              onTouchMove={handleTouchMove}
-              onMouseDown={handleMouseDown}
-              onMouseMove={handleMouseMove}
-              onMouseUp={handleMouseUp}
-              onMouseLeave={handleMouseUp}
-              className="relative h-[1060px] sm:h-[980px] w-full flex items-start pt-8 sm:pt-12 justify-center overflow-hidden select-none cursor-grab active:cursor-grabbing"
-            >
-              {PROJECTS.map((project, idx) => {
-                // Calculate difference from active index
-                let diff = idx - activeIdx;
-                
-                // Wrap around for carousel loop
-                const len = PROJECTS.length;
-                if (diff < -len / 2) diff += len;
-                if (diff > len / 2) diff -= len;
-                
-                const isCenter = diff === 0;
-                const isLeft = diff === -1;
-                const isRight = diff === 1;
-                const isVisible = Math.abs(diff) <= 1; // Only render left, center, right
-                
-                if (!isVisible) return null;
-                
-                // Determine position and styling via React inline CSS (safeguarding dynamic transitions across all viewport sizes)
-                const cardStyle: React.CSSProperties = isCenter
-                  ? {
-                      transform: "translateX(0) scale(1)",
-                      opacity: 1,
-                      zIndex: 30,
-                    }
-                  : isLeft
-                  ? {
-                      transform: "translateX(-95%) scale(0.85)",
-                      opacity: 0.5,
-                      zIndex: 10,
-                      pointerEvents: "auto",
-                    }
-                  : {
-                      transform: "translateX(95%) scale(0.85)",
-                      opacity: 0.5,
-                      zIndex: 10,
-                      pointerEvents: "auto",
-                    };
-                
-                return (
-                  <div
-                    key={project.id}
-                    onClick={() => {
-                      if (!isCenter) {
-                        setActiveIdx(idx);
-                      }
-                    }}
-                    onWheel={(e) => {
-                      if (isCenter) {
-                        // Stop propagation so vertical scrolls inside the card content work normally
-                        e.stopPropagation();
-                      }
-                    }}
-                    style={cardStyle}
-                    className={`absolute top-4 sm:top-8 w-full max-w-md px-4 transition-all duration-500 ease-out ${isCenter ? 'max-h-[900px] overflow-y-auto cursor-default' : 'h-auto overflow-hidden cursor-pointer'}`}
-                  >
-                    <ProjectCard
-                      project={project}
-                      isActive={isCenter}
-                    />
-                  </div>
-                );
-              })}
-            </div>
-
-            {/* Tactile Editorial Carousel Control Bar */}
-            <div className="flex items-center justify-center gap-6 mt-8 font-mono select-none relative z-20">
-              <button
-                onClick={() => setActiveIdx((prev) => (prev - 1 + PROJECTS.length) % PROJECTS.length)}
-                className="p-3 border-2 border-white light:border-black bg-[#16161A] light:bg-white text-white light:text-black hover:bg-[#E53E3E] hover:text-white light:hover:bg-[#E53E3E] light:hover:text-white transition-all shadow-bauhaus-sm cursor-pointer"
-                aria-label="Previous Project"
-              >
-                <ArrowRight className="w-4 h-4 transform rotate-180" />
-              </button>
+        {/* 1. Carousel Slider Layout (Always active on mobile; active on desktop when carousel selected) */}
+        <div className={`relative w-full py-6 ${layoutMode === "carousel" ? "block" : "block md:hidden"}`}>
+          {/* Stage Area - Height configured for horizontal overlapping cards. Touch/drag/scroll listeners enabled */}
+          <div 
+            ref={stageRef}
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onMouseDown={handleMouseDown}
+            onMouseMove={handleMouseMove}
+            onMouseUp={handleMouseUp}
+            onMouseLeave={handleMouseUp}
+            className="relative h-[1060px] sm:h-[980px] w-full flex items-start pt-8 sm:pt-12 justify-center overflow-hidden select-none cursor-grab active:cursor-grabbing"
+          >
+            {PROJECTS.map((project, idx) => {
+              // Calculate difference from active index
+              let diff = idx - activeIdx;
               
-              <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest bg-black light:bg-[#f5f2eb] border-2 border-white light:border-black px-5 py-2.5 shadow-bauhaus-sm">
-                <span className="text-[#E53E3E]">0{activeIdx + 1}</span>
-                <span className="text-neutral-500">/</span>
-                <span>0{PROJECTS.length}</span>
-              </div>
-
-              <button
-                onClick={() => setActiveIdx((prev) => (prev + 1) % PROJECTS.length)}
-                className="p-3 border-2 border-white light:border-black bg-[#16161A] light:bg-white text-white light:text-black hover:bg-[#E53E3E] hover:text-white light:hover:bg-[#E53E3E] light:hover:text-white transition-all shadow-bauhaus-sm cursor-pointer"
-                aria-label="Next Project"
-              >
-                <ArrowRight className="w-4 h-4" />
-              </button>
-            </div>
-          </div>
-        )}
-
-        {/* 2. Showcase Grid Layout */}
-        {layoutMode === "grid" && (
-          <FadeInSection>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full mt-6">
-              {PROJECTS.map((project) => (
-                <div key={project.id} className="flex flex-col h-full stagger-child hover-lift">
+              // Wrap around for carousel loop
+              const len = PROJECTS.length;
+              if (diff < -len / 2) diff += len;
+              if (diff > len / 2) diff -= len;
+              
+              const isCenter = diff === 0;
+              const isLeft = diff === -1;
+              const isRight = diff === 1;
+              const isVisible = Math.abs(diff) <= 1; // Only render left, center, right
+              
+              if (!isVisible) return null;
+              
+              // Determine position and styling via React inline CSS (safeguarding dynamic transitions across all viewport sizes)
+              const cardStyle: React.CSSProperties = isCenter
+                ? {
+                    transform: "translateX(0) scale(1)",
+                    opacity: 1,
+                    zIndex: 30,
+                  }
+                : isLeft
+                ? {
+                    transform: "translateX(-95%) scale(0.85)",
+                    opacity: 0.5,
+                    zIndex: 10,
+                    pointerEvents: "auto",
+                  }
+                : {
+                    transform: "translateX(95%) scale(0.85)",
+                    opacity: 0.5,
+                    zIndex: 10,
+                    pointerEvents: "auto",
+                  };
+              
+              return (
+                <div
+                  key={project.id}
+                  onClick={() => {
+                    if (!isCenter) {
+                      setActiveIdx(idx);
+                    }
+                  }}
+                  onWheel={(e) => {
+                    if (isCenter) {
+                      // Stop propagation so vertical scrolls inside the card content work normally
+                      e.stopPropagation();
+                    }
+                  }}
+                  style={cardStyle}
+                  className={`absolute top-4 sm:top-8 w-full max-w-md px-4 transition-all duration-500 ease-out ${isCenter ? 'max-h-[900px] overflow-y-auto cursor-default' : 'h-auto overflow-hidden cursor-pointer'}`}
+                >
                   <ProjectCard
                     project={project}
-                    isActive={true}
+                    isActive={isCenter}
                   />
                 </div>
-              ))}
+              );
+            })}
+          </div>
+
+          {/* Tactile Editorial Carousel Control Bar */}
+          <div className="flex items-center justify-center gap-6 mt-8 font-mono select-none relative z-20">
+            <button
+              onClick={() => setActiveIdx((prev) => (prev - 1 + PROJECTS.length) % PROJECTS.length)}
+              className="p-3 border-2 border-white light:border-black bg-[#16161A] light:bg-white text-white light:text-black hover:bg-[#E53E3E] hover:text-white light:hover:bg-[#E53E3E] light:hover:text-white transition-all shadow-bauhaus-sm cursor-pointer"
+              aria-label="Previous Project"
+            >
+              <ArrowRight className="w-4 h-4 transform rotate-180" />
+            </button>
+            
+            <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest bg-black light:bg-[#f5f2eb] border-2 border-white light:border-black px-5 py-2.5 shadow-bauhaus-sm">
+              <span className="text-[#E53E3E]">0{activeIdx + 1}</span>
+              <span className="text-neutral-500">/</span>
+              <span>0{PROJECTS.length}</span>
             </div>
-          </FadeInSection>
+
+            <button
+              onClick={() => setActiveIdx((prev) => (prev + 1) % PROJECTS.length)}
+              className="p-3 border-2 border-white light:border-black bg-[#16161A] light:bg-white text-white light:text-black hover:bg-[#E53E3E] hover:text-white light:hover:bg-[#E53E3E] light:hover:text-white transition-all shadow-bauhaus-sm cursor-pointer"
+              aria-label="Next Project"
+            >
+              <ArrowRight className="w-4 h-4" />
+            </button>
+          </div>
+        </div>
+
+        {/* 2. Showcase Grid Layout (Desktop viewports only when grid selected) */}
+        {layoutMode === "grid" && (
+          <div className="hidden md:block">
+            <FadeInSection>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full mt-6">
+                {PROJECTS.map((project) => (
+                  <div key={project.id} className="flex flex-col h-full stagger-child hover-lift">
+                    <ProjectCard
+                      project={project}
+                      isActive={true}
+                    />
+                  </div>
+                ))}
+              </div>
+            </FadeInSection>
+          </div>
         )}
       </section>
 
