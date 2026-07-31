@@ -206,7 +206,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0B0B0C] bg-grid-pattern text-[#FAF9F6] light:bg-[#FAF9F6] light:text-[#0B0B0C] transition-colors duration-300 overflow-x-hidden selection:bg-[#E53E3E] selection:text-white font-sans relative">
+    <div className="min-h-screen bg-[#090D16] bg-grid-pattern text-[#F8FAFC] light:bg-[#FAF9F5] light:text-[#0F172A] transition-colors duration-300 overflow-x-hidden selection:bg-[#E53E3E] selection:text-white font-sans relative">
       <SmoothScroll />
 
       {/* Initial Page Skeleton Shimmer Loader */}
@@ -534,7 +534,7 @@ export default function App() {
 
       {/* Footer boundary elements */}
       <FadeInSection>
-        <footer className="bg-[#08080c] light:bg-[#f5f2eb] border-t border-neutral-950 light:border-slate-200 py-16 px-[8%] md:px-[12%] lg:px-[14%] relative z-10">
+        <footer className="bg-[#050811] light:bg-[#F1F0EA] border-t border-slate-800/80 light:border-slate-300 py-16 px-[8%] md:px-[12%] lg:px-[14%] relative z-10">
           <div className="w-full flex flex-col md:flex-row justify-between items-center gap-8 text-neutral-400 light:text-slate-500">
             <div className="font-mono text-lg font-bold tracking-tighter uppercase text-white light:text-slate-900">
               YS
