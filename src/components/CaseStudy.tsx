@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Terminal } from "lucide-react";
+import { Terminal, ShieldAlert, Cpu, Activity } from "lucide-react";
+import { motion, AnimatePresence } from "motion/react";
 import ProjectSpecs from "./ProjectSpecs";
 import { Project } from "../types";
 
@@ -10,7 +11,6 @@ interface CaseStudyProps {
 export default function CaseStudy({ project }: CaseStudyProps) {
   const [activeTab, setActiveTab] = useState<"challenge" | "process" | "telemetry">("challenge");
 
-  // Custom data map to flesh out case studies from first principles
   const caseStudiesMap: Record<string, {
     challenge: string;
     process: string[];
@@ -102,7 +102,7 @@ export default function CaseStudy({ project }: CaseStudyProps) {
       ]
     },
     "solar-tracker": {
-      challenge: "Designing a responsive Android dashboard that consolidates real-time solar panel telemetry, weather data, and performance forecasting into a single cohesive interface. The core challenge was building a reactive MVVM architecture that keeps the UI state consistent with asynchronous data streams from multiple APIs without introducing jitter or stale reads.",
+      challenge: "Designing a responsive Android dashboard that consolidates real-time solar panel telemetry, weather data, and performance forecasting into a single cohesive interface.",
       process: [
         "Architected a clean MVVM separation with Kotlin StateFlow for reactive UI updates from live panel status APIs.",
         "Integrated a weather REST API scoped to the Rajkot region to derive irradiance-adjusted performance forecasts.",
@@ -120,26 +120,30 @@ export default function CaseStudy({ project }: CaseStudyProps) {
   const study = caseStudiesMap[project.id] || {
     challenge: project.description,
     process: project.highlights,
-    metrics: []
+    metrics: project.specs ?? []
   };
 
   return (
     <div className="border-t border-neutral-800 light:border-neutral-200 mt-6 pt-5">
       {/* Case Study Tabs Selector */}
-      <div className="flex border-b border-neutral-850 light:border-neutral-200 pb-2 mb-5 select-none text-[11px] md:text-xs font-mono">
+      <div className="flex border-b border-neutral-850 light:border-neutral-200 pb-2 mb-5 select-none text-[11px] md:text-xs font-mono gap-4">
         {(["challenge", "process", "telemetry"] as const).map((tab) => (
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
-            className={`mr-4 pb-2 uppercase font-bold tracking-widest relative cursor-pointer transition-colors ${
+            className={`pb-2 uppercase font-bold tracking-widest relative cursor-pointer transition-colors flex items-center gap-1.5 ${
               activeTab === tab 
-                ? "text-[#DC3D24] light:text-[#DC3D24] font-black" 
+                ? "text-[#E53E3E] light:text-[#2B6CB0] font-black" 
                 : "text-neutral-500 hover:text-white light:hover:text-black"
             }`}
           >
             <span>{tab}</span>
             {activeTab === tab && (
-              <span className="absolute bottom-0 left-0 w-full h-[2px] bg-[#DC3D24]" />
+              <motion.div
+                layoutId={`caseStudyActiveTab-${project.id}`}
+                transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                className="absolute bottom-0 left-0 right-0 h-[2.5px] bg-[#E53E3E] light:bg-[#2B6CB0]"
+              />
             )}
           </button>
         ))}
@@ -147,55 +151,81 @@ export default function CaseStudy({ project }: CaseStudyProps) {
 
       {/* Tab Contents */}
       <div className="min-h-[140px] font-sans">
-        {activeTab === "challenge" && (
-          <div className="space-y-3 animate-fade-in-up">
-            <h4 className="text-[10px] md:text-xs uppercase font-mono tracking-widest text-[#E3B448] light:text-blue-800 font-bold">
-              [The Challenge Statement]
-            </h4>
-            <p className="text-sm md:text-[15px] text-neutral-300 light:text-neutral-700 leading-relaxed font-sans font-medium">
-              {study.challenge}
-            </p>
-          </div>
-        )}
+        <AnimatePresence mode="wait">
+          {activeTab === "challenge" && (
+            <motion.div
+              key="challenge"
+              initial={{ opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -6 }}
+              transition={{ duration: 0.2 }}
+              className="space-y-3"
+            >
+              <h4 className="text-[10px] md:text-xs uppercase font-mono tracking-widest text-[#D69E2E] light:text-blue-800 font-bold flex items-center gap-1.5">
+                <ShieldAlert className="w-3.5 h-3.5 text-[#E53E3E]" />
+                <span>[THE CHALLENGE STATEMENT]</span>
+              </h4>
+              <p className="text-sm md:text-[15px] text-neutral-300 light:text-neutral-700 leading-relaxed font-sans font-medium">
+                {study.challenge}
+              </p>
+            </motion.div>
+          )}
 
-        {activeTab === "process" && (
-          <div className="space-y-4 animate-fade-in-up">
-            <h4 className="text-[10px] md:text-xs uppercase font-mono tracking-widest text-[#E3B448] light:text-blue-800 font-bold mb-2">
-              [Engineering Milestones]
-            </h4>
-            <ul className="space-y-2.5">
-              {study.process.map((step, idx) => (
-                <li key={idx} className="flex gap-3 items-start leading-snug">
-                  <div className="w-5 h-5 border border-neutral-700 light:border-black flex items-center justify-center font-mono text-[10px] text-neutral-400 light:text-neutral-800 shrink-0 font-bold bg-neutral-900 light:bg-[#f5f2eb]">
-                    0{idx + 1}
-                  </div>
-                  <span className="text-sm text-neutral-300 light:text-neutral-700">
-                    {step}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
+          {activeTab === "process" && (
+            <motion.div
+              key="process"
+              initial={{ opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -6 }}
+              transition={{ duration: 0.2 }}
+              className="space-y-4"
+            >
+              <h4 className="text-[10px] md:text-xs uppercase font-mono tracking-widest text-[#D69E2E] light:text-blue-800 font-bold flex items-center gap-1.5 mb-2">
+                <Cpu className="w-3.5 h-3.5 text-[#2B6CB0]" />
+                <span>[ENGINEERING MILESTONES]</span>
+              </h4>
+              <ul className="space-y-2.5">
+                {study.process.map((step, idx) => (
+                  <li key={idx} className="flex gap-3 items-start leading-snug">
+                    <div className="w-5 h-5 border border-neutral-700 light:border-black flex items-center justify-center font-mono text-[10px] text-neutral-400 light:text-neutral-800 shrink-0 font-bold bg-black light:bg-[#f5f2eb]">
+                      0{idx + 1}
+                    </div>
+                    <span className="text-sm text-neutral-300 light:text-neutral-700">
+                      {step}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+          )}
 
-        {activeTab === "telemetry" && (
-          <div className="space-y-4 animate-fade-in-up">
-            <h4 className="text-[10px] md:text-xs uppercase font-mono tracking-widest text-[#E3B448] light:text-blue-800 font-bold mb-3">
-              [Hardware & Core Performance Telemetry]
-            </h4>
-            
-            {/* Specs Grid */}
-            <ProjectSpecs specs={study.metrics} />
+          {activeTab === "telemetry" && (
+            <motion.div
+              key="telemetry"
+              initial={{ opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -6 }}
+              transition={{ duration: 0.2 }}
+              className="space-y-4"
+            >
+              <h4 className="text-[10px] md:text-xs uppercase font-mono tracking-widest text-[#D69E2E] light:text-blue-800 font-bold flex items-center gap-1.5 mb-3">
+                <Activity className="w-3.5 h-3.5 text-[#E53E3E]" />
+                <span>[HARDWARE &amp; TELEMETRY SPECS]</span>
+              </h4>
+              
+              {/* Specs Grid */}
+              <ProjectSpecs specs={study.metrics} />
 
-            {/* Code / Mathematical Equation Panel */}
-            {study.formula && (
-              <div className="bg-[#0B0B0C] border border-neutral-800 light:border-black p-3.5 flex items-center gap-3 font-mono text-[10px] md:text-[11px] text-emerald-500 light:text-emerald-700 select-all">
-                <Terminal className="w-4 h-4 text-emerald-500 shrink-0" />
-                <span>{study.formula}</span>
-              </div>
-            )}
-          </div>
-        )}
+              {/* Code / Mathematical Equation Panel */}
+              {study.formula && (
+                <div className="bg-[#0B0B0C] border border-neutral-800 light:border-black p-3 flex items-center gap-3 font-mono text-[10px] md:text-[11px] text-emerald-400 light:text-emerald-700 select-all">
+                  <Terminal className="w-4 h-4 text-emerald-400 shrink-0" />
+                  <span>{study.formula}</span>
+                </div>
+              )}
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </div>
   );

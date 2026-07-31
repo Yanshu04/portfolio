@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Sun, Moon, Menu, X, Cpu } from "lucide-react";
+import { motion } from "motion/react";
 
 interface HeaderProps {
   darkMode: boolean;
@@ -29,6 +30,7 @@ export default function Header({ darkMode, onToggleTheme }: HeaderProps) {
     { label: "Work", href: "#work" },
     { label: "Playgrounds", href: "#playgrounds" },
     { label: "Skills", href: "#skills" },
+    { label: "Tech Stack", href: "#tech-stack" },
     { label: "About", href: "#about" },
     { label: "Education", href: "#education" },
     { label: "Contact", href: "#contact" }
@@ -37,34 +39,37 @@ export default function Header({ darkMode, onToggleTheme }: HeaderProps) {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 h-20 border-b-2 ${
-          isScrolled
+        className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 h-20 border-b-2 ${isScrolled
             ? "bg-[#121212]/95 light:bg-[#FAF8F5]/95 backdrop-blur-md h-16 border-white light:border-black"
             : "bg-transparent border-transparent"
-        }`}
+          }`}
       >
         <div className="w-full px-[8%] md:px-[12%] lg:px-[14%] h-full flex items-center justify-between">
           {/* Logo Name branding - bold title font */}
-          <a
+          <motion.a
             href="#"
-            className="flex items-center gap-1.5 font-title text-[13px] sm:text-base font-black tracking-tight uppercase select-none transition-opacity hover:opacity-85 whitespace-nowrap"
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.97 }}
+            className="flex items-center gap-1.5 font-title text-[13px] sm:text-base font-black tracking-tight uppercase select-none whitespace-nowrap"
             style={{ color: darkMode ? "#FAF8F5" : "#121212" }}
           >
             <Cpu className="w-4 h-4 sm:w-5 sm:h-5 text-[#DC3D24]" />
             <span>YANSHU SHINGALA</span>
-          </a>
+          </motion.a>
 
           {/* Desktop Right Side Control Actions */}
-          <div className="hidden md:flex items-center gap-8 font-sans">
-            <nav className="flex items-center gap-8 text-xs uppercase tracking-widest font-bold">
+          <div className="hidden md:flex items-center gap-4 lg:gap-6 xl:gap-8 font-sans">
+            <nav className="flex items-center gap-3.5 lg:gap-5 xl:gap-7 text-xs uppercase tracking-widest font-bold whitespace-nowrap">
               {navLinks.map((link) => (
-                <a
+                <motion.a
                   key={link.label}
                   href={link.href}
-                  className="text-neutral-400 light:text-neutral-600 hover:text-[#DC3D24] light:hover:text-[#DC3D24] transition-colors duration-200"
+                  whileHover={{ y: -2, color: "#DC3D24" }}
+                  whileTap={{ y: 0 }}
+                  className="text-neutral-400 light:text-neutral-600 transition-colors duration-200"
                 >
                   {link.label}
-                </a>
+                </motion.a>
               ))}
             </nav>
 
@@ -72,20 +77,24 @@ export default function Header({ darkMode, onToggleTheme }: HeaderProps) {
             <div className="w-[2px] h-5 bg-neutral-800 light:bg-neutral-300"></div>
 
             {/* Dark & Light mode controller */}
-            <button
+            <motion.button
               onClick={onToggleTheme}
-              className="p-1.5 border-2 border-white light:border-black hover:bg-neutral-800 light:hover:bg-neutral-200 bg-neutral-950 light:bg-white text-white light:text-black transition-all active:scale-95 cursor-pointer"
+              whileHover={{ scale: 1.08, rotate: 15 }}
+              whileTap={{ scale: 0.92 }}
+              className="p-1.5 border-2 border-white light:border-black hover:bg-neutral-800 light:hover:bg-neutral-200 bg-neutral-950 light:bg-white text-white light:text-black transition-all cursor-pointer"
               title={darkMode ? "Switch to light mode" : "Switch to dark mode"}
             >
               {darkMode ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
-            </button>
+            </motion.button>
 
             {/* Action Resume button in Bauhaus style */}
-            <a
+            <motion.a
               href="yanshu-shingala-resume.pdf"
               download="Yanshu_Shingala_Resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
+              whileHover={{ scale: 1.04, y: -2 }}
+              whileTap={{ scale: 0.96, y: 0 }}
               className="px-5 py-2 border-2 border-white light:border-black font-mono text-xs uppercase font-black tracking-widest transition-all shadow-bauhaus-sm"
               style={{
                 backgroundColor: "#E3B448",
@@ -93,24 +102,26 @@ export default function Header({ darkMode, onToggleTheme }: HeaderProps) {
               }}
             >
               RESUME
-            </a>
+            </motion.a>
           </div>
 
           {/* Mobile responsive toggle */}
           <div className="flex items-center gap-4 md:hidden">
-            <button
+            <motion.button
               onClick={onToggleTheme}
+              whileTap={{ scale: 0.9 }}
               className="p-1.5 border-2 border-white light:border-black bg-neutral-950 light:bg-white text-white light:text-black transition-all"
             >
               {darkMode ? <Sun className="w-4.5 h-4.5" /> : <Moon className="w-4.5 h-4.5" />}
-            </button>
+            </motion.button>
 
-            <button
+            <motion.button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              whileTap={{ scale: 0.9 }}
               className="p-1.5 border-2 border-white light:border-black text-neutral-400 light:text-neutral-600 bg-neutral-950 light:bg-white"
             >
               {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-            </button>
+            </motion.button>
           </div>
         </div>
       </header>

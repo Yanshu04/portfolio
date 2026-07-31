@@ -17,11 +17,12 @@ import {
   HelpCircle,
   Layers3
 } from "lucide-react";
+import { motion, AnimatePresence } from "motion/react";
 
 import Header from "./components/Header";
 import ProjectCard from "./components/ProjectCard";
 import ContactForm from "./components/ContactForm";
-import FadeInSection from "./components/FadeInSection";
+import FadeInSection, { staggerChildVariants } from "./components/FadeInSection";
 import Education from "./components/Education";
 import Ticker from "./components/Ticker";
 import FloatingMascotPixel from "./components/FloatingMascotPixel";
@@ -30,10 +31,37 @@ import BackgroundGeometry from "./components/BackgroundGeometry";
 import Hero3DTilt from "./components/Hero3DTilt";
 import GizmoWelcomeIntro from "./components/GizmoWelcomeIntro";
 import SmoothScroll from "./components/SmoothScroll";
+import { FullPageSkeletonLoader } from "./components/SkeletonShimmer";
+import TypewriterHeroTitle from "./components/TypewriterHeroTitle";
+import TechStack from "./components/TechStack";
 import { PROJECTS, SKILL_CATEGORIES } from "./data";
 
+const gridContainerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.07,
+      delayChildren: 0.05,
+    },
+  },
+};
 
 export default function App() {
+  const [isPageLoading, setIsPageLoading] = useState<boolean>(() => {
+    if (typeof window !== "undefined") {
+      const hasVisited = sessionStorage.getItem("has_visited_site");
+      if (!hasVisited) {
+        // First time coming to website -> DO NOT show skeleton shimmer
+        sessionStorage.setItem("has_visited_site", "true");
+        return false;
+      }
+      // Reload or refresh -> show skeleton shimmer
+      return true;
+    }
+    return false;
+  });
+
   const [showWelcomeIntro, setShowWelcomeIntro] = useState<boolean>(() => {
     if (typeof window !== "undefined") {
       return !sessionStorage.getItem("gizmo_welcome_seen");
@@ -45,6 +73,16 @@ export default function App() {
   const [activeIdx, setActiveIdx] = useState<number>(0);
 
   const [layoutMode, setLayoutMode] = useState<"carousel" | "grid">("grid");
+
+  // Skeleton shimmer duration (active on page reload/refresh)
+  useEffect(() => {
+    if (isPageLoading) {
+      const timer = setTimeout(() => {
+        setIsPageLoading(false);
+      }, 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [isPageLoading]);
 
   // Load theme preference on mount
   useEffect(() => {
@@ -170,16 +208,24 @@ export default function App() {
     <div className="min-h-screen bg-[#0B0B0C] bg-grid-pattern text-[#FAF9F6] light:bg-[#FAF9F6] light:text-[#0B0B0C] transition-colors duration-300 overflow-x-hidden selection:bg-[#E53E3E] selection:text-white font-sans relative">
       <SmoothScroll />
 
+      {/* Initial Page Skeleton Shimmer Loader */}
+      <AnimatePresence>
+        {isPageLoading && <FullPageSkeletonLoader key="page-skeleton-loader" />}
+      </AnimatePresence>
+
       {/* Conditional Welcome Intro overlay showing only once per session */}
-      {showWelcomeIntro && (
-        <GizmoWelcomeIntro
-          onEnter={() => {
-            sessionStorage.setItem("gizmo_welcome_seen", "true");
-            setShowWelcomeIntro(false);
-          }}
-          darkMode={darkMode}
-        />
-      )}
+      <AnimatePresence>
+        {showWelcomeIntro && (
+          <GizmoWelcomeIntro
+            key="gizmo-welcome-intro"
+            onEnter={() => {
+              sessionStorage.setItem("gizmo_welcome_seen", "true");
+              setShowWelcomeIntro(false);
+            }}
+            darkMode={darkMode}
+          />
+        )}
+      </AnimatePresence>
 
       {/* Sidebar vertical border lines framing the entire content container (Bauhaus architecture) */}
       <div className="absolute top-0 bottom-0 left-[6%] md:left-[10%] lg:left-[12%] w-[1px] bg-neutral-900 light:bg-neutral-200 pointer-events-none hidden md:block z-0"></div>
@@ -203,39 +249,58 @@ export default function App() {
         </Hero3DTilt>
 
         <div className="w-full relative z-10 space-y-8 max-w-3xl">
-          <span className="text-[#E53E3E] light:text-[#2B6CB0] font-mono text-xs uppercase tracking-[0.25em] font-black block animate-fade-in-up opacity-0">
+          <motion.span
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, amount: 0.2 }}
+            transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+            className="text-[#E53E3E] light:text-[#2B6CB0] font-mono text-xs uppercase tracking-[0.25em] font-black block"
+          >
             Portfolio 2026 / AI • FULL-STACK ENG
-          </span>
+          </motion.span>
           
-          <h1 className="font-title text-4xl sm:text-6xl md:text-8xl font-black uppercase tracking-tight sm:tracking-tighter leading-[0.9] text-white light:text-black animate-fade-in-up opacity-0 delay-100">
-            Yanshu<br />Shingala
-          </h1>
+          <TypewriterHeroTitle startTyping={!showWelcomeIntro} className="font-title text-4xl sm:text-6xl md:text-8xl font-black uppercase tracking-tight sm:tracking-tighter leading-[0.9] text-white light:text-black" />
 
-          <div className="border-l-4 border-[#E53E3E] pl-6 max-w-2xl animate-fade-in-up opacity-0 delay-200">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, amount: 0.2 }}
+            transition={{ duration: 0.5, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            className="border-l-4 border-[#E53E3E] pl-6 max-w-2xl"
+          >
             <p className="text-[17px] md:text-[19px] text-neutral-300 light:text-neutral-700 leading-relaxed font-sans font-medium">
-              I construct browser-native execution pipelines and high-performance intelligent interfaces — from real-time computer vision streams to custom ML model telemetry.
-            </p>
-          </div>
+              I build intelligent AI systems—from industrial computer vision and machine learning applications to modern software that solves real-world problems.            </p>
+          </motion.div>
 
-          <div className="flex flex-col sm:flex-row gap-6 pt-4 animate-fade-in-up opacity-0 delay-300">
-            <a
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, amount: 0.2 }}
+            transition={{ duration: 0.5, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            className="flex flex-col sm:flex-row gap-6 pt-4"
+          >
+            <motion.a
               href="#work"
-              className="px-8 py-4 font-mono text-xs font-black uppercase tracking-widest bg-[#E53E3E] text-white border-2 border-white light:border-black shadow-bauhaus-sm transition-all text-center flex items-center justify-center gap-2 cursor-pointer hover:scale-[1.03]"
+              whileHover={{ scale: 1.04, y: -2 }}
+              whileTap={{ scale: 0.96, y: 0 }}
+              className="px-8 py-4 font-mono text-xs font-black uppercase tracking-widest bg-[#E53E3E] text-white border-2 border-white light:border-black shadow-bauhaus-sm transition-all text-center flex items-center justify-center gap-2 cursor-pointer"
             >
               <span>Explore Selected Work</span>
               <ArrowRight className="w-4 h-4" />
-            </a>
+            </motion.a>
             
-            <a
+            <motion.a
               href="https://github.com/Yanshu04"
               target="_blank"
               rel="noreferrer"
-              className="px-8 py-4 bg-[#D69E2E] text-black border-2 border-white light:border-black shadow-bauhaus-sm transition-all text-center flex items-center justify-center gap-2 cursor-pointer hover:scale-[1.03]"
+              whileHover={{ scale: 1.04, y: -2 }}
+              whileTap={{ scale: 0.96, y: 0 }}
+              className="px-8 py-4 bg-[#D69E2E] text-black border-2 border-white light:border-black shadow-bauhaus-sm transition-all text-center flex items-center justify-center gap-2 cursor-pointer"
             >
               <span>GitHub Codebases</span>
               <ExternalLink className="w-4 h-4 text-black" />
-            </a>
-          </div>
+            </motion.a>
+          </motion.div>
         </div>
 
         {/* Anchor link to move down */}
@@ -267,8 +332,10 @@ export default function App() {
 
             {/* Dynamic Layout Switcher (Desktop viewports only) */}
             <div className="hidden md:flex bg-black light:bg-[#f5f2eb] border-2 border-white light:border-black p-1 font-mono text-[10px] sm:text-xs select-none shadow-bauhaus-sm">
-              <button
+              <motion.button
                 onClick={() => setLayoutMode("carousel")}
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
                 className={`px-4 py-1.5 font-black uppercase tracking-wider transition-all cursor-pointer border-2 ${
                   layoutMode === "carousel"
                     ? "bg-[#E53E3E] text-white border-white light:border-black"
@@ -276,9 +343,11 @@ export default function App() {
                 }`}
               >
                 3D Slider
-              </button>
-              <button
+              </motion.button>
+              <motion.button
                 onClick={() => setLayoutMode("grid")}
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
                 className={`px-4 py-1.5 font-black uppercase tracking-wider transition-all cursor-pointer border-2 ${
                   layoutMode === "grid"
                     ? "bg-[#E53E3E] text-white border-white light:border-black"
@@ -286,7 +355,7 @@ export default function App() {
                 }`}
               >
                 All Projects
-              </button>
+              </motion.button>
             </div>
           </div>
         </FadeInSection>
@@ -369,13 +438,15 @@ export default function App() {
 
           {/* Tactile Editorial Carousel Control Bar */}
           <div className="flex items-center justify-center gap-6 mt-8 font-mono select-none relative z-20">
-            <button
+            <motion.button
               onClick={() => setActiveIdx((prev) => (prev - 1 + PROJECTS.length) % PROJECTS.length)}
+              whileHover={{ scale: 1.08 }}
+              whileTap={{ scale: 0.92 }}
               className="p-3 border-2 border-white light:border-black bg-[#16161A] light:bg-white text-white light:text-black hover:bg-[#E53E3E] hover:text-white light:hover:bg-[#E53E3E] light:hover:text-white transition-all shadow-bauhaus-sm cursor-pointer"
               aria-label="Previous Project"
             >
               <ArrowRight className="w-4 h-4 transform rotate-180" />
-            </button>
+            </motion.button>
             
             <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest bg-black light:bg-[#f5f2eb] border-2 border-white light:border-black px-5 py-2.5 shadow-bauhaus-sm">
               <span className="text-[#E53E3E]">0{activeIdx + 1}</span>
@@ -383,32 +454,42 @@ export default function App() {
               <span>0{PROJECTS.length}</span>
             </div>
 
-            <button
+            <motion.button
               onClick={() => setActiveIdx((prev) => (prev + 1) % PROJECTS.length)}
+              whileHover={{ scale: 1.08 }}
+              whileTap={{ scale: 0.92 }}
               className="p-3 border-2 border-white light:border-black bg-[#16161A] light:bg-white text-white light:text-black hover:bg-[#E53E3E] hover:text-white light:hover:bg-[#E53E3E] light:hover:text-white transition-all shadow-bauhaus-sm cursor-pointer"
               aria-label="Next Project"
             >
               <ArrowRight className="w-4 h-4" />
-            </button>
+            </motion.button>
           </div>
         </div>
 
         {/* 2. Showcase Grid Layout (Desktop viewports only when grid selected) */}
         {layoutMode === "grid" && (
-          <div className="hidden md:block">
-            <FadeInSection>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full mt-6">
-                {PROJECTS.map((project) => (
-                  <div key={project.id} className="flex flex-col h-full stagger-child hover-lift">
-                    <ProjectCard
-                      project={project}
-                      isActive={true}
-                    />
-                  </div>
-                ))}
-              </div>
-            </FadeInSection>
-          </div>
+          <motion.div
+            variants={gridContainerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.05 }}
+            className="hidden md:block w-full mt-6"
+          >
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
+              {PROJECTS.map((project) => (
+                <motion.div
+                  key={project.id}
+                  variants={staggerChildVariants}
+                  className="flex flex-col h-full"
+                >
+                  <ProjectCard
+                    project={project}
+                    isActive={true}
+                  />
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
         )}
       </section>
 
@@ -442,12 +523,15 @@ export default function App() {
         </FadeInSection>
 
         {/* 3 Column Skill Blocks */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {SKILL_CATEGORIES.map((cat) => (
-            <div key={cat.id} className="h-full">
-              <FadeInSection className="h-full">
-                <button
+        <FadeInSection staggerChildren={0.1}>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {SKILL_CATEGORIES.map((cat) => (
+              <motion.div key={cat.id} variants={staggerChildVariants} className="h-full">
+                <motion.button
                   onClick={() => setSelectedSkillCategory(cat.id === selectedSkillCategory ? null : cat.id)}
+                  whileHover={{ y: -4, scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
                   className={`w-full text-left p-6 md:p-8 border-2 h-full transition-all group flex flex-col justify-between cursor-pointer shadow-bauhaus ${
                     selectedSkillCategory === cat.id
                       ? "bg-[#16161A] light:bg-[#fbfbf9] border-[#E53E3E]"
@@ -467,36 +551,41 @@ export default function App() {
                     <span>{selectedSkillCategory === cat.id ? "Minimize details" : "Explode Technologies"}</span>
                     <ArrowRight className={`w-4 h-4 transform transition-transform ${selectedSkillCategory === cat.id ? "rotate-90" : "group-hover:translate-x-1"}`} />
                   </div>
-                </button>
-              </FadeInSection>
-            </div>
-          ))}
-        </div>
+                </motion.button>
+              </motion.div>
+            ))}
+          </div>
+        </FadeInSection>
 
         {/* Collapsible details panel listing all chips & libraries used */}
         {selectedSkillCategory && (
-          <FadeInSection className="mt-8">
-            <div className="bg-[#16161A] light:bg-[#fbfbf9] border-2 border-white light:border-black p-6 md:p-8 animate-slide-up shadow-bauhaus">
+          <FadeInSection className="mt-8" staggerChildren={0.05}>
+            <div className="bg-[#16161A] light:bg-[#fbfbf9] border-2 border-white light:border-black p-6 md:p-8 shadow-bauhaus">
               <span className="text-[10px] font-mono uppercase tracking-widest text-[#D69E2E] light:text-[#2B6CB0] block mb-4 font-black">
                 [{SKILL_CATEGORIES.find(c => c.id === selectedSkillCategory)?.title.toUpperCase()} PIPELINE STACK]
               </span>
               
               <div className="flex flex-wrap gap-2.5">
-                {SKILL_CATEGORIES.find(c => c.id === selectedSkillCategory)?.technologies.map((tech, i) => (
-                  <div
+                {SKILL_CATEGORIES.find(c => c.id === selectedSkillCategory)?.technologies.map((tech) => (
+                  <motion.div
                     key={tech}
-                    className="flex items-center gap-2 px-3.5 py-2 bg-black light:bg-[#f5f2eb] border-2 border-neutral-800 light:border-black text-xs uppercase font-mono font-bold stagger-child hover-lift cursor-default"
-                    style={{ transitionDelay: `${i * 60}ms` }}
+                    variants={staggerChildVariants}
+                    whileHover={{ scale: 1.06, y: -2 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="flex items-center gap-2 px-3.5 py-2 bg-black light:bg-[#f5f2eb] border-2 border-neutral-800 light:border-black text-xs uppercase font-mono font-bold cursor-default"
                   >
                     <span className="w-2 h-2 bg-[#E53E3E]"></span>
                     <span>{tech}</span>
-                  </div>
+                  </motion.div>
                 ))}
               </div>
             </div>
           </FadeInSection>
         )}
       </section>
+
+      {/* Technology Stack Section */}
+      <TechStack />
 
       {/* About Section */}
       <section className="py-24 md:py-32 px-[8%] md:px-[12%] lg:px-[14%] w-full border-t border-neutral-900 light:border-neutral-200 z-10 relative" id="about">
@@ -526,36 +615,40 @@ export default function App() {
 
           {/* Statistics counter panel */}
           <div className="lg:col-span-5 bg-black light:bg-[#fbfbf9] border-2 border-white light:border-black p-8 flex flex-col gap-6 md:flex-row lg:flex-col md:justify-around lg:justify-start shadow-bauhaus">
-            <FadeInSection className="flex items-start gap-5 hover-lift">
-              <div className="w-11 h-11 bg-black light:bg-[#f5f2eb] text-[#E53E3E] border-2 border-[#E53E3E] flex items-center justify-center font-mono font-black">
-                08
-              </div>
-              <div>
-                <h4 className="text-[#E53E3E] text-3xl font-mono font-black leading-none">
-                  8+
-                </h4>
-                <span className="text-[10px] tracking-widest font-mono uppercase text-neutral-400 light:text-neutral-500 mt-1 block font-bold">
-                  Core AI Projects
-                </span>
-              </div>
+            <FadeInSection staggerChildren={0.1}>
+              <motion.div variants={staggerChildVariants} whileHover={{ scale: 1.03, y: -2 }} className="flex items-start gap-5">
+                <div className="w-11 h-11 bg-black light:bg-[#f5f2eb] text-[#E53E3E] border-2 border-[#E53E3E] flex items-center justify-center font-mono font-black">
+                  08
+                </div>
+                <div>
+                  <h4 className="text-[#E53E3E] text-3xl font-mono font-black leading-none">
+                    8+
+                  </h4>
+                  <span className="text-[10px] tracking-widest font-mono uppercase text-neutral-400 light:text-neutral-500 mt-1 block font-bold">
+                    Core AI Projects
+                  </span>
+                </div>
+              </motion.div>
             </FadeInSection>
 
             {/* Divider */}
             <div className="h-[2px] w-full bg-neutral-800 light:bg-black hidden lg:block"></div>
             <div className="w-[2px] h-12 bg-neutral-800 light:bg-black hidden md:block lg:hidden"></div>
 
-            <FadeInSection className="flex items-start gap-5 hover-lift">
-              <div className="w-11 h-11 bg-black light:bg-[#f5f2eb] text-[#2B6CB0] border-2 border-[#2B6CB0] flex items-center justify-center font-mono font-black">
-                AI
-              </div>
-              <div>
-                <h4 className="text-[#2B6CB0] text-3xl font-mono font-black leading-none">
-                  SPECIALIST
-                </h4>
-                <span className="text-[10px] tracking-widest font-mono uppercase text-neutral-400 light:text-neutral-500 mt-1 block font-bold">
-                  Focused Specialization
-                </span>
-              </div>
+            <FadeInSection staggerChildren={0.1}>
+              <motion.div variants={staggerChildVariants} whileHover={{ scale: 1.03, y: -2 }} className="flex items-start gap-5">
+                <div className="w-11 h-11 bg-black light:bg-[#f5f2eb] text-[#2B6CB0] border-2 border-[#2B6CB0] flex items-center justify-center font-mono font-black">
+                  AI
+                </div>
+                <div>
+                  <h4 className="text-[#2B6CB0] text-3xl font-mono font-black leading-none">
+                    SPECIALIST
+                  </h4>
+                  <span className="text-[10px] tracking-widest font-mono uppercase text-neutral-400 light:text-neutral-500 mt-1 block font-bold">
+                    Focused Specialization
+                  </span>
+                </div>
+              </motion.div>
             </FadeInSection>
           </div>
         </div>
@@ -575,7 +668,7 @@ export default function App() {
           </h2>
           <div className="w-24 h-2 bg-[#2B6CB0] mx-auto"></div>
           <p className="text-[16px] md:text-[18px] text-neutral-400 light:text-slate-600 max-w-lg mx-auto mt-4 text-center">
-            Open for collaborations, technical research opportunities in AI/ML engineering, and premium frontend UI design consulting.
+            Open for collaborations, technical research opportunities in AI/DS engineering, and premium frontend UI design consulting.
           </p>
         </FadeInSection>
 
@@ -586,25 +679,29 @@ export default function App() {
 
         {/* Hotlink link triggers */}
         <FadeInSection className="mt-16 flex flex-col sm:flex-row gap-6 justify-center items-center font-mono text-xs uppercase tracking-wider font-semibold">
-          <a
+          <motion.a
             href="mailto:yanshushingala@gmail.com"
+            whileHover={{ scale: 1.05, x: 2 }}
+            whileTap={{ scale: 0.95 }}
             className="flex items-center gap-2 hover:text-[#E53E3E] light:hover:text-[#2B6CB0] transition-colors"
           >
             <Mail className="w-4 h-4 text-blue-500" />
             <span>yanshushingala@gmail.com</span>
-          </a>
+          </motion.a>
           
           <div className="hidden sm:block w-1.5 h-1.5 bg-neutral-800 rounded-full light:bg-slate-300"></div>
 
-          <a
+          <motion.a
             href="https://github.com/Yanshu04"
             target="_blank"
             rel="noreferrer"
+            whileHover={{ scale: 1.05, x: 2 }}
+            whileTap={{ scale: 0.95 }}
             className="flex items-center gap-2 hover:text-[#E53E3E] light:hover:text-[#2B6CB0] transition-colors"
           >
             <Github className="w-4 h-4 text-gray-500" />
             <span>github.com/Yanshu04</span>
-          </a>
+          </motion.a>
         </FadeInSection>
       </section>
 
@@ -621,26 +718,32 @@ export default function App() {
             </span>
 
             <div className="flex gap-6 font-mono text-xs uppercase tracking-wider font-bold">
-              <a
+              <motion.a
                 href="mailto:yanshushingala@gmail.com"
+                whileHover={{ scale: 1.08 }}
+                whileTap={{ scale: 0.92 }}
                 className="hover:text-[#E53E3E] light:hover:text-[#2B6CB0] transition-all underline decoration-blue-500/50 underline-offset-4"
               >
                 Email
-              </a>
-              <a
+              </motion.a>
+              <motion.a
                 href="https://github.com/Yanshu04"
                 target="_blank"
                 rel="noreferrer"
+                whileHover={{ scale: 1.08 }}
+                whileTap={{ scale: 0.92 }}
                 className="hover:text-[#E53E3E] light:hover:text-[#2B6CB0] transition-all underline decoration-blue-500/50 underline-offset-4"
               >
                 GitHub
-              </a>
-              <a
+              </motion.a>
+              <motion.a
                 href="#"
+                whileHover={{ scale: 1.08 }}
+                whileTap={{ scale: 0.92 }}
                 className="hover:text-[#E53E3E] light:hover:text-[#2B6CB0] transition-all underline decoration-blue-500/50 underline-offset-4"
               >
                 LinkedIn
-              </a>
+              </motion.a>
             </div>
           </div>
         </footer>

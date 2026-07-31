@@ -27,3 +27,27 @@ export interface ContactMessage {
   message: string;
   timestamp: string;
 }
+
+export interface TechStackItem {
+  id: string;
+  name: string;
+  category: "ai_ml" | "backend" | "frontend" | "databases" | "ai_libs";
+  categoryLabel: string;
+  description?: string;
+  iconName?: string;
+}
+
+export interface TechStackGroup {
+  id: "ai_ml" | "backend" | "frontend" | "databases" | "ai_libs";
+  title: string;
+  accent: string;
+  items: string[];
+}
+
+export interface TechUsageDetail {
+  name: string;
+  category: string;
+  accent: string;
+  whereUsed: string;
+  projects: { id: string; title: string; tags: string[] }[];
+}

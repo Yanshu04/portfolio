@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { motion } from "motion/react";
+import { ArrowRight, Sparkles } from "lucide-react";
 
 interface GizmoWelcomeIntroProps {
   onEnter: () => void;
@@ -50,21 +52,27 @@ const BASE_FRAME = [
 
 // Generate Wave Frame 1 (Hand raised to shoulder level)
 const FRAME_WAVE_1 = BASE_FRAME.map(row => [...row]);
-FRAME_WAVE_1[15][13] = 0; // remove low hand
-FRAME_WAVE_1[14][14] = 7; // add outline for raised sleeve
-FRAME_WAVE_1[14][13] = 4; // yellow sleeve
-FRAME_WAVE_1[13][13] = 2; // hand skin color
+FRAME_WAVE_1[15][13] = 0;
+FRAME_WAVE_1[14][14] = 7;
+FRAME_WAVE_1[14][13] = 4;
+FRAME_WAVE_1[13][13] = 2;
 
 // Generate Wave Frame 2 (Hand raised higher waving outward)
 const FRAME_WAVE_2 = BASE_FRAME.map(row => [...row]);
-FRAME_WAVE_2[15][13] = 0; // remove low hand
+FRAME_WAVE_2[15][13] = 0;
 FRAME_WAVE_2[14][14] = 7;
-FRAME_WAVE_2[14][13] = 4; // yellow sleeve
-FRAME_WAVE_2[12][13] = 2; // hand raised even higher
+FRAME_WAVE_2[14][13] = 4;
+FRAME_WAVE_2[12][13] = 2;
 
 export default function GizmoWelcomeIntro({ onEnter, darkMode }: GizmoWelcomeIntroProps) {
   const [waveStep, setWaveStep] = useState(0);
-  const [isLeaving, setIsLeaving] = useState(false);
+  const [greetingStage, setGreetingStage] = useState(0);
+
+  const greetings = [
+    "Hi! Welcome! 👋",
+    "Initializing Portfolio Pipeline... ⚡",
+    "Let's Explore Yanshu's Work! 🚀"
+  ];
 
   // Waving animation loop (cycles every 160ms)
   useEffect(() => {
@@ -74,55 +82,71 @@ export default function GizmoWelcomeIntro({ onEnter, darkMode }: GizmoWelcomeInt
     return () => clearInterval(waveInterval);
   }, []);
 
-  // Automatic page entrance timeout after 2.4 seconds
+  // Cycle text greeting messages
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLeaving(true);
-      setTimeout(() => {
-        onEnter();
-      }, 350); // let fade animation finish
-    }, 2400);
+    const t1 = setTimeout(() => setGreetingStage(1), 900);
+    const t2 = setTimeout(() => setGreetingStage(2), 1800);
+    const t3 = setTimeout(() => onEnter(), 2700);
 
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimeout(t1);
+      clearTimeout(t2);
+      clearTimeout(t3);
+    };
   }, [onEnter]);
 
   const CELL_SIZE = 8;
   const activeFrame = waveStep === 0 ? FRAME_WAVE_1 : FRAME_WAVE_2;
 
   return (
-    <div
-      className={`fixed inset-0 z-[100] flex flex-col items-center justify-center p-4 transition-all duration-300 ${
-        isLeaving ? "opacity-0 scale-95 pointer-events-none" : "opacity-100 scale-100"
-      } ${
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0, scale: 0.92, y: -20 }}
+      transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+      style={{ willChange: "transform, opacity" }}
+      className={`fixed inset-0 z-[110] flex flex-col items-center justify-center p-4 ${
         darkMode ? "bg-[#0B0B0C]" : "bg-[#FAF9F6]"
-      } bg-grid-pattern`}
+      } bg-grid-pattern select-none`}
     >
-      <div className="flex flex-col items-center space-y-6 relative z-10">
-        
-        {/* Waving Speech Bubble */}
-        <div 
-          className="px-4 py-2 border-2 border-black bg-white text-black font-mono text-xs font-black uppercase tracking-widest relative"
-          style={{
-            boxShadow: "3px 3px 0px 0px #000",
-            animation: "bubble-bounce 1s ease-in-out infinite",
-          }}
+      <motion.div
+        initial={{ scale: 0.8, opacity: 0, y: 30 }}
+        animate={{ scale: 1, opacity: 1, y: 0 }}
+        transition={{ type: "spring", stiffness: 160, damping: 20 }}
+        className="flex flex-col items-center space-y-6 relative z-10"
+      >
+        {/* Animated Waving Speech Bubble */}
+        <motion.div
+          animate={{ y: [0, -6, 0] }}
+          transition={{ repeat: Infinity, duration: 1.8, ease: "easeInOut" }}
+          className="px-5 py-2.5 border-2 border-black bg-white text-black font-mono text-xs sm:text-sm font-black uppercase tracking-widest relative shadow-bauhaus-sm"
         >
-          <span>Hi! Welcome! 👋</span>
+          <motion.span
+            key={greetingStage}
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.2 }}
+            className="flex items-center gap-2"
+          >
+            <Sparkles className="w-3.5 h-3.5 text-[#E53E3E]" />
+            <span>{greetings[greetingStage]}</span>
+          </motion.span>
           
           {/* Speech Bubble Arrow */}
-          <div 
-            className="absolute bottom-[-6px] left-[50%] translate-x-[-50%] w-2.5 h-2.5 bg-white border-r-2 border-b-2 border-black rotate-45"
-          />
-        </div>
+          <div className="absolute bottom-[-6px] left-[50%] translate-x-[-50%] w-2.5 h-2.5 bg-white border-r-2 border-b-2 border-black rotate-45" />
+        </motion.div>
 
-        {/* Animated Waving Gizmo */}
-        <div
-          className="p-4 rounded-xl border-3 border-black bg-[#16161A] light:bg-white shadow-bauhaus"
+        {/* Animated Waving Gizmo Character Card */}
+        <motion.div
+          whileHover={{ scale: 1.04, rotate: 2 }}
+          transition={{ type: "spring", stiffness: 200, damping: 18 }}
+          className="p-5 rounded-xl border-3 border-black bg-[#16161A] light:bg-white shadow-bauhaus cursor-pointer"
           style={{
             filter: darkMode
               ? "drop-shadow(2px 2px 0px #FAF9F6) drop-shadow(-2px -2px 0px #FAF9F6)"
               : "drop-shadow(2px 2px 0px #0B0B0C)"
           }}
+          onClick={onEnter}
         >
           <svg
             viewBox={`0 0 ${16 * CELL_SIZE} ${22 * CELL_SIZE}`}
@@ -146,16 +170,30 @@ export default function GizmoWelcomeIntro({ onEnter, darkMode }: GizmoWelcomeInt
               })
             )}
           </svg>
+        </motion.div>
+
+        {/* Enter Button Action */}
+        <motion.button
+          onClick={onEnter}
+          whileHover={{ scale: 1.05, y: -2 }}
+          whileTap={{ scale: 0.95 }}
+          transition={{ duration: 0.15 }}
+          className="mt-2 px-6 py-2.5 bg-[#E53E3E] text-white font-mono text-xs font-black uppercase tracking-widest border-2 border-white light:border-black shadow-bauhaus-sm flex items-center gap-2 cursor-pointer"
+        >
+          <span>ENTER PORTFOLIO</span>
+          <ArrowRight className="w-4 h-4" />
+        </motion.button>
+
+        {/* Auto Progress Bar */}
+        <div className="w-44 h-1.5 bg-neutral-900 light:bg-neutral-300 border border-black overflow-hidden relative mt-2">
+          <motion.div
+            initial={{ width: "0%" }}
+            animate={{ width: "100%" }}
+            transition={{ duration: 2.7, ease: "linear" }}
+            className="h-full bg-[#E53E3E]"
+          />
         </div>
-
-      </div>
-
-      <style>{`
-        @keyframes bubble-bounce {
-          0%, 100% { transform: translateY(0); }
-          50% { transform: translateY(-4px); }
-        }
-      `}</style>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 }

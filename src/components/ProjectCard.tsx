@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { ExternalLink, Code } from "lucide-react";
+import { motion } from "motion/react";
 import { Project } from "../types";
 import CaseStudy from "./CaseStudy";
+import { SkeletonBlock } from "./SkeletonShimmer";
 
 const PROJECT_INDEX: Record<string, string> = {
   laika: "01",
@@ -25,6 +27,7 @@ interface ProjectCardProps {
 }
 
 export default function ProjectCard({ project, isActive = true, layout = "vertical" }: ProjectCardProps) {
+  const [imageLoaded, setImageLoaded] = useState(false);
   const projectIndex = PROJECT_INDEX[project.id] ?? "00";
 
   // Map tag names to Bauhaus primary colors for a vibrant look
@@ -40,19 +43,26 @@ export default function ProjectCard({ project, isActive = true, layout = "vertic
 
   if (layout === "horizontal") {
     return (
-      <div className="bg-[#16161A] light:bg-[#fbfbf9] border-2 border-white light:border-black p-6 md:p-8 flex flex-col md:flex-row gap-6 md:gap-8 justify-between h-full group shadow-bauhaus select-none">
+      <motion.div
+        whileHover={{ y: -4 }}
+        transition={{ type: "spring", stiffness: 180, damping: 24 }}
+        style={{ willChange: "transform, opacity" }}
+        className="bg-[#16161A] light:bg-[#fbfbf9] border-2 border-white light:border-black p-6 md:p-8 flex flex-col md:flex-row gap-6 md:gap-8 justify-between h-full group shadow-bauhaus select-none"
+      >
         {/* Left Column: Image and Tags */}
         <div className="w-full md:w-[42%] flex flex-col justify-start">
           <div className="overflow-hidden bg-black aspect-video border-2 border-neutral-800 light:border-black relative mb-4">
+            {!imageLoaded && <SkeletonBlock className="absolute inset-0 z-10" />}
             <img
               alt={project.imageAlt}
               src={project.image}
-              className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 hover:scale-[1.02]"
+              onLoad={() => setImageLoaded(true)}
+              className={`w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 hover:scale-[1.02] ${imageLoaded ? "opacity-100" : "opacity-0"}`}
               referrerPolicy="no-referrer"
             />
-            
+
             {/* Badge indicator on image */}
-            <div className="absolute bottom-3 right-3 bg-black text-white font-mono text-[9px] uppercase tracking-widest px-2.5 py-1 border border-neutral-700 light:border-black">
+            <div className="absolute bottom-3 right-3 bg-black text-white font-mono text-[9px] uppercase tracking-widest px-2.5 py-1 border border-neutral-700 light:border-black z-20">
               LAUNCH EDITION
             </div>
           </div>
@@ -61,12 +71,14 @@ export default function ProjectCard({ project, isActive = true, layout = "vertic
           {isActive && (
             <div className="flex flex-wrap gap-1.5">
               {project.tags.map((tag, idx) => (
-                <span
+                <motion.span
                   key={tag}
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ duration: 0.15 }}
                   className={`text-[10px] md:text-xs uppercase font-mono font-bold tracking-widest px-2.5 py-1 border border-black/10 ${getTagColor(tag, idx)}`}
                 >
                   {tag}
-                </span>
+                </motion.span>
               ))}
             </div>
           )}
@@ -97,29 +109,35 @@ export default function ProjectCard({ project, isActive = true, layout = "vertic
             <div className="pt-4 mt-6 border-t border-neutral-800 light:border-neutral-200">
               <div className="flex items-center justify-between text-[12px] md:text-[13px] font-mono">
                 {project.liveUrl ? (
-                  <a
+                  <motion.a
                     href={project.liveUrl}
                     target="_blank"
                     rel="noreferrer"
+                    whileHover={{ scale: 1.03, x: 2 }}
+                    whileTap={{ scale: 0.97 }}
+                    transition={{ duration: 0.15 }}
                     className="text-[#E53E3E] light:text-[#2B6CB0] hover:underline flex items-center gap-1.5 font-bold uppercase tracking-wider"
                   >
                     <span>Launch Live Demo</span>
                     <ExternalLink className="w-3.5 h-3.5" />
-                  </a>
+                  </motion.a>
                 ) : (
                   <span className="text-neutral-500 light:text-neutral-600 italic">Offline Pipeline (No Sandbox)</span>
                 )}
 
                 {project.githubUrl ? (
-                  <a
+                  <motion.a
                     href={project.githubUrl}
                     target="_blank"
                     rel="noreferrer"
+                    whileHover={{ scale: 1.03, x: 2 }}
+                    whileTap={{ scale: 0.97 }}
+                    transition={{ duration: 0.15 }}
                     className="text-neutral-400 light:text-neutral-600 hover:text-white light:hover:text-black flex items-center gap-1.5 font-bold uppercase tracking-wider"
                   >
                     <span>View Repository</span>
                     <Code className="w-3.5 h-3.5" />
-                  </a>
+                  </motion.a>
                 ) : (
                   <span className="text-neutral-500 italic">Private Repo</span>
                 )}
@@ -127,25 +145,32 @@ export default function ProjectCard({ project, isActive = true, layout = "vertic
             </div>
           )}
         </div>
-      </div>
+      </motion.div>
     );
   }
 
   // Default Vertical Layout (Used in grid showcases)
   return (
-    <div className="bg-[#16161A] light:bg-[#fbfbf9] border-2 border-white light:border-black p-6 md:p-8 flex flex-col justify-between h-full group shadow-bauhaus select-none">
+    <motion.div
+      whileHover={{ y: -4 }}
+      transition={{ type: "spring", stiffness: 180, damping: 24 }}
+      style={{ willChange: "transform, opacity" }}
+      className="bg-[#16161A] light:bg-[#fbfbf9] border-2 border-white light:border-black p-6 md:p-8 flex flex-col justify-between h-full group shadow-bauhaus select-none"
+    >
       <div>
         {/* Landscape Image with grayscale toggle and heavy border */}
         <div className="mb-6 overflow-hidden bg-black aspect-video border-2 border-neutral-800 light:border-black relative">
+          {!imageLoaded && <SkeletonBlock className="absolute inset-0 z-10" />}
           <img
             alt={project.imageAlt}
             src={project.image}
-            className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 hover:scale-[1.02]"
+            onLoad={() => setImageLoaded(true)}
+            className={`w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 hover:scale-[1.02] ${imageLoaded ? "opacity-100" : "opacity-0"}`}
             referrerPolicy="no-referrer"
           />
-          
+
           {/* Badge indicator on image */}
-          <div className="absolute bottom-3 right-3 bg-black text-white font-mono text-[9px] uppercase tracking-widest px-2.5 py-1 border border-neutral-700 light:border-black">
+          <div className="absolute bottom-3 right-3 bg-black text-white font-mono text-[9px] uppercase tracking-widest px-2.5 py-1 border border-neutral-700 light:border-black z-20">
             LAUNCH EDITION
           </div>
         </div>
@@ -170,12 +195,14 @@ export default function ProjectCard({ project, isActive = true, layout = "vertic
         {isActive && (
           <div className="flex flex-wrap gap-1.5 mt-5 mb-4">
             {project.tags.map((tag, idx) => (
-              <span
+              <motion.span
                 key={tag}
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.15 }}
                 className={`text-[10px] md:text-xs uppercase font-mono font-bold tracking-widest px-2.5 py-1 border border-black/10 ${getTagColor(tag, idx)}`}
               >
                 {tag}
-              </span>
+              </motion.span>
             ))}
           </div>
         )}
@@ -186,35 +213,41 @@ export default function ProjectCard({ project, isActive = true, layout = "vertic
         <div className="space-y-4 pt-3 border-t border-neutral-800 light:border-neutral-200">
           <div className="flex items-center justify-between text-[12px] md:text-[13px] font-mono">
             {project.liveUrl ? (
-              <a
+              <motion.a
                 href={project.liveUrl}
                 target="_blank"
                 rel="noreferrer"
+                whileHover={{ scale: 1.03, x: 2 }}
+                whileTap={{ scale: 0.97 }}
+                transition={{ duration: 0.15 }}
                 className="text-[#E53E3E] light:text-[#2B6CB0] hover:underline flex items-center gap-1.5 font-bold uppercase tracking-wider"
               >
                 <span>Launch Live Demo</span>
                 <ExternalLink className="w-3.5 h-3.5" />
-              </a>
+              </motion.a>
             ) : (
               <span className="text-neutral-500 light:text-neutral-600 italic font-medium">Offline Pipeline</span>
             )}
 
             {project.githubUrl ? (
-              <a
+              <motion.a
                 href={project.githubUrl}
                 target="_blank"
                 rel="noreferrer"
+                whileHover={{ scale: 1.03, x: 2 }}
+                whileTap={{ scale: 0.97 }}
+                transition={{ duration: 0.15 }}
                 className="text-neutral-400 light:text-neutral-600 hover:text-white light:hover:text-black flex items-center gap-1.5 font-bold uppercase tracking-wider"
               >
                 <span>View Repository</span>
                 <Code className="w-3.5 h-3.5" />
-              </a>
+              </motion.a>
             ) : (
               <span className="text-neutral-500 italic">Private Repo</span>
             )}
           </div>
         </div>
       )}
-    </div>
+    </motion.div>
   );
 }

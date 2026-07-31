@@ -1,4 +1,4 @@
-import { Project, SkillCategory } from "./types";
+import { Project, SkillCategory, TechStackGroup, TechUsageDetail } from "./types";
 
 export const PROJECTS: Project[] = [
   {
@@ -262,3 +262,275 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
     technologies: ["Node.js / Express", "Flask (REST API)", "Streamlit Protyping", "Docker Containerization", "Render Deployment", "Git & CI/CD", "Local Persistence"]
   }
 ];
+
+export const TECH_STACK_GROUPS: TechStackGroup[] = [
+  {
+    id: "ai_ml",
+    title: "AI & ML",
+    accent: "#E53E3E",
+    items: [
+      "Machine Learning",
+      "Deep Learning",
+      "Computer Vision",
+      "NLP",
+      "RAG",
+      "Semantic Search",
+      "Local LLMs"
+    ]
+  },
+  {
+    id: "backend",
+    title: "Backend",
+    accent: "#2B6CB0",
+    items: [
+      "FastAPI",
+      "Python",
+      "REST APIs"
+    ]
+  },
+  {
+    id: "frontend",
+    title: "Frontend",
+    accent: "#D69E2E",
+    items: [
+      "React",
+      "HTML",
+      "CSS",
+      "JavaScript"
+    ]
+  },
+  {
+    id: "databases",
+    title: "Databases",
+    accent: "#38A169",
+    items: [
+      "SQLite",
+      "MySQL"
+    ]
+  },
+  {
+    id: "ai_libs",
+    title: "AI Libraries",
+    accent: "#805AD5",
+    items: [
+      "Sentence-BERT",
+      "PyTorch",
+      "OpenCV",
+      "Transformers"
+    ]
+  }
+];
+
+export const TECH_USAGE_DETAILS: Record<string, TechUsageDetail> = {
+  "Machine Learning": {
+    name: "Machine Learning",
+    category: "AI & ML",
+    accent: "#E53E3E",
+    whereUsed: "Used for feature engineering, model training, cross-validation, and predictive analytics using algorithms like XGBoost, Random Forest, and Logistic Regression.",
+    projects: [
+      { id: "house-predictor", title: "House Price Predictor", tags: ["Python", "XGBoost", "Flask"] },
+      { id: "ipl-predication", title: "IPL Match Winner Predictor", tags: ["Python", "scikit-learn", "Flask"] }
+    ]
+  },
+  "Deep Learning": {
+    name: "Deep Learning",
+    category: "AI & ML",
+    accent: "#E53E3E",
+    whereUsed: "Used to design, train, and evaluate multi-layer neural networks including Hybrid CNN-BiLSTM architectures with CTC loss for offline speech recognition.",
+    projects: [
+      { id: "speech-asr", title: "Offline Speech ASR", tags: ["PyTorch", "Python", "BiLSTM"] }
+    ]
+  },
+  "Computer Vision": {
+    name: "Computer Vision",
+    category: "AI & ML",
+    accent: "#E53E3E",
+    whereUsed: "Used for real-time video frame processing, tracking 21 hand landmark points with sub-second latency, geometric projections, and spectrogram visual analysis.",
+    projects: [
+      { id: "ar-sketch", title: "AR Sketch", tags: ["React", "TypeScript", "MediaPipe"] },
+      { id: "speech-asr", title: "Offline Speech ASR", tags: ["PyTorch", "webrtcvad"] }
+    ]
+  },
+  "NLP": {
+    name: "NLP",
+    category: "AI & ML",
+    accent: "#E53E3E",
+    whereUsed: "Used for natural language parsing, ATS resume score evaluation, named entity extraction (spaCy), keyword ranking, and multilingual prompt pipelines.",
+    projects: [
+      { id: "ai-resume-analyzer", title: "AI Resume Analyzer", tags: ["TypeScript", "FastAPI", "spaCy"] },
+      { id: "laika", title: "LAIKA Local AI Assistant", tags: ["FastAPI", "ChromaDB"] },
+      { id: "vaani", title: "Vaani Voice Assistant", tags: ["Whisper", "Ollama", "Transformers"] }
+    ]
+  },
+  "RAG": {
+    name: "RAG",
+    category: "AI & ML",
+    accent: "#E53E3E",
+    whereUsed: "Used to build Retrieval-Augmented Generation systems combining dense vector embeddings and keyword search (RRF ranking) for private, offline document Q&A.",
+    projects: [
+      { id: "laika", title: "LAIKA Local AI Assistant", tags: ["Python", "FastAPI", "ChromaDB"] },
+      { id: "ai-resume-analyzer", title: "AI Resume Analyzer", tags: ["TypeScript", "FastAPI", "Ollama"] }
+    ]
+  },
+  "Semantic Search": {
+    name: "Semantic Search",
+    category: "AI & ML",
+    accent: "#E53E3E",
+    whereUsed: "Used sentence-transformer vector embeddings and ChromaDB vector databases for semantic document retrieval and matching resumes to job descriptions.",
+    projects: [
+      { id: "laika", title: "LAIKA Local AI Assistant", tags: ["ChromaDB", "FastAPI"] },
+      { id: "ai-resume-analyzer", title: "AI Resume Analyzer", tags: ["spaCy", "Sentence-BERT"] }
+    ]
+  },
+  "Local LLMs": {
+    name: "Local LLMs",
+    category: "AI & ML",
+    accent: "#E53E3E",
+    whereUsed: "Used 100% offline inference with local Ollama models (Qwen2.5 / LLaMA) for private document Q&A, AI resume rewriting, and blunt project status summaries.",
+    projects: [
+      { id: "laika", title: "LAIKA Local AI Assistant", tags: ["Ollama (qwen2.5:3b)"] },
+      { id: "vaani", title: "Vaani Voice Assistant", tags: ["Ollama", "Whisper"] },
+      { id: "ai-resume-analyzer", title: "AI Resume Analyzer", tags: ["Ollama (qwen2.5:1.5b)"] },
+      { id: "ai-resume-builder", title: "AI Resume Builder", tags: ["Ollama", "FastAPI"] },
+      { id: "devpulse", title: "DevPulse Git Honesty Dashboard", tags: ["GitPython", "Ollama"] }
+    ]
+  },
+  "FastAPI": {
+    name: "FastAPI",
+    category: "Backend",
+    accent: "#2B6CB0",
+    whereUsed: "Used as the core async Python REST API backend framework for document processing, RAG orchestration, SQLite queries, and streaming AI endpoint responses.",
+    projects: [
+      { id: "laika", title: "LAIKA Local AI Assistant", tags: ["Python", "FastAPI", "SQLite"] },
+      { id: "ai-resume-analyzer", title: "AI Resume Analyzer", tags: ["FastAPI", "spaCy"] },
+      { id: "ai-resume-builder", title: "AI Resume Builder", tags: ["FastAPI", "SQLAlchemy"] },
+      { id: "devpulse", title: "DevPulse Git Honesty Dashboard", tags: ["FastAPI", "GitPython"] }
+    ]
+  },
+  "Python": {
+    name: "Python",
+    category: "Backend",
+    accent: "#2B6CB0",
+    whereUsed: "Used as the primary language for AI model pipelines, machine learning model training (PyTorch / XGBoost), server backends, and data processing.",
+    projects: [
+      { id: "laika", title: "LAIKA Local AI Assistant", tags: ["Python", "FastAPI"] },
+      { id: "speech-asr", title: "Offline Speech ASR", tags: ["Python", "PyTorch"] },
+      { id: "house-predictor", title: "House Price Predictor", tags: ["Python", "XGBoost", "Flask"] },
+      { id: "ipl-predication", title: "IPL Match Winner Predictor", tags: ["Python", "scikit-learn"] },
+      { id: "devpulse", title: "DevPulse", tags: ["Python", "GitPython"] }
+    ]
+  },
+  "REST APIs": {
+    name: "REST APIs",
+    category: "Backend",
+    accent: "#2B6CB0",
+    whereUsed: "Used to build RESTful web services with strict request/response validation schemas, JSON endpoints, and asynchronous client communication.",
+    projects: [
+      { id: "house-predictor", title: "House Price Predictor", tags: ["Flask", "Render"] },
+      { id: "laika", title: "LAIKA Local AI Assistant", tags: ["FastAPI", "REST"] },
+      { id: "solar-tracker", title: "Solar Tracker Android App", tags: ["Kotlin", "REST API"] }
+    ]
+  },
+  "React": {
+    name: "React",
+    category: "Frontend",
+    accent: "#D69E2E",
+    whereUsed: "Used as the core UI framework to build highly responsive, component-driven, stateful web applications with modern hooks and custom UI systems.",
+    projects: [
+      { id: "arenahub", title: "ArenaHub Turf & Gaming", tags: ["React 19", "TypeScript", "Tailwind CSS"] },
+      { id: "ar-sketch", title: "AR Sketch", tags: ["React", "TypeScript", "MediaPipe"] },
+      { id: "laika", title: "LAIKA Local AI Assistant", tags: ["React", "Vite"] },
+      { id: "ai-planner", title: "AI Study Planner", tags: ["React", "TypeScript"] },
+      { id: "ai-resume-builder", title: "AI Resume Builder", tags: ["React", "TypeScript"] }
+    ]
+  },
+  "HTML": {
+    name: "HTML",
+    category: "Frontend",
+    accent: "#D69E2E",
+    whereUsed: "Used semantic HTML5 elements, accessible ARIA attributes, dynamic canvas viewports, and clean document layouts.",
+    projects: [
+      { id: "arenahub", title: "ArenaHub Turf & Gaming", tags: ["React 19", "HTML5"] },
+      { id: "ipl-predication", title: "IPL Match Winner Predictor", tags: ["HTML/CSS/JS", "Flask"] },
+      { id: "ar-sketch", title: "AR Sketch", tags: ["HTML5 Canvas", "React"] }
+    ]
+  },
+  "CSS": {
+    name: "CSS",
+    category: "Frontend",
+    accent: "#D69E2E",
+    whereUsed: "Used custom CSS variables, Tailwind CSS utilities, responsive grid structures, and high-contrast Bauhaus design systems with solid offset shadows.",
+    projects: [
+      { id: "arenahub", title: "ArenaHub Turf & Gaming", tags: ["Tailwind CSS", "React"] },
+      { id: "ai-planner", title: "AI Study Planner", tags: ["Tailwind CSS", "Vite"] },
+      { id: "laika", title: "LAIKA Local AI Assistant", tags: ["Custom CSS", "React"] }
+    ]
+  },
+  "JavaScript": {
+    name: "JavaScript",
+    category: "Frontend",
+    accent: "#D69E2E",
+    whereUsed: "Used ES6+ JavaScript for browser DOM manipulation, async fetch API calls, client-side event listeners, and interactive canvas rendering.",
+    projects: [
+      { id: "ar-sketch", title: "AR Sketch", tags: ["JavaScript", "React"] },
+      { id: "ipl-predication", title: "IPL Match Winner Predictor", tags: ["JavaScript", "HTML/CSS"] }
+    ]
+  },
+  "SQLite": {
+    name: "SQLite",
+    category: "Databases",
+    accent: "#38A169",
+    whereUsed: "Used as an embedded, zero-configuration local database with FTS5 full-text search extensions for offline document indexing and session persistence.",
+    projects: [
+      { id: "laika", title: "LAIKA Local AI Assistant", tags: ["SQLite FTS5", "FastAPI"] },
+      { id: "ai-resume-analyzer", title: "AI Resume Analyzer", tags: ["SQLite", "FastAPI"] }
+    ]
+  },
+  "MySQL": {
+    name: "MySQL",
+    category: "Databases",
+    accent: "#38A169",
+    whereUsed: "Used for structured relational data storage, user booking management, multi-pass schedules, and transaction persistence.",
+    projects: [
+      { id: "arenahub", title: "ArenaHub Turf & Gaming", tags: ["MySQL", "React 19"] }
+    ]
+  },
+  "Sentence-BERT": {
+    name: "Sentence-BERT",
+    category: "AI Libraries",
+    accent: "#805AD5",
+    whereUsed: "Used to generate dense semantic vector embeddings for document text chunks and job description resume similarity matching.",
+    projects: [
+      { id: "laika", title: "LAIKA Local AI Assistant", tags: ["Sentence-BERT", "ChromaDB"] },
+      { id: "ai-resume-analyzer", title: "AI Resume Analyzer", tags: ["Sentence-BERT", "spaCy"] }
+    ]
+  },
+  "PyTorch": {
+    name: "PyTorch",
+    category: "AI Libraries",
+    accent: "#805AD5",
+    whereUsed: "Used to program custom deep learning models from scratch, implementing CNN feature extractors, BiLSTM layers, and CTC loss functions.",
+    projects: [
+      { id: "speech-asr", title: "Offline Speech ASR", tags: ["PyTorch", "Python", "BiLSTM"] }
+    ]
+  },
+  "OpenCV": {
+    name: "OpenCV",
+    category: "AI Libraries",
+    accent: "#805AD5",
+    whereUsed: "Used for computer vision image transformations, camera frame captures, color mapping, and spectrogram visual analysis.",
+    projects: [
+      { id: "ar-sketch", title: "AR Sketch", tags: ["MediaPipe", "React"] },
+      { id: "speech-asr", title: "Offline Speech ASR", tags: ["webrtcvad", "PyTorch"] }
+    ]
+  },
+  "Transformers": {
+    name: "Transformers",
+    category: "AI Libraries",
+    accent: "#805AD5",
+    whereUsed: "Used Hugging Face Transformers for sequence-to-sequence translation (Meta NLLB-200) and speech recognition tokenizers.",
+    projects: [
+      { id: "vaani", title: "Vaani Voice Assistant", tags: ["Transformers", "NLLB-200", "Whisper"] }
+    ]
+  }
+};

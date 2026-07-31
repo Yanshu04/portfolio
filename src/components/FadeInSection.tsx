@@ -1,46 +1,79 @@
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
+import { motion, useReducedMotion, Variants } from "motion/react";
 
 interface FadeInSectionProps {
   children: React.ReactNode;
   className?: string;
+  delay?: number;
+  direction?: "up" | "down" | "left" | "right" | "none";
+  staggerChildren?: number;
 }
 
-export default function FadeInSection({ children, className = "" }: FadeInSectionProps) {
-  const [isVisible, setIsVisible] = useState(false);
-  const domRef = useRef<HTMLDivElement | null>(null);
+export const staggerChildVariants: Variants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      type: "spring",
+      stiffness: 120,
+      damping: 20,
+    },
+  },
+};
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          // Set visible on enter, reset to hidden on exit so re-entry re-plays
-          setIsVisible(entry.isIntersecting);
-        });
+export default function FadeInSection({
+  children,
+  className = "",
+  delay = 0,
+  direction = "up",
+  staggerChildren,
+}: FadeInSectionProps) {
+  const shouldReduceMotion = useReducedMotion();
+
+  const getInitialY = () => {
+    if (direction === "up") return 24;
+    if (direction === "down") return -24;
+    return 0;
+  };
+
+  const getInitialX = () => {
+    if (direction === "left") return 24;
+    if (direction === "right") return -24;
+    return 0;
+  };
+
+  const parentVariants: Variants = {
+    hidden: {
+      opacity: 0,
+      y: shouldReduceMotion ? 0 : getInitialY(),
+      x: shouldReduceMotion ? 0 : getInitialX(),
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      x: 0,
+      transition: {
+        duration: shouldReduceMotion ? 0 : 0.45,
+        delay: shouldReduceMotion ? 0 : delay,
+        ease: [0.16, 1, 0.3, 1],
+        ...(staggerChildren && !shouldReduceMotion
+          ? { staggerChildren, delayChildren: delay }
+          : {}),
       },
-      {
-        threshold: 0.1,
-        rootMargin: "0px 0px -50px 0px",
-      }
-    );
-
-    const currentRef = domRef.current;
-    if (currentRef) {
-      observer.observe(currentRef);
-    }
-
-    return () => {
-      if (currentRef) {
-        observer.unobserve(currentRef);
-      }
-    };
-  }, []);
+    },
+  };
 
   return (
-    <div
-      ref={domRef}
-      className={`fade-in-section ${isVisible ? "is-visible" : ""} ${className}`}
+    <motion.div
+      variants={parentVariants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: false, amount: 0.2 }}
+      style={{ willChange: "transform, opacity" }}
+      className={className}
     >
       {children}
-    </div>
+    </motion.div>
   );
 }

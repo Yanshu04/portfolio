@@ -1,24 +1,27 @@
 import { useEffect, useState, useRef } from "react";
+import { AnimatePresence } from "motion/react";
+import GizmoStation, { OUTFIT_PALETTES, type OutfitKey, type VehicleId } from "./GizmoStation";
 
 // Floating pixel-sprite mascot — 16-bit human style (brown hair, skin, blue shirt, dark jeans, boots)
 // No image assets — built from SVG & crisp edges so it's fully self-contained.
 
-const ACCENT = "#F6E05E";  // Bauhaus Yellow hoodie
-const SKIN = "#F4C99B";    // Human skin tone
-const OUTLINE = "#0F1115"; // Outlines / black
-const HAIR = "#6A4E35";    // Brown hair
-const JEANS = "#1A202C";   // Dark charcoal pants
-const SHOES = "#FAF9F6";   // Cream white sneakers
+const SKIN    = "#F4C99B";
+const OUTLINE = "#0F1115";
+const HAIR    = "#6A4E35";
 
-const COLORS: Record<number, string> = { 
-  1: HAIR, 
-  2: SKIN, 
-  3: OUTLINE, // eyes / smile
-  4: ACCENT,  // shirt/hoodie
-  5: JEANS,   // pants
-  6: SHOES,   // shoes/sneakers
-  7: OUTLINE, // black outline
-};
+// Build dynamic COLORS map from the active outfit palette
+function buildColors(outfitKey: OutfitKey): Record<number, string> {
+  const pal = OUTFIT_PALETTES[outfitKey];
+  return {
+    1: HAIR,
+    2: SKIN,
+    3: OUTLINE,
+    4: pal.top,
+    5: pal.jeans,
+    6: pal.shoes,
+    7: OUTLINE,
+  };
+}
 
 // 16x22 pixel grid representing the human character (idle pose)
 const FRAME_OPEN = [
@@ -84,11 +87,13 @@ function getFrame(blink: boolean, step: number) {
 function GizmoRide({ 
   frame, 
   step, 
-  vehicle 
+  vehicle,
+  colors
 }: { 
   frame: number[][]; 
   step: number; 
-  vehicle: "none" | "bicycle" | "motorbike" | "car"; 
+  vehicle: "none" | "bicycle" | "motorbike" | "car";
+  colors: Record<number, string>;
 }) {
   const CELL_SIZE = 5;
 
@@ -101,7 +106,7 @@ function GizmoRide({
         {frame.map((row, y) =>
           row.map((c, x) =>
             c === 0 ? null : (
-              <rect key={`${x}-${y}`} x={x * CELL_SIZE} y={y * CELL_SIZE} width={CELL_SIZE} height={CELL_SIZE} fill={COLORS[c]} />
+              <rect key={`${x}-${y}`} x={x * CELL_SIZE} y={y * CELL_SIZE} width={CELL_SIZE} height={CELL_SIZE} fill={colors[c]} />
             )
           )
         )}
@@ -117,7 +122,7 @@ function GizmoRide({
       {upperBody.map((row, y) =>
         row.map((c, x) =>
           c === 0 ? null : (
-            <rect key={`${x}-${y}`} x={x * CELL_SIZE} y={y * CELL_SIZE} width={CELL_SIZE} height={CELL_SIZE} fill={COLORS[c]} />
+            <rect key={`${x}-${y}`} x={x * CELL_SIZE} y={y * CELL_SIZE} width={CELL_SIZE} height={CELL_SIZE} fill={colors[c]} />
           )
         )
       )}
@@ -152,9 +157,9 @@ function GizmoRide({
         <rect x="42" y="48" width="14" height="4.5" rx="1" fill="#0F1115" />
 
         {/* Bent Riding Jeans leg */}
-        <path d={`M48 52 L58 ${leftFootY} L55 ${pedalY}`} fill="none" stroke={JEANS} strokeWidth="6" strokeLinecap="square" />
+        <path d={`M48 52 L58 ${leftFootY} L55 ${pedalY}`} fill="none" stroke={colors[5]} strokeWidth="6" strokeLinecap="square" />
         {/* Boot */}
-        <rect x="51" y={pedalY} width="8" height="5.5" fill={SHOES} stroke="#0F1115" strokeWidth="1.5" />
+        <rect x="51" y={pedalY} width="8" height="5.5" fill={colors[6]} stroke="#0F1115" strokeWidth="1.5" />
         
         {/* Pedal cranks */}
         <line x1="56" y1="78" x2="55" y2={pedalY} stroke="#718096" strokeWidth="3.5" />
@@ -193,9 +198,9 @@ function GizmoRide({
         <path d="M78 46 L76 34 L84 34" fill="none" stroke="#0F1115" strokeWidth="4.5" strokeLinecap="square" />
 
         {/* Leaning Riding Jeans leg */}
-        <path d="M46 46 L58 64 L66 64" fill="none" stroke={JEANS} strokeWidth="7.5" strokeLinecap="square" />
+        <path d="M46 46 L58 64 L66 64" fill="none" stroke={colors[5]} strokeWidth="7.5" strokeLinecap="square" />
         {/* Boot */}
-        <rect x="64" y="60.5" width="8" height="6.5" fill={SHOES} stroke="#0F1115" strokeWidth="2" />
+        <rect x="64" y="60.5" width="8" height="6.5" fill={colors[6]} stroke="#0F1115" strokeWidth="2" />
 
         {/* Upper Body translated leaning forward on seat */}
         <g transform="translate(18, -14)">
@@ -300,9 +305,27 @@ export default function FloatingMascotPixel({ isDark }: { isDark: boolean }) {
   const [messageText, setMessageText] = useState("Hey! Welcome! 👋 I'm Gizmo, Yanshu's AI assistant!");
   const [showAssistantPanel, setShowAssistantPanel] = useState(false);
   const [isAnswering, setIsAnswering] = useState(false);
-  
-  // Vehicle ride state
-  const [activeVehicle, setActiveVehicle] = useState<"none" | "bicycle" | "motorbike" | "car">("none");
+  const [showStation, setShowStation] = useState(false);
+
+  // Outfit & vehicle state
+  const [activeOutfit, setActiveOutfit] = useState<OutfitKey>("hoodie");
+  const [activeVehicle, setActiveVehicle] = useState<VehicleId>("none");
+
+  // ── Autonomous Pitstop ────────────────────────────────────────────────────
+  // Gizmo autonomously walks to the station, auto-changes outfit+vehicle, then leaves
+  const [pitstopPhase, setPitstopPhase] = useState<"off" | "arrived">("off");
+  const pitstopActiveRef  = useRef(false); // true while walking to station
+  const pitstopArrivedRef = useRef(false); // true once Gizmo is at station
+  // Shadow refs so we can read position inside setInterval without stale closure
+  const posXShadow = useRef(76);
+  const posYShadow = useRef(8);
+  // Station target in viewport-% coords (matches fixed bottom-right button area)
+  const STATION_X = 82;
+  const STATION_Y = 80;
+  const ARRIVE_DIST = 8; // % distance threshold to trigger arrival
+
+  // Dynamic colour palette (recomputed whenever outfit changes)
+  const COLORS = buildColors(activeOutfit);
 
   // Speed multiplier based on vehicle
   const getSpeedMultiplier = (vehicle: "none" | "bicycle" | "motorbike" | "car") => {
@@ -442,25 +465,17 @@ export default function FloatingMascotPixel({ isDark }: { isDark: boolean }) {
 
   // Vehicle cycling handler
   const handleVehicleCycle = () => {
-    const vehicles: ("none" | "bicycle" | "motorbike" | "car")[] = ["none", "bicycle", "motorbike", "car"];
+    const vehicles: VehicleId[] = ["none", "bicycle", "motorbike", "car"];
     const nextIdx = (vehicles.indexOf(activeVehicle) + 1) % vehicles.length;
     const nextVehicle = vehicles[nextIdx];
     setActiveVehicle(nextVehicle);
 
-    // Speak active vehicle responses
     let msg = "";
     switch (nextVehicle) {
-      case "bicycle":
-        msg = "Bicycle mode active! Pedaling away! 🚲";
-        break;
-      case "motorbike":
-        msg = "Motorbike mode active! Vroom vroom! 🏍️";
-        break;
-      case "car":
-        msg = "Car mode active! Beep beep! 🚗";
-        break;
-      default:
-        msg = "Walking mode active! Back on my feet! 🚶";
+      case "bicycle":   msg = "Bicycle mode active! Pedaling away! 🚲"; break;
+      case "motorbike": msg = "Motorbike mode active! Vroom vroom! 🏍️"; break;
+      case "car":       msg = "Car mode active! Beep beep! 🚗"; break;
+      default:          msg = "Walking mode active! Back on my feet! 🚶";
     }
     
     setIsAnswering(true);
@@ -477,7 +492,29 @@ export default function FloatingMascotPixel({ isDark }: { isDark: boolean }) {
     }, 3500);
   };
 
-  // 2D Movement coordinate updates
+  // Station outfit/vehicle change handlers
+  const handleOutfitChange = (outfit: OutfitKey) => {
+    setActiveOutfit(outfit);
+    const names: Record<OutfitKey, string> = {
+      hoodie: "Yellow Hoodie 🟡", streetwear: "Street Red 🔴",
+      hacker: "Hacker Blue 🔵", summer: "Summer Green 🟢", retrowave: "Retrowave 🟣"
+    };
+    setMessageText(`Outfit changed to ${names[outfit]}!`);
+    setShowMessage(true);
+    window.setTimeout(() => { if (!isHovered) setShowMessage(false); }, 2800);
+  };
+
+  const handleStationVehicleChange = (v: VehicleId) => {
+    setActiveVehicle(v);
+    const labels: Record<VehicleId, string> = {
+      none: "Walking 🚶", bicycle: "Bicycle 🚲", motorbike: "Motorbike 🏍️", car: "Sportscar 🚗"
+    };
+    setMessageText(`Switched to ${labels[v]}!`);
+    setShowMessage(true);
+    window.setTimeout(() => { if (!isHovered) setShowMessage(false); }, 2800);
+  };
+
+  // 2D Movement coordinate updates (pitstop-aware steering)
   useEffect(() => {
     if (isHovered || isJumping || mascotState === "idle" || showAssistantPanel) {
       return;
@@ -485,16 +522,46 @@ export default function FloatingMascotPixel({ isDark }: { isDark: boolean }) {
 
     const interval = window.setInterval(() => {
       const mult = getSpeedMultiplier(activeVehicle);
-      
+
+      // ── PITSTOP STEERING: override velocity toward station target ──
+      if (pitstopActiveRef.current && !pitstopArrivedRef.current) {
+        setPosX((prevX) => {
+          posXShadow.current = prevX;
+          const dx = STATION_X - prevX;
+          // smooth acceleration toward target, cap at 0.4
+          velXRef.current = Math.sign(dx) * Math.min(0.4, Math.max(0.15, Math.abs(dx) * 0.05));
+          if (dx > 1)  setDirection("right");
+          else if (dx < -1) setDirection("left");
+          return Math.max(2, Math.min(90, prevX + velXRef.current));
+        });
+        setPosY((prevY) => {
+          posYShadow.current = prevY;
+          const dy = STATION_Y - prevY;
+          velYRef.current = Math.sign(dy) * Math.min(0.15, Math.max(0.05, Math.abs(dy) * 0.025));
+          return Math.max(0.5, Math.min(98.5, prevY + velYRef.current));
+        });
+
+        // Arrival check using shadow refs (both axes updated above)
+        const distX = posXShadow.current - STATION_X;
+        const distY = posYShadow.current - STATION_Y;
+        if (Math.sqrt(distX * distX + distY * distY) < ARRIVE_DIST) {
+          if (!pitstopArrivedRef.current) {
+            pitstopArrivedRef.current = true;
+            setPitstopPhase("arrived");
+          }
+        }
+        return;
+      }
+
+      // ── NORMAL BOUNCE MOVEMENT ──
       setPosX((prevX) => {
+        posXShadow.current = prevX;
         let nextX = prevX + velXRef.current * mult;
-        // Left bounce
         if (nextX <= 2) {
           velXRef.current = Math.abs(velXRef.current);
           setDirection("right");
           return 2;
         }
-        // Right bounce
         if (nextX >= 90) {
           velXRef.current = -Math.abs(velXRef.current);
           setDirection("left");
@@ -504,13 +571,12 @@ export default function FloatingMascotPixel({ isDark }: { isDark: boolean }) {
       });
 
       setPosY((prevY) => {
+        posYShadow.current = prevY;
         let nextY = prevY + velYRef.current * mult;
-        // Top bounce (under the header)
         if (nextY <= 0.5) {
           velYRef.current = Math.abs(velYRef.current);
           return 0.5;
         }
-        // Bottom bounce (footer area)
         if (nextY >= 98.5) {
           velYRef.current = -Math.abs(velYRef.current);
           return 98.5;
@@ -518,7 +584,7 @@ export default function FloatingMascotPixel({ isDark }: { isDark: boolean }) {
         return nextY;
       });
 
-    }, 30); // high frame rate movement update
+    }, 30);
 
     return () => window.clearInterval(interval);
   }, [mascotState, isHovered, isJumping, showAssistantPanel, activeVehicle]);
@@ -567,10 +633,11 @@ export default function FloatingMascotPixel({ isDark }: { isDark: boolean }) {
     return () => window.clearInterval(shiftInterval);
   }, [mascotState, isHovered, isJumping, showAssistantPanel]);
 
-  // Occasional random speech bubbles while wandering
+  // Occasional random speech bubbles while wandering (suppressed during pitstop)
   useEffect(() => {
     const speakInterval = window.setInterval(() => {
       if (isHovered || isJumping || showAssistantPanel || isAnswering) return;
+      if (pitstopActiveRef.current) return; // quiet during pitstop
 
       const randomPhrases = [
         "Wandering the DOM...",
@@ -603,27 +670,119 @@ export default function FloatingMascotPixel({ isDark }: { isDark: boolean }) {
     };
   }, [isHovered, isJumping, showAssistantPanel, isAnswering]);
 
+  // ── Autonomous Pitstop: schedule a visit every 40–60 seconds ────────────────
+  useEffect(() => {
+    let nextTimer: number;
+
+    const scheduleNext = () => {
+      const delay = 40000 + Math.random() * 20000; // 40–60s
+      nextTimer = window.setTimeout(() => {
+        // Only trigger if Gizmo is free (not interacting / already visiting)
+        if (!pitstopActiveRef.current && !isHovered && !showAssistantPanel) {
+          pitstopActiveRef.current = true;
+          pitstopArrivedRef.current = false;
+          setMascotState("walking");
+          setShowMessage(true);
+          setMessageText("Pit stop time! 🏪");
+        }
+        scheduleNext();
+      }, delay);
+    };
+
+    scheduleNext();
+    return () => window.clearTimeout(nextTimer);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // ── Pitstop arrival: auto-change outfit + vehicle, then resume wandering ──
+  useEffect(() => {
+    if (pitstopPhase !== "arrived") return;
+
+    const ALL_OUTFITS: OutfitKey[] = ["hoodie", "streetwear", "hacker", "summer", "retrowave"];
+    const ALL_VEHICLES: VehicleId[] = ["none", "bicycle", "motorbike", "car"];
+
+    const OUTFIT_NAMES: Record<OutfitKey, string> = {
+      hoodie: "Yellow Hoodie 🟡", streetwear: "Street Red 🔴",
+      hacker: "Hacker Blue 🔵", summer: "Summer Green 🟢", retrowave: "Retrowave 🟣"
+    };
+    const VEHICLE_LABELS: Record<VehicleId, string> = {
+      none: "on foot 🚶", bicycle: "bicycle 🚲", motorbike: "motorbike 🏍️", car: "sportscar 🚗"
+    };
+
+    // 1. Stop Gizmo at station and open the panel
+    setMascotState("idle");
+    setShowStation(true);
+    setMessageText("✨ Changing look...");
+    setShowMessage(true);
+
+    // 2. After 1.2s apply the random new outfit + vehicle
+    const changeTimer = window.setTimeout(() => {
+      const newOutfit  = ALL_OUTFITS[Math.floor(Math.random() * ALL_OUTFITS.length)];
+      const newVehicle = ALL_VEHICLES[Math.floor(Math.random() * ALL_VEHICLES.length)];
+      setActiveOutfit(newOutfit);
+      setActiveVehicle(newVehicle);
+      setMessageText(`New look! ${OUTFIT_NAMES[newOutfit]} + ${VEHICLE_LABELS[newVehicle]}!`);
+    }, 1200);
+
+    // 3. After 3.5s close station and resume wandering
+    const doneTimer = window.setTimeout(() => {
+      setShowStation(false);
+      pitstopActiveRef.current = false;
+      setPitstopPhase("off");
+      setMascotState("walking");
+      setMessageText("Fresh new look! Let's roll! 🚀");
+      window.setTimeout(() => setShowMessage(false), 3000);
+    }, 3600);
+
+    return () => {
+      window.clearTimeout(changeTimer);
+      window.clearTimeout(doneTimer);
+    };
+  }, [pitstopPhase]);
+
   const currentFrame = getFrame(blink, walkStep);
 
   return (
-    <div 
-      aria-hidden="true" 
-      style={{ 
-        position: "absolute", 
-        top: `${posY}%`, 
-        left: `${posX}%`, 
-        width: "160px", 
-        height: "160px", 
-        zIndex: 9999, 
-        pointerEvents: "auto", // enable hover/click interaction
-        cursor: "pointer",
-        transition: "none",
-      }} 
-      onClick={handleMascotClick}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      title="Click me!"
-    >
+    <>
+      {/* ── Fixed Station Dock (always visible, bottom-right corner) ── */}
+      <div
+        style={{ position:"fixed", bottom:"24px", right:"24px", zIndex:10000, display:"flex", flexDirection:"column", alignItems:"flex-end", gap:"10px", pointerEvents:"auto" }}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <AnimatePresence>
+          {showStation && (
+            <GizmoStation
+              isDark={isDark}
+              currentOutfit={activeOutfit}
+              currentVehicle={activeVehicle}
+              onOutfitChange={handleOutfitChange}
+              onVehicleChange={handleStationVehicleChange}
+              onClose={() => setShowStation(false)}
+            />
+          )}
+        </AnimatePresence>
+
+        <button
+          id="gizmo-station-btn"
+          onClick={() => setShowStation((prev) => !prev)}
+          title="Gizmo Station — change outfit & vehicle"
+          style={{ display:"flex", alignItems:"center", gap:"7px", padding:"9px 14px", background:showStation?"#E53E3E":(isDark?"#0B0C0E":"#FAF9F6"), color:showStation?"#FAF9F6":(isDark?"#FAF9F6":"#0F1115"), border:`2px solid ${isDark?"#FAF9F6":"#0F1115"}`, boxShadow:isDark?"4px 4px 0 #FAF9F6":"4px 4px 0 #0F1115", cursor:"pointer", fontFamily:"var(--font-mono)", fontSize:"10px", fontWeight:900, textTransform:"uppercase", letterSpacing:"0.1em", transition:"background 0.15s, color 0.15s, transform 0.1s, box-shadow 0.1s" }}
+          onMouseEnter={(e) => { e.currentTarget.style.transform="translate(-2px,-2px)"; e.currentTarget.style.boxShadow=isDark?"6px 6px 0 #FAF9F6":"6px 6px 0 #0F1115"; }}
+          onMouseLeave={(e) => { e.currentTarget.style.transform="none"; e.currentTarget.style.boxShadow=isDark?"4px 4px 0 #FAF9F6":"4px 4px 0 #0F1115"; }}
+        >
+          <span style={{ fontSize:"14px" }}>🏪</span>
+          <span>GIZMO STATION</span>
+        </button>
+      </div>
+
+      {/* ── Roaming Gizmo Mascot ── */}
+      <div 
+        aria-hidden="true" 
+        style={{ position:"absolute", top:`${posY}%`, left:`${posX}%`, width:"160px", height:"160px", zIndex:9999, pointerEvents:"auto", cursor:"pointer", transition:"none" }} 
+        onClick={handleMascotClick}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        title="Click me!"
+      >
       <style>{`
         @keyframes sprite-bounce {
           0%, 100% { transform: translateY(0px); }
@@ -748,32 +907,24 @@ export default function FloatingMascotPixel({ isDark }: { isDark: boolean }) {
               </button>
             ))}
 
-            {/* Custom Cycle Vehicle Action Button */}
+            {/* Cycle Vehicle */}
             <button
               onClick={handleVehicleCycle}
-              style={{
-                textAlign: "left",
-                padding: "6px 8px",
-                background: "#E53E3E",
-                border: isDark ? "1.5px solid #FAF9F6" : "1.5px solid #0F1115",
-                fontSize: "9px",
-                fontWeight: "bold",
-                color: "#FAF9F6",
-                textTransform: "uppercase",
-                cursor: "pointer",
-                transition: "all 0.1s ease",
-                boxShadow: isDark ? "2px 2px 0px #FAF9F6" : "2px 2px 0px #0F1115",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = "translate(-1px, -1px)";
-                e.currentTarget.style.boxShadow = isDark ? "3px 3px 0px #FAF9F6" : "3px 3px 0px #0F1115";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = "none";
-                e.currentTarget.style.boxShadow = isDark ? "2px 2px 0px #FAF9F6" : "2px 2px 0px #0F1115";
-              }}
+              style={{ textAlign:"left",padding:"6px 8px",background:"#E53E3E",border:isDark?"1.5px solid #FAF9F6":"1.5px solid #0F1115",fontSize:"9px",fontWeight:"bold",color:"#FAF9F6",textTransform:"uppercase",cursor:"pointer",transition:"all 0.1s ease",boxShadow:isDark?"2px 2px 0px #FAF9F6":"2px 2px 0px #0F1115" }}
+              onMouseEnter={(e)=>{ e.currentTarget.style.transform="translate(-1px,-1px)"; e.currentTarget.style.boxShadow=isDark?"3px 3px 0px #FAF9F6":"3px 3px 0px #0F1115"; }}
+              onMouseLeave={(e)=>{ e.currentTarget.style.transform="none"; e.currentTarget.style.boxShadow=isDark?"2px 2px 0px #FAF9F6":"2px 2px 0px #0F1115"; }}
             >
               Cycle Vehicle 🚲🏍️🚗
+            </button>
+
+            {/* 🏪 Open Gizmo Station */}
+            <button
+              onClick={(e) => { e.stopPropagation(); setShowAssistantPanel(false); setShowStation(prev => !prev); }}
+              style={{ textAlign:"left",padding:"6px 8px",background:"#2B6CB0",border:isDark?"1.5px solid #FAF9F6":"1.5px solid #0F1115",fontSize:"9px",fontWeight:"bold",color:"#FAF9F6",textTransform:"uppercase",cursor:"pointer",transition:"all 0.1s ease",boxShadow:isDark?"2px 2px 0px #FAF9F6":"2px 2px 0px #0F1115" }}
+              onMouseEnter={(e)=>{ e.currentTarget.style.transform="translate(-1px,-1px)"; e.currentTarget.style.boxShadow=isDark?"3px 3px 0px #FAF9F6":"3px 3px 0px #0F1115"; }}
+              onMouseLeave={(e)=>{ e.currentTarget.style.transform="none"; e.currentTarget.style.boxShadow=isDark?"2px 2px 0px #FAF9F6":"2px 2px 0px #0F1115"; }}
+            >
+              🏪 Gizmo Station
             </button>
           </div>
         </div>
@@ -796,8 +947,9 @@ export default function FloatingMascotPixel({ isDark }: { isDark: boolean }) {
             : "none"
         }}
       >
-        <GizmoRide frame={currentFrame} step={walkStep} vehicle={activeVehicle} />
+        <GizmoRide frame={currentFrame} step={walkStep} vehicle={activeVehicle} colors={COLORS} />
       </div>
     </div>
+    </>
   );
 }

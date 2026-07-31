@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Send, CheckCircle, Terminal, HelpCircle, Trash2 } from "lucide-react";
+import { motion } from "motion/react";
 import { ContactMessage } from "../types";
 
 export default function ContactForm() {
@@ -7,7 +8,7 @@ export default function ContactForm() {
   const [email, setEmail] = useState("");
   const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
-  
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [messageLog, setMessageLog] = useState<ContactMessage[]>([]);
@@ -72,7 +73,7 @@ export default function ContactForm() {
       const updated = [newMessage, ...messageLog];
       setMessageLog(updated);
       localStorage.setItem("yanshu_portfolio_messages", JSON.stringify(updated));
-      
+
       window.open(
         `mailto:yanshushingala@gmail.com?subject=${encodeURIComponent(subject || "Portfolio Transmission")}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`)}`
       );
@@ -166,9 +167,11 @@ export default function ContactForm() {
           </div>
 
           <div className="pt-2 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <button
+            <motion.button
               type="submit"
               disabled={isSubmitting}
+              whileHover={{ scale: isSubmitting ? 1 : 1.03 }}
+              whileTap={{ scale: isSubmitting ? 1 : 0.97 }}
               className="px-8 py-3 bg-[#DC3D24] text-white font-mono text-xs md:text-sm font-black uppercase tracking-widest hover:bg-[#e4513a] disabled:bg-neutral-800 disabled:text-neutral-500 light:disabled:bg-neutral-300 light:disabled:text-neutral-500 border-2 border-white light:border-black shadow-bauhaus-sm transition-all cursor-pointer flex items-center justify-center gap-2"
             >
               {isSubmitting ? (
@@ -185,13 +188,17 @@ export default function ContactForm() {
                   <span>TRANSMIT MESSAGE</span>
                 </>
               )}
-            </button>
+            </motion.button>
 
             {submitSuccess && (
-              <div className="flex items-center gap-2 text-emerald-500 light:text-emerald-700 font-mono text-xs md:text-sm font-bold">
+              <motion.div
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                className="flex items-center gap-2 text-emerald-500 light:text-emerald-700 font-mono text-xs md:text-sm font-bold"
+              >
                 <CheckCircle className="w-4 h-4" />
                 <span>TRANSMISSION DISPATCHED TO YANSHU'S INBOX! 📩</span>
-              </div>
+              </motion.div>
             )}
           </div>
         </form>
@@ -205,13 +212,15 @@ export default function ContactForm() {
               <Terminal className="w-4 h-4 text-[#2E86AB]" /> Client Guest Message logs
             </h4>
             {messageLog.length > 0 && (
-              <button
+              <motion.button
                 onClick={clearGuestbook}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
                 className="text-xs md:text-sm text-red-400 light:text-red-700 hover:text-red-300 font-mono flex items-center gap-1 font-bold cursor-pointer"
                 title="Clear personal guest log"
               >
                 <Trash2 className="w-3.5 h-3.5" />
-              </button>
+              </motion.button>
             )}
           </div>
 
@@ -224,7 +233,13 @@ export default function ContactForm() {
               </div>
             ) : (
               messageLog.map((log, index) => (
-                <div key={index} className="bg-[#161619] light:bg-[#f5f2eb] p-3.5 border-2 border-neutral-800 light:border-black">
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.05 }}
+                  className="bg-[#161619] light:bg-[#f5f2eb] p-3.5 border-2 border-neutral-800 light:border-black"
+                >
                   <div className="flex justify-between items-start text-xs md:text-sm font-mono text-neutral-400 light:text-neutral-600 mb-1">
                     <span className="font-bold text-[#2E86AB]">{log.name}</span>
                     <span>{log.timestamp.split(",")[1]?.trim() || log.timestamp}</span>
@@ -235,7 +250,7 @@ export default function ContactForm() {
                   <p className="text-xs md:text-sm text-neutral-300 light:text-neutral-700 font-mono leading-relaxed line-clamp-3 break-words">
                     {log.message}
                   </p>
-                </div>
+                </motion.div>
               ))
             )}
           </div>
