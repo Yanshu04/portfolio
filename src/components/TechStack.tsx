@@ -35,7 +35,7 @@ export default function TechStack() {
     <section className="py-24 md:py-32 px-[8%] md:px-[12%] lg:px-[14%] w-full border-t border-neutral-900 light:border-neutral-200 z-10 relative" id="tech-stack">
       <FadeInSection className="mb-12">
         <span className="text-[#E53E3E] font-mono text-xs uppercase tracking-widest font-black block mb-2">
-          ENGINEERING ARSENAL
+          TECHNICAL SKILLS
         </span>
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div>

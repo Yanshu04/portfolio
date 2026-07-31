@@ -59,7 +59,7 @@ export default function Header({ darkMode, onToggleTheme }: HeaderProps) {
 
           {/* Desktop Right Side Control Actions */}
           <div className="hidden md:flex items-center gap-4 lg:gap-6 xl:gap-8 font-sans">
-            <nav className="flex items-center gap-3.5 lg:gap-5 xl:gap-7 text-xs uppercase tracking-widest font-bold whitespace-nowrap">
+            <nav className="flex items-center gap-3.5 lg:gap-5 xl:gap-7 text-xs uppercase tracking-widest font-bold whitespace-nowrap font-mono">
               {navLinks.map((link) => (
                 <motion.a
                   key={link.label}
@@ -134,7 +134,7 @@ export default function Header({ darkMode, onToggleTheme }: HeaderProps) {
               key={link.label}
               href={link.href}
               onClick={() => setIsMobileMenuOpen(false)}
-              className="text-2xl uppercase tracking-widest font-black text-neutral-200 light:text-slate-900 hover:text-[#DC3D24] transition-colors"
+              className="text-2xl uppercase tracking-widest font-black font-mono text-neutral-200 light:text-slate-900 hover:text-[#DC3D24] transition-colors"
             >
               {link.label}
             </a>

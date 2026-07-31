@@ -1,0 +1,58 @@
+<svg width="1280" height="720" viewBox="0 0 1280 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1280" height="720" fill="#09090B"/>
+  
+  <rect x="24" y="24" width="1232" height="672" rx="8" fill="#121215" stroke="#27272A" stroke-width="1.5"/>
+  
+  <text x="48" y="68" fill="#FAFAFA" font-family="'JetBrains Mono', monospace" font-size="16" font-weight="700">PyTorch Speech ASR Monitor</text>
+  <text x="1040" y="68" fill="#38BDF8" font-family="'JetBrains Mono', monospace" font-size="12">● 4.97M Param CNN-BiLSTM</text>
+  <line x1="48" y1="84" x2="1232" y2="84" stroke="#27272A" stroke-width="1"/>
+
+  <!-- Left Column -->
+  <rect x="48" y="108" width="540" height="564" rx="6" fill="#18181B" stroke="#27272A" stroke-width="1"/>
+  <text x="72" y="140" fill="#A1A1AA" font-family="-apple-system, sans-serif" font-size="12" font-weight="600">40-BAND LOG-MEL ACOUSTIC SPECTROGRAM</text>
+  
+  <rect x="72" y="156" width="492" height="180" rx="4" fill="#09090B" stroke="#27272A" stroke-width="1"/>
+  <rect x="84" y="170" width="40" height="150" fill="#EF4444" opacity="0.8"/>
+  <rect x="129" y="190" width="45" height="130" fill="#F59E0B" opacity="0.8"/>
+  <rect x="179" y="175" width="60" height="145" fill="#3B82F6" opacity="0.8"/>
+  <rect x="244" y="200" width="35" height="120" fill="#10B981" opacity="0.8"/>
+  <rect x="284" y="170" width="55" height="150" fill="#EF4444" opacity="0.8"/>
+  <rect x="344" y="185" width="50" height="135" fill="#F59E0B" opacity="0.8"/>
+  <rect x="399" y="175" width="70" height="145" fill="#3B82F6" opacity="0.8"/>
+  <rect x="474" y="195" width="75" height="125" fill="#10B981" opacity="0.8"/>
+
+  <text x="72" y="375" fill="#A1A1AA" font-family="-apple-system, sans-serif" font-size="12" font-weight="600">GOOGLE WEBRTC VAD (30ms Frame Window)</text>
+  <rect x="72" y="391" width="492" height="40" rx="4" fill="#09090B" stroke="#27272A" stroke-width="1"/>
+  <rect x="84" y="405" width="120" height="12" rx="2" fill="#10B981"/>
+  <rect x="210" y="405" width="40" height="12" rx="2" fill="#27272A"/>
+  <rect x="256" y="405" width="180" height="12" rx="2" fill="#10B981"/>
+  <rect x="442" y="405" width="108" height="12" rx="2" fill="#27272A"/>
+
+  <rect x="72" y="460" width="235" height="100" rx="6" fill="#09090B" stroke="#27272A" stroke-width="1"/>
+  <text x="88" y="485" fill="#A1A1AA" font-family="-apple-system, sans-serif" font-size="11">MODEL EVAL LOSS</text>
+  <text x="88" y="520" fill="#10B981" font-family="'JetBrains Mono', monospace" font-size="28" font-weight="700">0.9358</text>
+  <text x="88" y="542" fill="#71717A" font-family="-apple-system, sans-serif" font-size="11">CTC Loss Criterion</text>
+
+  <rect x="329" y="460" width="235" height="100" rx="6" fill="#09090B" stroke="#27272A" stroke-width="1"/>
+  <text x="345" y="485" fill="#A1A1AA" font-family="-apple-system, sans-serif" font-size="11">VRAM ALLOCATION</text>
+  <text x="345" y="520" fill="#38BDF8" font-family="'JetBrains Mono', monospace" font-size="28" font-weight="700">3.8 GB</text>
+  <text x="345" y="542" fill="#71717A" font-family="-apple-system, sans-serif" font-size="11">Low-VRAM CUDA Node</text>
+
+  <!-- Right Column -->
+  <rect x="612" y="108" width="620" height="564" rx="6" fill="#09090B" stroke="#27272A" stroke-width="1"/>
+  <text x="636" y="140" fill="#71717A" font-family="'JetBrains Mono', monospace" font-size="12">CTC DECODER STDOUT</text>
+
+  <rect x="636" y="164" width="572" height="120" rx="6" fill="#18181B" stroke="#27272A" stroke-width="1"/>
+  <text x="656" y="192" fill="#F59E0B" font-family="'JetBrains Mono', monospace" font-size="12">ENGLISH DECODE:</text>
+  <text x="656" y="224" fill="#FAFAFA" font-family="-apple-system, sans-serif" font-size="14">"Real-time speech recognition system executing entirely on local CUDA nodes."</text>
+
+  <rect x="636" y="304" width="572" height="120" rx="6" fill="#18181B" stroke="#27272A" stroke-width="1"/>
+  <text x="656" y="332" fill="#EF4444" font-family="'JetBrains Mono', monospace" font-size="12">MULTILINGUAL DECODE (287 Vocab Tokens):</text>
+  <text x="656" y="364" fill="#FAFAFA" font-family="-apple-system, sans-serif" font-size="14">"સ્પીચ રેકગ્નિશન મોડલ 100% ઓફલાઇન કામ કરે છે."</text>
+
+  <rect x="636" y="444" width="572" height="140" rx="6" fill="#18181B" stroke="#27272A" stroke-width="1"/>
+  <text x="656" y="472" fill="#10B981" font-family="'JetBrains Mono', monospace" font-size="12">BEAM SEARCH STATUS:</text>
+  <text x="656" y="500" fill="#A1A1AA" font-family="'JetBrains Mono', monospace" font-size="12">• Beam width: 16 • Blank Token ID: 0</text>
+  <text x="656" y="524" fill="#A1A1AA" font-family="'JetBrains Mono', monospace" font-size="12">• Training dataset: 8,516 audio samples</text>
+  <text x="656" y="548" fill="#A1A1AA" font-family="'JetBrains Mono', monospace" font-size="12">• Execution: PyTorch C++ Extensions</text>
+</svg>

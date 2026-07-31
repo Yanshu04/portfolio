@@ -1,28 +1,60 @@
 <svg width="1280" height="720" viewBox="0 0 1280 720" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect width="1280" height="720" fill="#0B0B0C"/>
-  <rect x="48" y="48" width="1184" height="624" rx="28" fill="#111114" stroke="#F5F2EB" stroke-width="2"/>
-  <rect x="96" y="96" width="342" height="528" rx="20" fill="#1B1B21" stroke="#2B6CB0" stroke-width="3"/>
-  <rect x="476" y="96" width="708" height="120" rx="20" fill="#1B1B21" stroke="#E53E3E" stroke-width="3"/>
-  <rect x="476" y="244" width="708" height="168" rx="20" fill="#1B1B21" stroke="#D69E2E" stroke-width="3"/>
-  <rect x="476" y="440" width="708" height="184" rx="20" fill="#1B1B21" stroke="#F5F2EB" stroke-width="3"/>
+  <rect width="1280" height="720" fill="#09090B"/>
+  
+  <rect x="24" y="24" width="1232" height="672" rx="8" fill="#121215" stroke="#27272A" stroke-width="1.5"/>
+  
+  <text x="48" y="68" fill="#FAFAFA" font-family="'JetBrains Mono', monospace" font-size="16" font-weight="700">AI Resume Builder Studio</text>
+  <rect x="1080" y="48" width="120" height="32" rx="4" fill="#2563EB"/>
+  <text x="1102" y="69" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="12" font-weight="600">Export PDF</text>
+  <line x1="48" y1="94" x2="1232" y2="94" stroke="#27272A" stroke-width="1"/>
 
-  <text x="140" y="170" fill="#F5F2EB" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="700">AI Resume</text>
-  <text x="140" y="220" fill="#F5F2EB" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="700">Builder</text>
-  <text x="140" y="270" fill="#A3A3A3" font-family="Arial, Helvetica, sans-serif" font-size="20">Conversational inputs</text>
-  <text x="140" y="304" fill="#A3A3A3" font-family="Arial, Helvetica, sans-serif" font-size="20">Live templates</text>
-  <text x="140" y="338" fill="#A3A3A3" font-family="Arial, Helvetica, sans-serif" font-size="20">Drag-and-drop ordering</text>
-  <text x="140" y="372" fill="#A3A3A3" font-family="Arial, Helvetica, sans-serif" font-size="20">Offline Ollama AI</text>
+  <!-- Left Column -->
+  <rect x="48" y="114" width="380" height="558" rx="6" fill="#18181B" stroke="#27272A" stroke-width="1"/>
+  <text x="72" y="146" fill="#A1A1AA" font-family="-apple-system, sans-serif" font-size="12" font-weight="600">SECTION ORDERING</text>
 
-  <rect x="526" y="132" width="170" height="24" rx="12" fill="#E53E3E"/>
-  <rect x="714" y="132" width="120" height="24" rx="12" fill="#2B6CB0"/>
-  <rect x="852" y="132" width="154" height="24" rx="12" fill="#D69E2E"/>
-  <rect x="1024" y="132" width="132" height="24" rx="12" fill="#F5F2EB"/>
+  <rect x="72" y="165" width="332" height="46" rx="4" fill="#09090B" stroke="#27272A" stroke-width="1"/>
+  <text x="88" y="193" fill="#FAFAFA" font-family="-apple-system, sans-serif" font-size="13">⋮⋮  1. Personal Information &amp; Links</text>
+  <text x="368" y="193" fill="#10B981" font-family="-apple-system, sans-serif" font-size="12">✓</text>
 
-  <text x="528" y="298" fill="#F5F2EB" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">Template Preview</text>
-  <rect x="528" y="320" width="620" height="24" rx="12" fill="#2B2B33"/>
-  <rect x="528" y="356" width="430" height="24" rx="12" fill="#2B2B33"/>
-  <rect x="528" y="492" width="220" height="24" rx="12" fill="#E53E3E"/>
-  <rect x="768" y="492" width="220" height="24" rx="12" fill="#2B6CB0"/>
-  <rect x="1008" y="492" width="140" height="24" rx="12" fill="#D69E2E"/>
-  <text x="528" y="560" fill="#A3A3A3" font-family="Arial, Helvetica, sans-serif" font-size="18">FastAPI backend • TypeScript frontend • Multi-format export</text>
+  <rect x="72" y="221" width="332" height="46" rx="4" fill="#09090B" stroke="#27272A" stroke-width="1"/>
+  <text x="88" y="249" fill="#FAFAFA" font-family="-apple-system, sans-serif" font-size="13">⋮⋮  2. Work Experience (3 Entries)</text>
+  <text x="368" y="249" fill="#10B981" font-family="-apple-system, sans-serif" font-size="12">✓</text>
+
+  <rect x="72" y="277" width="332" height="46" rx="4" fill="#09090B" stroke="#27272A" stroke-width="1"/>
+  <text x="88" y="305" fill="#FAFAFA" font-family="-apple-system, sans-serif" font-size="13">⋮⋮  3. Technical Projects (4 Entries)</text>
+  <text x="368" y="305" fill="#10B981" font-family="-apple-system, sans-serif" font-size="12">✓</text>
+
+  <rect x="72" y="333" width="332" height="46" rx="4" fill="#09090B" stroke="#27272A" stroke-width="1"/>
+  <text x="88" y="361" fill="#FAFAFA" font-family="-apple-system, sans-serif" font-size="13">⋮⋮  4. Education &amp; Core Skills</text>
+  <text x="368" y="361" fill="#10B981" font-family="-apple-system, sans-serif" font-size="12">✓</text>
+
+  <text x="72" y="420" fill="#A1A1AA" font-family="-apple-system, sans-serif" font-size="12" font-weight="600">TEMPLATE STYLES</text>
+  <rect x="72" y="436" width="105" height="34" rx="4" fill="#2563EB"/><text x="86" y="457" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="12" font-weight="600">Modern</text>
+  <rect x="185" y="436" width="105" height="34" rx="4" fill="#09090B" stroke="#27272A" stroke-width="1"/><text x="204" y="457" fill="#A1A1AA" font-family="-apple-system, sans-serif" font-size="12">Classic</text>
+
+  <!-- Right Canvas -->
+  <rect x="452" y="114" width="780" height="558" rx="6" fill="#09090B" stroke="#27272A" stroke-width="1"/>
+  <rect x="560" y="134" width="560" height="518" rx="4" fill="#FFFFFF"/>
+  
+  <text x="590" y="174" fill="#09090B" font-family="Arial, sans-serif" font-size="18" font-weight="800">YANSHU SHINGALA</text>
+  <text x="590" y="192" fill="#2563EB" font-family="Arial, sans-serif" font-size="11" font-weight="700">Data &amp; AI/ML Engineer | Full-Stack Developer</text>
+  <text x="590" y="208" fill="#71717A" font-family="Arial, sans-serif" font-size="10">yanshushingala@gmail.com | github.com/Yanshu04 | Rajkot, Gujarat</text>
+  <line x1="590" y1="216" x2="1090" y2="216" stroke="#09090B" stroke-width="1"/>
+
+  <text x="590" y="238" fill="#09090B" font-family="Arial, sans-serif" font-size="11" font-weight="800">TECHNICAL PROJECTS &amp; EXPERIENCE</text>
+  <line x1="590" y1="244" x2="1090" y2="244" stroke="#E4E4E7" stroke-width="1"/>
+  
+  <text x="590" y="262" fill="#09090B" font-family="Arial, sans-serif" font-size="11" font-weight="700">LAIKA — Local AI Knowledge Assistant</text>
+  <text x="1010" y="262" fill="#71717A" font-family="Arial, sans-serif" font-size="10">2026</text>
+  <text x="590" y="278" fill="#3F3F46" font-family="Arial, sans-serif" font-size="10">• Engineered a local document RAG system combining ChromaDB vector embeddings and SQLite FTS5.</text>
+  <text x="590" y="292" fill="#3F3F46" font-family="Arial, sans-serif" font-size="10">• Streamed answers with preserved chat context and clickable source citations.</text>
+
+  <text x="590" y="318" fill="#09090B" font-family="Arial, sans-serif" font-size="11" font-weight="700">Vaani — Multilingual Voice Assistant</text>
+  <text x="1010" y="318" fill="#71717A" font-family="Arial, sans-serif" font-size="10">2026</text>
+  <text x="590" y="334" fill="#3F3F46" font-family="Arial, sans-serif" font-size="10">• Built a 100% offline voice loop chaining Whisper STT, Meta NLLB-200, and Ollama LLM.</text>
+
+  <text x="590" y="368" fill="#09090B" font-family="Arial, sans-serif" font-size="11" font-weight="800">EDUCATION &amp; SKILLS</text>
+  <line x1="590" y1="374" x2="1090" y2="374" stroke="#E4E4E7" stroke-width="1"/>
+  <text x="590" y="392" fill="#09090B" font-family="Arial, sans-serif" font-size="11" font-weight="700">B.Tech in Computer Science &amp; Engineering</text>
+  <text x="590" y="408" fill="#3F3F46" font-family="Arial, sans-serif" font-size="10">Core Skills: Python, PyTorch, React, TypeScript, FastAPI, XGBoost, MediaPipe, Docker</text>
 </svg>

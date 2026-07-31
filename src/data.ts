@@ -24,7 +24,7 @@ export const PROJECTS: Project[] = [
     id: "vaani",
     title: "Vaani",
     description: "Fully offline multilingual voice assistant supporting Hindi, Gujarati, and English. Chains Whisper STT, Meta NLLB-200 translation, local Ollama LLM, and SAPI5 TTS into a single pipeline.",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuCedINCfHkhqyQrKj82VH7CccEMFrHC4CgU-aXAiRnROnQSK8mFs3Xm9xcaufb4EHOu16J3WBzIM_j_bTc8fy7tMa8YwP6YA4cbiwhsRGJExl8rXu5g-ds3Bo-q7-bSyfTFOCLedPCHvM3QRGt6E2WfbT39amSF5kgXfLF-R4hhnPUhpVqBSgX9JfG0NUWyls5fdwcIDCQkLhEiqqSO8fx49gHhhgtbf6LxOyMt0rY-XM2HEeVf6N9mWLqPWe1LVy0XSkVCUy3pTw_q",
+    image: "/assets/vaani_preview.svg",
     imageAlt: "Voice Assistant Visualization",
     tags: ["Whisper", "Ollama", "Transformers", "Streamlit"],
     githubUrl: "https://github.com/Yanshu04/Vaani",
@@ -43,7 +43,7 @@ export const PROJECTS: Project[] = [
     id: "speech-asr",
     title: "Offline Speech ASR",
     description: "A lightweight, fully offline, real-time speech recognition system built from scratch in PyTorch. Runs entirely locally on low-VRAM edge nodes, transcribing English, Hindi, and Gujarati scripts.",
-    image: "/assets/speech_asr_preview.png",
+    image: "/assets/speech_asr_preview.svg",
     imageAlt: "Speech ASR Visual Spectrogram",
     tags: ["PyTorch", "Python", "BiLSTM", "webrtcvad"],
     githubUrl: "https://github.com/Yanshu04/speech-asr",
@@ -100,7 +100,7 @@ export const PROJECTS: Project[] = [
     id: "ar-sketch",
     title: "AR Sketch",
     description: "Real-time augmented reality drawing app using MediaPipe hand tracking. Detects 21 hand landmarks at 60fps to let users draw in mid-air using gestures — no controller or special hardware required.",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuCGOtgXVXD8wlrAvYpVdz8Rg4tOv0hRKzNMyGDZbv3a_RriYBcrtjPxBgOsmVxuPMF5OSpew2BoK7oik3wrEgMnw8PoVO5Fz-vs3nKW3MJ_vMqR8GtXHL6-Z7A-NDVGQ9AxHljP34k7jbytk7onzv0n5Njv-Q_sB-aR1Uag6_Dr2yEILpS0_FTchkwnTITS-Eacc2iE8dbU3xwiFyNNFffQb0534fX0CTl6dzY3qkMuRzgcVuyTK518DuzRgr5MTJsvttrvhTTBspEj",
+    image: "/assets/ar_sketch_preview.svg",
     imageAlt: "AR Sketch App Interface",
     tags: ["React", "TypeScript", "MediaPipe", "Vite"],
     liveUrl: "https://ar-drawing-canvas.vercel.app",
@@ -120,7 +120,7 @@ export const PROJECTS: Project[] = [
     id: "arenahub",
     title: "ArenaHub Turf & Gaming",
     description: "A dual-purpose booking platform for sports turf and esports gaming. Engineered with React 19, TypeScript, and Tailwind CSS. Features an interactive custom monthly calendar with multi-pass session scheduling, stateful QR boarding passes, and a responsive analytics dashboard.",
-    image: "/assets/arenahub_preview.png",
+    image: "/assets/arenahub_preview.svg",
     imageAlt: "ArenaHub Turf & Gaming Dashboard Preview",
     tags: ["React 19", "TypeScript", "Tailwind CSS", "Recharts"],
     liveUrl: "https://arenahub-turf-gaming.vercel.app",
@@ -198,7 +198,7 @@ export const PROJECTS: Project[] = [
     id: "ai-planner",
     title: "AI Study Planner",
     description: "A smart exam prep planner that suggests what to study each day based on your deadlines and progress. Supports course tracking, timeline visualization, and custom study task generators.",
-    image: "/assets/ai_planner_preview.png",
+    image: "/assets/ai_planner_preview.svg",
     imageAlt: "AI Study Planner Interface Preview",
     tags: ["React", "TypeScript", "Tailwind CSS", "Vite"],
     liveUrl: "https://ai-study-planner-inky.vercel.app",
@@ -218,7 +218,7 @@ export const PROJECTS: Project[] = [
     id: "solar-tracker",
     title: "Solar Tracker",
     description: "An Android application built in Kotlin to manage and monitor solar panel installations. Provides a comprehensive dashboard tracking real-time panel status, weather conditions, and performance forecasts for solar sites in the Rajkot region.",
-    image: "/assets/solar_tracker_preview.png",
+    image: "/assets/solar_tracker_preview.svg",
     imageAlt: "Solar Tracker Android App Dashboard",
     tags: ["Kotlin", "Android", "Jetpack Compose", "REST API"],
     githubUrl: "https://github.com/Yanshu04/solar-tracker",
@@ -228,9 +228,9 @@ export const PROJECTS: Project[] = [
       "Built with modern Android architecture (MVVM) using Kotlin and Jetpack Compose for a fluid, responsive UI."
     ],
     specs: [
-      { label: "Platform", value: "Android (Kotlin)" },
-      { label: "Architecture", value: "MVVM + Jetpack Compose" },
-      { label: "Focus Region", value: "Rajkot Solar Sites" }
+      { label: "Target Device", value: "Mobile Smartphone Only" },
+      { label: "Platform", value: "Android Native (Kotlin)" },
+      { label: "UI Framework", value: "Jetpack Compose MVVM" }
     ]
   }
 ];

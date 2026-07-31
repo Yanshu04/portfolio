@@ -57,13 +57,13 @@ export default function ProjectCard({ project, isActive = true, layout = "vertic
               alt={project.imageAlt}
               src={project.image}
               onLoad={() => setImageLoaded(true)}
-              className={`w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 hover:scale-[1.02] ${imageLoaded ? "opacity-100" : "opacity-0"}`}
+              className={`w-full h-full object-cover transition-all duration-500 hover:scale-[1.02] ${imageLoaded ? "opacity-100" : "opacity-0"}`}
               referrerPolicy="no-referrer"
             />
 
             {/* Badge indicator on image */}
             <div className="absolute bottom-3 right-3 bg-black text-white font-mono text-[9px] uppercase tracking-widest px-2.5 py-1 border border-neutral-700 light:border-black z-20">
-              LAUNCH EDITION
+              FEATURED BUILD
             </div>
           </div>
 
@@ -165,13 +165,13 @@ export default function ProjectCard({ project, isActive = true, layout = "vertic
             alt={project.imageAlt}
             src={project.image}
             onLoad={() => setImageLoaded(true)}
-            className={`w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 hover:scale-[1.02] ${imageLoaded ? "opacity-100" : "opacity-0"}`}
+            className={`w-full h-full object-cover transition-all duration-500 hover:scale-[1.02] ${imageLoaded ? "opacity-100" : "opacity-0"}`}
             referrerPolicy="no-referrer"
           />
 
           {/* Badge indicator on image */}
           <div className="absolute bottom-3 right-3 bg-black text-white font-mono text-[9px] uppercase tracking-widest px-2.5 py-1 border border-neutral-700 light:border-black z-20">
-            LAUNCH EDITION
+            FEATURED BUILD
           </div>
         </div>
 

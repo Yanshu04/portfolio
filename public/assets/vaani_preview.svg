@@ -1,0 +1,64 @@
+<svg width="1280" height="720" viewBox="0 0 1280 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1280" height="720" fill="#09090B"/>
+  
+  <rect x="24" y="24" width="1232" height="672" rx="8" fill="#121215" stroke="#27272A" stroke-width="1.5"/>
+  
+  <!-- Header Bar -->
+  <text x="48" y="68" fill="#FAFAFA" font-family="'JetBrains Mono', monospace" font-size="16" font-weight="700">Vaani Offline Speech Console</text>
+  <text x="1080" y="68" fill="#10B981" font-family="'JetBrains Mono', monospace" font-size="12">● 100% Offline GPU Pipeline</text>
+  <line x1="48" y1="84" x2="1232" y2="84" stroke="#27272A" stroke-width="1"/>
+
+  <!-- Left Column -->
+  <rect x="48" y="108" width="380" height="564" rx="6" fill="#18181B" stroke="#27272A" stroke-width="1"/>
+  
+  <text x="72" y="140" fill="#A1A1AA" font-family="-apple-system, sans-serif" font-size="12" font-weight="600">INPUT LANGUAGE</text>
+  
+  <rect x="72" y="156" width="100" height="32" rx="4" fill="#27272A"/>
+  <text x="96" y="177" fill="#FAFAFA" font-family="-apple-system, sans-serif" font-size="13">English</text>
+
+  <rect x="180" y="156" width="110" height="32" rx="4" fill="#27272A"/>
+  <text x="198" y="177" fill="#FAFAFA" font-family="-apple-system, sans-serif" font-size="13">हिन्दी (Hindi)</text>
+
+  <rect x="298" y="156" width="105" height="32" rx="4" fill="#3F3F46"/>
+  <text x="312" y="177" fill="#FAFAFA" font-family="-apple-system, sans-serif" font-size="13">ગુજરાતી (Gu)</text>
+
+  <text x="72" y="230" fill="#A1A1AA" font-family="-apple-system, sans-serif" font-size="12" font-weight="600">AUDIO SPECTROGRAM</text>
+  <rect x="72" y="246" width="332" height="120" rx="6" fill="#09090B" stroke="#27272A" stroke-width="1"/>
+  
+  <!-- Audio wave bars -->
+  <rect x="92" y="280" width="6" height="40" rx="3" fill="#10B981"/>
+  <rect x="104" y="270" width="6" height="60" rx="3" fill="#10B981"/>
+  <rect x="116" y="288" width="6" height="24" rx="3" fill="#10B981"/>
+  <rect x="128" y="260" width="6" height="80" rx="3" fill="#10B981"/>
+  <rect x="140" y="275" width="6" height="50" rx="3" fill="#10B981"/>
+  <rect x="152" y="285" width="6" height="30" rx="3" fill="#10B981"/>
+  <rect x="164" y="255" width="6" height="90" rx="3" fill="#10B981"/>
+  <rect x="176" y="270" width="6" height="60" rx="3" fill="#10B981"/>
+  <rect x="188" y="295" width="6" height="10" rx="3" fill="#10B981"/>
+  <rect x="200" y="265" width="6" height="70" rx="3" fill="#10B981"/>
+  <rect x="212" y="280" width="6" height="40" rx="3" fill="#10B981"/>
+  <rect x="224" y="272" width="6" height="56" rx="3" fill="#10B981"/>
+
+  <text x="72" y="410" fill="#A1A1AA" font-family="-apple-system, sans-serif" font-size="12" font-weight="600">PIPELINE STATS</text>
+  <text x="72" y="435" fill="#E4E4E7" font-family="-apple-system, sans-serif" font-size="13">• Speech Loop Latency: 1.18 sec (GPU)</text>
+  <text x="72" y="460" fill="#E4E4E7" font-family="-apple-system, sans-serif" font-size="13">• STT Model: Whisper C++</text>
+  <text x="72" y="485" fill="#E4E4E7" font-family="-apple-system, sans-serif" font-size="13">• Translation: Meta NLLB-200</text>
+  <text x="72" y="510" fill="#E4E4E7" font-family="-apple-system, sans-serif" font-size="13">• Speech Synthesis: SAPI5 TTS</text>
+
+  <!-- Right Terminal Column -->
+  <rect x="452" y="108" width="780" height="564" rx="6" fill="#09090B" stroke="#27272A" stroke-width="1"/>
+  <text x="476" y="140" fill="#71717A" font-family="'JetBrains Mono', monospace" font-size="12">SYSTEM CONSOLE STDOUT</text>
+
+  <text x="476" y="180" fill="#10B981" font-family="'JetBrains Mono', monospace" font-size="13">$ [Whisper-STT] Audio stream captured (3.2 seconds speech)</text>
+  <text x="476" y="204" fill="#10B981" font-family="'JetBrains Mono', monospace" font-size="13">$ [Whisper-STT] Transcript: "नमस्ते, તમારી ક્ષમતાઓ શું છે?"</text>
+
+  <text x="476" y="248" fill="#38BDF8" font-family="'JetBrains Mono', monospace" font-size="13">$ [NLLB-200] Mapping Gujarati tokens ➔ English context layer...</text>
+  <text x="476" y="272" fill="#38BDF8" font-family="'JetBrains Mono', monospace" font-size="13">$ [NLLB-200] Translated: "Hello, what are your capabilities?"</text>
+
+  <text x="476" y="316" fill="#F59E0B" font-family="'JetBrains Mono', monospace" font-size="13">$ [Ollama-LLM] Evaluating prompt on local qwen2.5 GPU model...</text>
+
+  <rect x="476" y="350" width="732" height="140" rx="6" fill="#18181B" stroke="#27272A" stroke-width="1"/>
+  <text x="496" y="380" fill="#A1A1AA" font-family="'JetBrains Mono', monospace" font-size="12">SAPI5 TTS SPEECH OUTPUT:</text>
+  <text x="496" y="410" fill="#FAFAFA" font-family="-apple-system, sans-serif" font-size="14">"Vaani provides 100% offline speech recognition, language translation, and intelligent AI assistance—operating completely without an internet connection."</text>
+  <text x="496" y="465" fill="#10B981" font-family="'JetBrains Mono', monospace" font-size="12">🔊 Synthesizing audio stream response at 22,050 Hz... Done.</text>
+</svg>

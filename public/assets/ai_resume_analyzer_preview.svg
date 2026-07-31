@@ -1,28 +1,59 @@
 <svg width="1280" height="720" viewBox="0 0 1280 720" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect width="1280" height="720" fill="#0B0B0C"/>
-  <rect x="48" y="48" width="1184" height="624" rx="28" fill="#111114" stroke="#F5F2EB" stroke-width="2"/>
-  <rect x="96" y="96" width="342" height="528" rx="20" fill="#1B1B21" stroke="#E53E3E" stroke-width="3"/>
-  <rect x="476" y="96" width="708" height="120" rx="20" fill="#1B1B21" stroke="#2B6CB0" stroke-width="3"/>
-  <rect x="476" y="244" width="708" height="168" rx="20" fill="#1B1B21" stroke="#D69E2E" stroke-width="3"/>
-  <rect x="476" y="440" width="708" height="184" rx="20" fill="#1B1B21" stroke="#F5F2EB" stroke-width="3"/>
+  <rect width="1280" height="720" fill="#09090B"/>
+  
+  <rect x="24" y="24" width="1232" height="672" rx="8" fill="#121215" stroke="#27272A" stroke-width="1.5"/>
+  
+  <text x="48" y="68" fill="#FAFAFA" font-family="'JetBrains Mono', monospace" font-size="16" font-weight="700">AI Resume Analyzer Studio</text>
+  <text x="1080" y="68" fill="#10B981" font-family="'JetBrains Mono', monospace" font-size="12">● ATS Engine Ready</text>
+  <line x1="48" y1="84" x2="1232" y2="84" stroke="#27272A" stroke-width="1"/>
 
-  <text x="138" y="170" fill="#F5F2EB" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="700">AI Resume</text>
-  <text x="138" y="220" fill="#F5F2EB" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="700">Analyzer</text>
-  <text x="138" y="270" fill="#A3A3A3" font-family="Arial, Helvetica, sans-serif" font-size="20">ATS scoring engine</text>
-  <text x="138" y="304" fill="#A3A3A3" font-family="Arial, Helvetica, sans-serif" font-size="20">Job description matcher</text>
-  <text x="138" y="338" fill="#A3A3A3" font-family="Arial, Helvetica, sans-serif" font-size="20">Skills gap analysis</text>
-  <text x="138" y="372" fill="#A3A3A3" font-family="Arial, Helvetica, sans-serif" font-size="20">Offline Ollama rewrite</text>
+  <!-- Left Column -->
+  <rect x="48" y="108" width="420" height="564" rx="6" fill="#18181B" stroke="#27272A" stroke-width="1"/>
+  <text x="72" y="140" fill="#A1A1AA" font-family="-apple-system, sans-serif" font-size="12" font-weight="600">DOCUMENT: yanshu_resume.pdf</text>
 
-  <rect x="526" y="132" width="150" height="24" rx="12" fill="#E53E3E"/>
-  <rect x="694" y="132" width="148" height="24" rx="12" fill="#2B6CB0"/>
-  <rect x="860" y="132" width="164" height="24" rx="12" fill="#D69E2E"/>
-  <rect x="1042" y="132" width="114" height="24" rx="12" fill="#F5F2EB"/>
+  <!-- ATS Ring -->
+  <circle cx="258" cy="240" r="65" fill="none" stroke="#27272A" stroke-width="12"/>
+  <circle cx="258" cy="240" r="65" fill="none" stroke="#10B981" stroke-width="12" stroke-dasharray="408" stroke-dashoffset="25"/>
+  <text x="258" y="235" text-anchor="middle" fill="#FAFAFA" font-family="'JetBrains Mono', monospace" font-size="34" font-weight="700">94</text>
+  <text x="258" y="260" text-anchor="middle" fill="#10B981" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="600">ATS SCORE</text>
 
-  <text x="528" y="298" fill="#F5F2EB" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">Dashboard Preview</text>
-  <rect x="528" y="320" width="620" height="24" rx="12" fill="#2B2B33"/>
-  <rect x="528" y="356" width="530" height="24" rx="12" fill="#2B2B33"/>
-  <rect x="528" y="492" width="220" height="24" rx="12" fill="#E53E3E"/>
-  <rect x="768" y="492" width="220" height="24" rx="12" fill="#2B6CB0"/>
-  <rect x="1008" y="492" width="140" height="24" rx="12" fill="#D69E2E"/>
-  <text x="528" y="560" fill="#A3A3A3" font-family="Arial, Helvetica, sans-serif" font-size="18">React frontend • FastAPI backend • Local analysis</text>
+  <!-- Metrics -->
+  <rect x="72" y="330" width="372" height="70" rx="6" fill="#09090B" stroke="#27272A" stroke-width="1"/>
+  <text x="92" y="356" fill="#A1A1AA" font-family="-apple-system, sans-serif" font-size="11">JOB DESCRIPTION SIMILARITY MATCH</text>
+  <text x="92" y="385" fill="#38BDF8" font-family="'JetBrains Mono', monospace" font-size="22" font-weight="700">89.4% Match</text>
+  <text x="310" y="385" fill="#10B981" font-family="-apple-system, sans-serif" font-size="12" font-weight="600">✓ Strong Match</text>
+
+  <rect x="72" y="415" width="372" height="135" rx="6" fill="#09090B" stroke="#27272A" stroke-width="1"/>
+  <text x="92" y="440" fill="#F59E0B" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="600">PARSER SIGNALS</text>
+  <text x="92" y="465" fill="#E4E4E7" font-family="-apple-system, sans-serif" font-size="12">✓ Keyword Density: Optimal (18 key phrases)</text>
+  <text x="92" y="490" fill="#E4E4E7" font-family="-apple-system, sans-serif" font-size="12">✓ Formatting: Standard ATS Parsing Clean</text>
+  <text x="92" y="515" fill="#E4E4E7" font-family="-apple-system, sans-serif" font-size="12">✓ Action Verbs: High Impact Metrics Included</text>
+
+  <!-- Right Column -->
+  <rect x="492" y="108" width="740" height="564" rx="6" fill="#09090B" stroke="#27272A" stroke-width="1"/>
+  <text x="516" y="140" fill="#71717A" font-family="'JetBrains Mono', monospace" font-size="12">SKILLS GAP &amp; RECOMMENDATION ENGINE</text>
+
+  <text x="516" y="175" fill="#E4E4E7" font-family="-apple-system, sans-serif" font-size="12" font-weight="600">MATCHED SKILLS:</text>
+  <rect x="516" y="190" width="75" height="26" rx="4" fill="#18181B" stroke="#27272A" stroke-width="1"/><text x="532" y="207" fill="#10B981" font-family="-apple-system, sans-serif" font-size="11">React</text>
+  <rect x="600" y="190" width="95" height="26" rx="4" fill="#18181B" stroke="#27272A" stroke-width="1"/><text x="614" y="207" fill="#10B981" font-family="-apple-system, sans-serif" font-size="11">TypeScript</text>
+  <rect x="704" y="190" width="80" height="26" rx="4" fill="#18181B" stroke="#27272A" stroke-width="1"/><text x="718" y="207" fill="#10B981" font-family="-apple-system, sans-serif" font-size="11">FastAPI</text>
+  <rect x="793" y="190" width="75" height="26" rx="4" fill="#18181B" stroke="#27272A" stroke-width="1"/><text x="807" y="207" fill="#10B981" font-family="-apple-system, sans-serif" font-size="11">Python</text>
+  <rect x="877" y="190" width="85" height="26" rx="4" fill="#18181B" stroke="#27272A" stroke-width="1"/><text x="891" y="207" fill="#10B981" font-family="-apple-system, sans-serif" font-size="11">ChromaDB</text>
+
+  <text x="516" y="245" fill="#E4E4E7" font-family="-apple-system, sans-serif" font-size="12" font-weight="600">RECOMMENDED KEYWORDS:</text>
+  <rect x="516" y="260" width="85" height="26" rx="4" fill="#18181B" stroke="#27272A" stroke-width="1"/><text x="528" y="277" fill="#F43F5E" font-family="-apple-system, sans-serif" font-size="11">+ Docker</text>
+  <rect x="610" y="260" width="105" height="26" rx="4" fill="#18181B" stroke="#27272A" stroke-width="1"/><text x="622" y="277" fill="#F43F5E" font-family="-apple-system, sans-serif" font-size="11">+ Kubernetes</text>
+
+  <!-- Rewriter Box -->
+  <rect x="516" y="310" width="692" height="320" rx="6" fill="#18181B" stroke="#27272A" stroke-width="1"/>
+  <text x="536" y="340" fill="#EF4444" font-family="'JetBrains Mono', monospace" font-size="12">OFFLINE OLLAMA AI REWRITER (qwen2.5:1.5b):</text>
+  
+  <text x="536" y="375" fill="#71717A" font-family="-apple-system, sans-serif" font-size="11">ORIGINAL BULLET:</text>
+  <text x="536" y="395" fill="#A1A1AA" font-family="-apple-system, sans-serif" font-size="13">"Built a FastAPI backend for processing resume search and matching."</text>
+  
+  <text x="536" y="440" fill="#10B981" font-family="-apple-system, sans-serif" font-size="11" font-weight="600">OPTIMIZED REWRITE:</text>
+  <text x="536" y="465" fill="#FAFAFA" font-family="-apple-system, sans-serif" font-size="13" font-weight="500">"Engineered a high-performance FastAPI backend with ChromaDB vector search, reducing resume matching latency to under 45ms for 500+ document queries."</text>
+
+  <rect x="536" y="520" width="160" height="34" rx="4" fill="#2563EB"/>
+  <text x="560" y="542" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="12" font-weight="600">Apply Rewrite</text>
 </svg>

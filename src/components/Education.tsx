@@ -7,7 +7,7 @@ export default function Education() {
     <section className="py-24 md:py-32 px-[8%] md:px-[12%] lg:px-[14%] w-full border-t border-neutral-900 light:border-neutral-200" id="education">
       <FadeInSection className="mb-16">
         <span className="text-[#2E86AB] light:text-blue-800 font-mono text-xs uppercase tracking-widest font-black block mb-2">
-          ACADEMIC PIPELINE
+          ACADEMIC BACKGROUND
         </span>
         <h2 className="font-title text-[28px] md:text-[36px] font-black uppercase tracking-tight text-white light:text-black mb-4">
           Education

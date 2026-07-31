@@ -190,7 +190,7 @@ export default function CaseStudy({ project }: CaseStudyProps) {
                     <div className="w-5 h-5 border border-neutral-700 light:border-black flex items-center justify-center font-mono text-[10px] text-neutral-400 light:text-neutral-800 shrink-0 font-bold bg-black light:bg-[#f5f2eb]">
                       0{idx + 1}
                     </div>
-                    <span className="text-sm text-neutral-300 light:text-neutral-700">
+                    <span className="text-sm text-neutral-300 light:text-neutral-700 font-sans">
                       {step}
                     </span>
                   </li>

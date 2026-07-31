@@ -1,318 +1,225 @@
 import React, { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { Search, X, SlidersHorizontal, Layers, Sparkles } from "lucide-react";
+import { ChevronDown, ChevronUp, ExternalLink, Code, ShieldAlert, Cpu, Activity, Terminal } from "lucide-react";
 import { PROJECTS } from "../data";
-import ProjectCard from "./ProjectCard";
-import FadeInSection, { staggerChildVariants } from "./FadeInSection";
+import CaseStudy from "./CaseStudy";
+import FadeInSection from "./FadeInSection";
 
-interface ProjectShowcaseSectionProps {
-  layoutMode: "carousel" | "grid";
-  setLayoutMode: (mode: "carousel" | "grid") => void;
-  stageRef: React.RefObject<HTMLDivElement | null>;
-  activeIdx: number;
-  setActiveIdx: React.Dispatch<React.SetStateAction<number>>;
-  handleTouchStart: (e: React.TouchEvent) => void;
-  handleTouchMove: (e: React.TouchEvent) => void;
-  handleMouseDown: (e: React.MouseEvent) => void;
-  handleMouseMove: (e: React.MouseEvent) => void;
-  handleMouseUp: () => void;
-}
+export default function ProjectShowcaseSection() {
+  const [selectedFilter, setSelectedFilter] = useState<"ALL" | "AI_ML" | "FULL_STACK" | "MOBILE_EDGE">("ALL");
+  const [expandedId, setExpandedId] = useState<string | null>("laika");
 
-export default function ProjectShowcaseSection({
-  layoutMode,
-  setLayoutMode,
-  stageRef,
-  activeIdx,
-  setActiveIdx,
-  handleTouchStart,
-  handleTouchMove,
-  handleMouseDown,
-  handleMouseMove,
-  handleMouseUp,
-}: ProjectShowcaseSectionProps) {
-  const [selectedCategory, setSelectedCategory] = useState<"ALL" | "AI_ML" | "FRONTEND_AR">("ALL");
-  const [searchQuery, setSearchQuery] = useState("");
-
-  const categories = [
-    { id: "ALL", label: "All Projects" },
-    { id: "AI_ML", label: "AI & ML Engineering" },
-    { id: "FRONTEND_AR", label: "Frontend & AR" },
+  const filterButtons = [
+    { id: "ALL", label: "[ALL]" },
+    { id: "AI_ML", label: "[AI / ML]" },
+    { id: "FULL_STACK", label: "[FULL STACK]" },
+    { id: "MOBILE_EDGE", label: "[MOBILE / EDGE]" },
   ] as const;
 
-  // Filter projects based on category and search query
+  // Format primary stack display string (bullet separated)
+  const getPrimaryStackDisplay = (tags: string[]) => {
+    return tags.slice(0, 3).join(" • ");
+  };
+
+  // Status designation: PRODUCTION if liveUrl present, otherwise LOCAL / EDGE
+  const getStatusDisplay = (project: typeof PROJECTS[0]) => {
+    return project.liveUrl ? "● PRODUCTION" : "● LOCAL / EDGE";
+  };
+
+  // Filter projects based on category selection
   const filteredProjects = useMemo(() => {
     return PROJECTS.filter((project) => {
-      // Category filter
-      let matchesCategory = true;
-      if (selectedCategory === "AI_ML") {
-        matchesCategory = [
-          "laika", "vaani", "speech-asr", "ai-resume-analyzer",
-          "ai-resume-builder", "house-predictor", "ipl-predication", "ai-planner"
-        ].includes(project.id);
-      } else if (selectedCategory === "FRONTEND_AR") {
-        matchesCategory = ["ar-sketch", "arenahub", "devpulse", "solar-tracker"].includes(project.id);
+      if (selectedFilter === "ALL") return true;
+      if (selectedFilter === "AI_ML") {
+        return ["laika", "vaani", "speech-asr", "ai-resume-analyzer", "ai-resume-builder", "house-predictor", "ipl-predication"].includes(project.id);
       }
-
-      // Search filter query
-      let matchesSearch = true;
-      if (searchQuery.trim()) {
-        const q = searchQuery.toLowerCase().trim();
-        const inTitle = project.title.toLowerCase().includes(q);
-        const inDesc = project.description.toLowerCase().includes(q);
-        const inTags = project.tags.some(tag => tag.toLowerCase().includes(q));
-        matchesSearch = inTitle || inDesc || inTags;
+      if (selectedFilter === "FULL_STACK") {
+        return ["laika", "ai-resume-analyzer", "ai-resume-builder", "arenahub", "devpulse", "ai-planner"].includes(project.id);
       }
-
-      return matchesCategory && matchesSearch;
+      if (selectedFilter === "MOBILE_EDGE") {
+        return ["speech-asr", "ar-sketch", "solar-tracker", "vaani"].includes(project.id);
+      }
+      return true;
     });
-  }, [selectedCategory, searchQuery]);
+  }, [selectedFilter]);
+
+  const toggleExpand = (id: string) => {
+    setExpandedId(expandedId === id ? null : id);
+  };
 
   return (
-    <section className="py-24 md:py-32 px-[8%] md:px-[12%] lg:px-[14%] w-full border-t border-neutral-900 light:border-neutral-200 z-10 relative" id="work">
-      {/* Section Title Header */}
-      <FadeInSection className="mb-12">
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
+    <section className="py-24 md:py-32 px-[8%] md:px-[12%] lg:px-[14%] w-full border-t border-neutral-900 light:border-neutral-200 z-10 relative select-none" id="work">
+      {/* Section Header with Category Filter Buttons */}
+      <FadeInSection className="mb-10">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-6 border-b-2 border-neutral-800 light:border-neutral-200">
           <div>
             <span className="text-[#E53E3E] font-mono text-xs uppercase tracking-widest font-black block mb-2">
               FULL PROJECT SHOWCASE
             </span>
             <h2 className="font-title text-[28px] md:text-[44px] font-black uppercase tracking-tight text-white light:text-black mb-2">
-              Selected Work
+              ALL PROJECTS
             </h2>
             <div className="w-24 h-2 bg-[#2B6CB0]"></div>
           </div>
 
-          {/* Desktop View Switcher */}
-          <div className="hidden md:flex items-center gap-3">
-            <div className="bg-black light:bg-[#f5f2eb] border-2 border-white light:border-black p-1 font-mono text-xs select-none shadow-bauhaus-sm flex">
-              <motion.button
-                onClick={() => setLayoutMode("carousel")}
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.97 }}
-                className={`px-4 py-1.5 font-black uppercase tracking-wider transition-all cursor-pointer border-2 ${
-                  layoutMode === "carousel"
-                    ? "bg-[#E53E3E] text-white border-white light:border-black"
-                    : "border-transparent text-neutral-400 hover:text-white light:text-neutral-600 light:hover:text-black"
-                }`}
-              >
-                3D Slider
-              </motion.button>
-              <motion.button
-                onClick={() => setLayoutMode("grid")}
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.97 }}
-                className={`px-4 py-1.5 font-black uppercase tracking-wider transition-all cursor-pointer border-2 ${
-                  layoutMode === "grid"
-                    ? "bg-[#E53E3E] text-white border-white light:border-black"
-                    : "border-transparent text-neutral-400 hover:text-white light:text-neutral-600 light:hover:text-black"
-                }`}
-              >
-                All Projects
-              </motion.button>
-            </div>
-          </div>
-        </div>
-      </FadeInSection>
-
-      {/* Category Filter Pills & Live Search Control Bar */}
-      <FadeInSection className="mb-10">
-        <div className="flex flex-col md:flex-row justify-between items-stretch md:items-center gap-4 bg-[#141418] light:bg-[#f8f6f0] border-2 border-white light:border-black p-3 shadow-bauhaus">
           {/* Category Filter Pills */}
-          <div className="flex flex-wrap items-center gap-2 font-mono text-xs select-none">
-            {categories.map((cat) => {
-              const isSelected = selectedCategory === cat.id;
+          <div className="flex flex-wrap items-center gap-2 font-mono text-xs">
+            {filterButtons.map((btn) => {
+              const isActive = selectedFilter === btn.id;
               return (
                 <button
-                  key={cat.id}
-                  onClick={() => setSelectedCategory(cat.id)}
-                  className={`px-4 py-2 border-2 uppercase font-black tracking-wider transition-all cursor-pointer relative ${
-                    isSelected
-                      ? "bg-[#E53E3E] text-white border-white light:border-black shadow-bauhaus-sm"
+                  key={btn.id}
+                  onClick={() => setSelectedFilter(btn.id)}
+                  className={`px-3.5 py-1.5 font-black uppercase tracking-wider transition-all cursor-pointer border-2 ${
+                    isActive
+                      ? "bg-[#2B6CB0] light:bg-[#2B6CB0] text-white border-white light:border-black shadow-bauhaus-sm"
                       : "bg-black light:bg-[#f5f2eb] text-neutral-400 light:text-neutral-700 border-neutral-800 light:border-neutral-300 hover:border-white light:hover:border-black hover:text-white"
                   }`}
                 >
-                  <span>{cat.label}</span>
+                  {btn.label}
                 </button>
               );
             })}
           </div>
-
-          {/* Search Box */}
-          <div className="relative flex items-center min-w-[240px]">
-            <Search className="w-4 h-4 text-neutral-400 absolute left-3.5 pointer-events-none" />
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search stack, title, tags..."
-              className="w-full bg-black light:bg-[#f5f2eb] text-white light:text-black font-mono text-xs py-2 pl-9 pr-8 border-2 border-neutral-800 light:border-black focus:outline-none focus:border-[#E53E3E]"
-            />
-            {searchQuery && (
-              <button
-                onClick={() => setSearchQuery("")}
-                className="absolute right-3 text-neutral-400 hover:text-white cursor-pointer"
-              >
-                <X className="w-3.5 h-3.5" />
-              </button>
-            )}
-          </div>
-        </div>
-
-        {/* Counter Badge */}
-        <div className="flex justify-between items-center mt-3 px-1 font-mono text-[11px] uppercase tracking-wider text-neutral-400 font-bold">
-          <span>SHOWING {filteredProjects.length} OF {PROJECTS.length} PROJECTS</span>
-          {searchQuery && (
-            <span className="text-[#E53E3E]">Filtered by: "{searchQuery}"</span>
-          )}
         </div>
       </FadeInSection>
 
-      {/* 1. Carousel Slider Layout (Mobile or Desktop when carousel selected) */}
-      <div className={`relative w-full py-6 ${layoutMode === "carousel" ? "block" : "block md:hidden"}`}>
-        <div 
-          ref={stageRef}
-          onTouchStart={handleTouchStart}
-          onTouchMove={handleTouchMove}
-          onMouseDown={handleMouseDown}
-          onMouseMove={handleMouseMove}
-          onMouseUp={handleMouseUp}
-          onMouseLeave={handleMouseUp}
-          className="relative h-[1060px] sm:h-[980px] w-full flex items-start pt-8 sm:pt-12 justify-center overflow-hidden select-none cursor-grab active:cursor-grabbing"
-        >
-          {PROJECTS.map((project, idx) => {
-            let diff = idx - activeIdx;
-            const len = PROJECTS.length;
-            if (diff < -len / 2) diff += len;
-            if (diff > len / 2) diff -= len;
-            
-            const isCenter = diff === 0;
-            const isLeft = diff === -1;
-            const isRight = diff === 1;
-            const isVisible = Math.abs(diff) <= 1;
-            
-            if (!isVisible) return null;
-            
-            const cardStyle: React.CSSProperties = isCenter
-              ? {
-                  transform: "translateX(0) scale(1)",
-                  opacity: 1,
-                  zIndex: 30,
-                }
-              : isLeft
-              ? {
-                  transform: "translateX(-95%) scale(0.85)",
-                  opacity: 0.5,
-                  zIndex: 10,
-                  pointerEvents: "auto",
-                }
-              : {
-                  transform: "translateX(95%) scale(0.85)",
-                  opacity: 0.5,
-                  zIndex: 10,
-                  pointerEvents: "auto",
-                };
-            
-            return (
-              <div
-                key={project.id}
-                onClick={() => {
-                  if (!isCenter) setActiveIdx(idx);
-                }}
-                onWheel={(e) => {
-                  if (isCenter) e.stopPropagation();
-                }}
-                style={cardStyle}
-                className={`absolute top-4 sm:top-8 w-full max-w-md px-4 transition-all duration-500 ease-out ${isCenter ? 'max-h-[900px] overflow-y-auto cursor-default' : 'h-auto overflow-hidden cursor-pointer'}`}
-              >
-                <ProjectCard
-                  project={project}
-                  isActive={isCenter}
-                />
-              </div>
-            );
-          })}
-        </div>
-
-        {/* Carousel Control Bar */}
-        <div className="flex items-center justify-center gap-6 mt-8 font-mono select-none relative z-20">
-          <motion.button
-            onClick={() => setActiveIdx((prev) => (prev - 1 + PROJECTS.length) % PROJECTS.length)}
-            whileHover={{ scale: 1.08 }}
-            whileTap={{ scale: 0.92 }}
-            className="p-3 border-2 border-white light:border-black bg-[#16161A] light:bg-white text-white light:text-black hover:bg-[#E53E3E] hover:text-white transition-all shadow-bauhaus-sm cursor-pointer"
-            aria-label="Previous Project"
-          >
-            ←
-          </motion.button>
+      {/* Structured Index Table Container */}
+      <FadeInSection>
+        <div className="bg-[#16161A] light:bg-[#fbfbf9] border-2 border-white light:border-black shadow-bauhaus font-mono">
           
-          <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest bg-black light:bg-[#f5f2eb] border-2 border-white light:border-black px-5 py-2.5 shadow-bauhaus-sm">
-            <span className="text-[#E53E3E]">0{activeIdx + 1}</span>
-            <span className="text-neutral-500">/</span>
-            <span>0{PROJECTS.length}</span>
+          {/* Table Column Headers */}
+          <div className="hidden md:grid grid-cols-12 gap-4 p-4 border-b-2 border-neutral-800 light:border-neutral-200 text-[11px] font-mono font-black uppercase tracking-widest text-neutral-400 light:text-neutral-600 bg-black/40 light:bg-[#f0ede6]">
+            <div className="col-span-1">INDEX</div>
+            <div className="col-span-4">EXPERIMENT TITLE</div>
+            <div className="col-span-4">PRIMARY STACK</div>
+            <div className="col-span-2">STATUS</div>
+            <div className="col-span-1 text-right">ACTION</div>
           </div>
 
-          <motion.button
-            onClick={() => setActiveIdx((prev) => (prev + 1) % PROJECTS.length)}
-            whileHover={{ scale: 1.08 }}
-            whileTap={{ scale: 0.92 }}
-            className="p-3 border-2 border-white light:border-black bg-[#16161A] light:bg-white text-white light:text-black hover:bg-[#E53E3E] hover:text-white transition-all shadow-bauhaus-sm cursor-pointer"
-            aria-label="Next Project"
-          >
-            →
-          </motion.button>
-        </div>
-      </div>
+          {/* Table Rows */}
+          <div className="divide-y-2 divide-neutral-850 light:divide-neutral-200">
+            {filteredProjects.map((project, idx) => {
+              const isExpanded = expandedId === project.id;
+              const formattedIndex = `#${(idx + 1).toString().padStart(2, "0")}`;
+              const primaryStackStr = getPrimaryStackDisplay(project.tags);
+              const statusStr = getStatusDisplay(project);
 
-      {/* 2. Grid Layout View */}
-      {layoutMode === "grid" && (
-        <div className="hidden md:block">
-          {filteredProjects.length === 0 ? (
-            <div className="text-center py-20 bg-[#141418] light:bg-[#f8f6f0] border-2 border-white light:border-black shadow-bauhaus font-mono p-8">
-              <Sparkles className="w-10 h-10 text-[#E53E3E] mx-auto mb-3" />
-              <h3 className="text-lg font-black uppercase tracking-wider text-white light:text-black mb-2">
-                NO MATCHING PROJECTS FOUND
-              </h3>
-              <p className="text-xs text-neutral-400 light:text-neutral-600 mb-6">
-                Try searching for different terms or reset your active category filter.
-              </p>
-              <button
-                onClick={() => {
-                  setSelectedCategory("ALL");
-                  setSearchQuery("");
-                }}
-                className="px-6 py-2.5 bg-[#E53E3E] text-white font-black uppercase tracking-widest border-2 border-white light:border-black shadow-bauhaus-sm cursor-pointer"
-              >
-                RESET ALL FILTERS
-              </button>
-            </div>
-          ) : (
-            <AnimatePresence mode="popLayout">
-              <motion.div
-                key={selectedCategory + searchQuery}
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -16 }}
-                transition={{ duration: 0.3 }}
-                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full"
-              >
-                {filteredProjects.map((project) => (
-                  <motion.div
-                    key={project.id}
-                    layout
-                    variants={staggerChildVariants}
-                    className="flex flex-col h-full"
+              return (
+                <div key={project.id} className="transition-colors hover:bg-neutral-900/40 light:hover:bg-[#f4f1ea]">
+                  {/* Row Header (Clickable Trigger) */}
+                  <div
+                    onClick={() => toggleExpand(project.id)}
+                    className="p-4 md:px-6 grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-4 items-center cursor-pointer select-none"
                   >
-                    <ProjectCard
-                      project={project}
-                      isActive={true}
-                    />
-                  </motion.div>
-                ))}
-              </motion.div>
-            </AnimatePresence>
-          )}
+                    {/* INDEX */}
+                    <div className="md:col-span-1 text-[#2B6CB0] light:text-[#2B6CB0] font-black text-sm">
+                      {formattedIndex}
+                    </div>
+
+                    {/* EXPERIMENT TITLE */}
+                    <div className="md:col-span-4 font-title text-base md:text-lg font-black uppercase tracking-tight text-white light:text-black">
+                      {project.title}
+                    </div>
+
+                    {/* PRIMARY STACK */}
+                    <div className="md:col-span-4 font-mono text-xs text-neutral-400 light:text-neutral-600 truncate">
+                      {primaryStackStr}
+                    </div>
+
+                    {/* STATUS */}
+                    <div className="md:col-span-2 font-mono text-xs font-bold uppercase tracking-wider flex items-center gap-2 text-white light:text-black">
+                      <span className={`w-2 h-2 rounded-full ${project.liveUrl ? 'bg-emerald-500' : 'bg-[#2B6CB0]'}`} />
+                      <span>{statusStr}</span>
+                    </div>
+
+                    {/* ACTION */}
+                    <div className="md:col-span-1 text-right font-mono text-xs font-black text-neutral-300 light:text-neutral-700 flex items-center justify-end gap-1.5">
+                      <span>{isExpanded ? "[LESS]" : "[MORE]"}</span>
+                      {isExpanded ? (
+                        <ChevronUp className="w-4 h-4 text-[#E53E3E]" />
+                      ) : (
+                        <ChevronDown className="w-4 h-4 text-[#2B6CB0]" />
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Expanded Detail Panel */}
+                  <AnimatePresence>
+                    {isExpanded && (
+                      <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: "auto" }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+                        className="overflow-hidden border-t-2 border-neutral-850 light:border-neutral-300 bg-black/60 light:bg-[#f5f2eb] p-6 md:p-8"
+                      >
+                        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                          
+                          {/* Left Column: Image Preview & Links */}
+                          <div className="lg:col-span-5 flex flex-col gap-4">
+                            <div className="overflow-hidden bg-black aspect-video border-2 border-neutral-800 light:border-black relative">
+                              <img
+                                alt={project.imageAlt}
+                                src={project.image}
+                                className="w-full h-full object-cover"
+                                referrerPolicy="no-referrer"
+                              />
+                            </div>
+
+                            {/* Action Buttons Row */}
+                            <div className="flex flex-wrap gap-3 font-mono text-xs">
+                              {project.liveUrl && (
+                                <motion.a
+                                  href={project.liveUrl}
+                                  target="_blank"
+                                  rel="noreferrer"
+                                  whileHover={{ scale: 1.04, y: -2 }}
+                                  whileTap={{ scale: 0.96 }}
+                                  className="px-4 py-2 bg-[#E53E3E] text-white border-2 border-white light:border-black font-black uppercase tracking-wider shadow-bauhaus-sm flex items-center gap-2 cursor-pointer"
+                                >
+                                  <span>[LIVE DEMO]</span>
+                                  <ExternalLink className="w-3.5 h-3.5" />
+                                </motion.a>
+                              )}
+
+                              {project.githubUrl && (
+                                <motion.a
+                                  href={project.githubUrl}
+                                  target="_blank"
+                                  rel="noreferrer"
+                                  whileHover={{ scale: 1.04, y: -2 }}
+                                  whileTap={{ scale: 0.96 }}
+                                  className="px-4 py-2 bg-black light:bg-white text-white light:text-black border-2 border-white light:border-black font-black uppercase tracking-wider shadow-bauhaus-sm flex items-center gap-2 cursor-pointer"
+                                >
+                                  <span>[REPOSITORY]</span>
+                                  <Code className="w-3.5 h-3.5" />
+                                </motion.a>
+                              )}
+                            </div>
+                          </div>
+
+                          {/* Right Column: Description & Case Study Tabs */}
+                          <div className="lg:col-span-7 space-y-4">
+                            <p className="text-sm md:text-[16px] text-neutral-300 light:text-neutral-800 leading-relaxed font-sans font-medium">
+                              {project.description}
+                            </p>
+
+                            {/* Case Study Tabs (Challenge, Process, Telemetry) */}
+                            <CaseStudy project={project} />
+                          </div>
+
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              );
+            })}
+          </div>
+
         </div>
-      )}
+      </FadeInSection>
     </section>
   );
 }

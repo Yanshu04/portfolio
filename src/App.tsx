@@ -34,6 +34,7 @@ import SmoothScroll from "./components/SmoothScroll";
 import { FullPageSkeletonLoader } from "./components/SkeletonShimmer";
 import TypewriterHeroTitle from "./components/TypewriterHeroTitle";
 import TechStack from "./components/TechStack";
+import ProjectShowcaseSection from "./components/ProjectShowcaseSection";
 import { PROJECTS, SKILL_CATEGORIES } from "./data";
 
 const gridContainerVariants = {
@@ -295,7 +296,7 @@ export default function App() {
               rel="noreferrer"
               whileHover={{ scale: 1.04, y: -2 }}
               whileTap={{ scale: 0.96, y: 0 }}
-              className="px-8 py-4 bg-[#D69E2E] text-black border-2 border-white light:border-black shadow-bauhaus-sm transition-all text-center flex items-center justify-center gap-2 cursor-pointer"
+              className="px-8 py-4 font-mono text-xs font-black uppercase tracking-widest bg-[#D69E2E] text-black border-2 border-white light:border-black shadow-bauhaus-sm transition-all text-center flex items-center justify-center gap-2 cursor-pointer"
             >
               <span>GitHub Codebases</span>
               <ExternalLink className="w-4 h-4 text-black" />
@@ -316,182 +317,8 @@ export default function App() {
         <Ticker />
       </FadeInSection>
 
-      {/* Selected Work Section */}
-      <section className="py-24 md:py-32 px-[8%] md:px-[12%] lg:px-[14%] w-full border-t border-neutral-900 light:border-neutral-200 z-10 relative" id="work">
-        <FadeInSection className="mb-16">
-          <span className="text-[#E53E3E] font-mono text-xs uppercase tracking-widest font-black block mb-2">
-            FULL PROJECT SHOWCASE
-          </span>
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
-            <div>
-              <h2 className="font-title text-[28px] md:text-[40px] font-black uppercase tracking-tight text-white light:text-black mb-2">
-                All Projects
-              </h2>
-              <div className="w-24 h-2 bg-[#2B6CB0]"></div>
-            </div>
-
-            {/* Dynamic Layout Switcher (Desktop viewports only) */}
-            <div className="hidden md:flex bg-black light:bg-[#f5f2eb] border-2 border-white light:border-black p-1 font-mono text-[10px] sm:text-xs select-none shadow-bauhaus-sm">
-              <motion.button
-                onClick={() => setLayoutMode("carousel")}
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.97 }}
-                className={`px-4 py-1.5 font-black uppercase tracking-wider transition-all cursor-pointer border-2 ${
-                  layoutMode === "carousel"
-                    ? "bg-[#E53E3E] text-white border-white light:border-black"
-                    : "border-transparent text-neutral-400 hover:text-white light:text-neutral-600 light:hover:text-black"
-                }`}
-              >
-                3D Slider
-              </motion.button>
-              <motion.button
-                onClick={() => setLayoutMode("grid")}
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.97 }}
-                className={`px-4 py-1.5 font-black uppercase tracking-wider transition-all cursor-pointer border-2 ${
-                  layoutMode === "grid"
-                    ? "bg-[#E53E3E] text-white border-white light:border-black"
-                    : "border-transparent text-neutral-400 hover:text-white light:text-neutral-600 light:hover:text-black"
-                }`}
-              >
-                All Projects
-              </motion.button>
-            </div>
-          </div>
-        </FadeInSection>
-
-        {/* 1. Carousel Slider Layout (Always active on mobile; active on desktop when carousel selected) */}
-        <div className={`relative w-full py-6 ${layoutMode === "carousel" ? "block" : "block md:hidden"}`}>
-          {/* Stage Area - Height configured for horizontal overlapping cards. Touch/drag/scroll listeners enabled */}
-          <div 
-            ref={stageRef}
-            onTouchStart={handleTouchStart}
-            onTouchMove={handleTouchMove}
-            onMouseDown={handleMouseDown}
-            onMouseMove={handleMouseMove}
-            onMouseUp={handleMouseUp}
-            onMouseLeave={handleMouseUp}
-            className="relative h-[1060px] sm:h-[980px] w-full flex items-start pt-8 sm:pt-12 justify-center overflow-hidden select-none cursor-grab active:cursor-grabbing"
-          >
-            {PROJECTS.map((project, idx) => {
-              // Calculate difference from active index
-              let diff = idx - activeIdx;
-              
-              // Wrap around for carousel loop
-              const len = PROJECTS.length;
-              if (diff < -len / 2) diff += len;
-              if (diff > len / 2) diff -= len;
-              
-              const isCenter = diff === 0;
-              const isLeft = diff === -1;
-              const isRight = diff === 1;
-              const isVisible = Math.abs(diff) <= 1; // Only render left, center, right
-              
-              if (!isVisible) return null;
-              
-              // Determine position and styling via React inline CSS (safeguarding dynamic transitions across all viewport sizes)
-              const cardStyle: React.CSSProperties = isCenter
-                ? {
-                    transform: "translateX(0) scale(1)",
-                    opacity: 1,
-                    zIndex: 30,
-                  }
-                : isLeft
-                ? {
-                    transform: "translateX(-95%) scale(0.85)",
-                    opacity: 0.5,
-                    zIndex: 10,
-                    pointerEvents: "auto",
-                  }
-                : {
-                    transform: "translateX(95%) scale(0.85)",
-                    opacity: 0.5,
-                    zIndex: 10,
-                    pointerEvents: "auto",
-                  };
-              
-              return (
-                <div
-                  key={project.id}
-                  onClick={() => {
-                    if (!isCenter) {
-                      setActiveIdx(idx);
-                    }
-                  }}
-                  onWheel={(e) => {
-                    if (isCenter) {
-                      // Stop propagation so vertical scrolls inside the card content work normally
-                      e.stopPropagation();
-                    }
-                  }}
-                  style={cardStyle}
-                  className={`absolute top-4 sm:top-8 w-full max-w-md px-4 transition-all duration-500 ease-out ${isCenter ? 'max-h-[900px] overflow-y-auto cursor-default' : 'h-auto overflow-hidden cursor-pointer'}`}
-                >
-                  <ProjectCard
-                    project={project}
-                    isActive={isCenter}
-                  />
-                </div>
-              );
-            })}
-          </div>
-
-          {/* Tactile Editorial Carousel Control Bar */}
-          <div className="flex items-center justify-center gap-6 mt-8 font-mono select-none relative z-20">
-            <motion.button
-              onClick={() => setActiveIdx((prev) => (prev - 1 + PROJECTS.length) % PROJECTS.length)}
-              whileHover={{ scale: 1.08 }}
-              whileTap={{ scale: 0.92 }}
-              className="p-3 border-2 border-white light:border-black bg-[#16161A] light:bg-white text-white light:text-black hover:bg-[#E53E3E] hover:text-white light:hover:bg-[#E53E3E] light:hover:text-white transition-all shadow-bauhaus-sm cursor-pointer"
-              aria-label="Previous Project"
-            >
-              <ArrowRight className="w-4 h-4 transform rotate-180" />
-            </motion.button>
-            
-            <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest bg-black light:bg-[#f5f2eb] border-2 border-white light:border-black px-5 py-2.5 shadow-bauhaus-sm">
-              <span className="text-[#E53E3E]">0{activeIdx + 1}</span>
-              <span className="text-neutral-500">/</span>
-              <span>0{PROJECTS.length}</span>
-            </div>
-
-            <motion.button
-              onClick={() => setActiveIdx((prev) => (prev + 1) % PROJECTS.length)}
-              whileHover={{ scale: 1.08 }}
-              whileTap={{ scale: 0.92 }}
-              className="p-3 border-2 border-white light:border-black bg-[#16161A] light:bg-white text-white light:text-black hover:bg-[#E53E3E] hover:text-white light:hover:bg-[#E53E3E] light:hover:text-white transition-all shadow-bauhaus-sm cursor-pointer"
-              aria-label="Next Project"
-            >
-              <ArrowRight className="w-4 h-4" />
-            </motion.button>
-          </div>
-        </div>
-
-        {/* 2. Showcase Grid Layout (Desktop viewports only when grid selected) */}
-        {layoutMode === "grid" && (
-          <motion.div
-            variants={gridContainerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.05 }}
-            className="hidden md:block w-full mt-6"
-          >
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
-              {PROJECTS.map((project) => (
-                <motion.div
-                  key={project.id}
-                  variants={staggerChildVariants}
-                  className="flex flex-col h-full"
-                >
-                  <ProjectCard
-                    project={project}
-                    isActive={true}
-                  />
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-        )}
-      </section>
+      {/* Selected Work & Experiments Section */}
+      <ProjectShowcaseSection />
 
       {/* Interactive Playgrounds Section */}
       <section className="hidden md:block py-24 md:py-32 px-[8%] md:px-[12%] lg:px-[14%] w-full border-t border-neutral-900 light:border-neutral-200 z-10 relative" id="playgrounds">
@@ -542,7 +369,7 @@ export default function App() {
                     <span className="font-mono text-[#2B6CB0] light:text-[#2B6CB0] text-xs font-black uppercase block tracking-wider mb-6">
                       {cat.num} / {cat.title}
                     </span>
-                    <p className="text-[16px] md:text-[18px] text-neutral-400 light:text-neutral-700 leading-relaxed mb-6">
+                    <p className="text-[16px] md:text-[18px] text-neutral-400 light:text-neutral-700 leading-relaxed mb-6 font-sans">
                       {cat.description}
                     </p>
                   </div>
@@ -591,7 +418,7 @@ export default function App() {
       <section className="py-24 md:py-32 px-[8%] md:px-[12%] lg:px-[14%] w-full border-t border-neutral-900 light:border-neutral-200 z-10 relative" id="about">
         <FadeInSection className="mb-16">
           <span className="text-[#2B6CB0] font-mono text-xs uppercase tracking-widest font-black block mb-2">
-            COMPUTATIONAL CREDENTIALS
+            BACKGROUND
           </span>
           <h2 className="font-title text-[28px] md:text-[40px] font-black uppercase tracking-tight text-white light:text-black mb-4">
             About
@@ -604,11 +431,11 @@ export default function App() {
           <div className="lg:col-span-7">
             <FadeInSection className="space-y-6">
               <p className="text-[17px] md:text-[19px] text-neutral-300 light:text-neutral-800 leading-snug font-sans">
-                I am a developer dedicated to technical precision and academic rigor. My work explores the intersection of high-end browser interfaces and heavy computational intelligence. I believe in software that is functional, fast, and fundamentally logical.
+                I'm a Data &amp; AI/ML Engineer who builds practical machine learning applications, speech processing tools, and high-performance web applications. I focus on developing software that is fast, intuitive, and reliably solves real problems.
               </p>
               
               <p className="text-[17px] md:text-[19px] text-neutral-400 light:text-slate-650 leading-relaxed font-sans">
-                With comprehensive exploration of full-stack integration patterns and machine learning methodologies, I deploy models directly to edge nodes and cloud servers. My builds prioritize zero bloat, high responsiveness, and rigorous telemetry outputs.
+                My experience spans end-to-end full-stack integration and machine learning pipelines—from training PyTorch models and building local RAG assistants to deploying REST APIs and responsive frontends.
               </p>
             </FadeInSection>
           </div>
@@ -661,14 +488,14 @@ export default function App() {
       <section className="py-24 md:py-32 px-[8%] md:px-[12%] lg:px-[14%] w-full border-t border-neutral-900 light:border-neutral-200 z-10 relative" id="contact">
         <FadeInSection className="mb-12 text-center">
           <span className="text-[#E53E3E] font-mono text-xs uppercase tracking-widest font-black block mb-2">
-            ESTABLISH COMMUNICATION
+            LET'S CONNECT
           </span>
           <h2 className="font-title text-[28px] md:text-[40px] font-black uppercase tracking-tight text-white light:text-black mb-4 text-center">
             Get In Touch
           </h2>
           <div className="w-24 h-2 bg-[#2B6CB0] mx-auto"></div>
-          <p className="text-[16px] md:text-[18px] text-neutral-400 light:text-slate-600 max-w-lg mx-auto mt-4 text-center">
-            Open for collaborations, technical research opportunities in AI/DS engineering, and premium frontend UI design consulting.
+          <p className="text-[16px] md:text-[18px] text-neutral-400 light:text-slate-600 max-w-lg mx-auto mt-4 text-center font-sans">
+            Open for AI/ML engineering roles, full-stack development projects, and technical collaborations.
           </p>
         </FadeInSection>
 
@@ -714,7 +541,7 @@ export default function App() {
             </div>
 
             <span className="font-mono text-[10px] uppercase tracking-widest text-[#8c909f] light:text-slate-400 text-center md:text-left h-fit leading-none mt-1">
-              © 2026 Yanshu Shingala. Built for technical precision.
+              Built by Yanshu Shingala
             </span>
 
             <div className="flex gap-6 font-mono text-xs uppercase tracking-wider font-bold">

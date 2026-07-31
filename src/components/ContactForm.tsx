@@ -105,7 +105,7 @@ export default function ContactForm() {
       {/* Actual Form container (7 columns) */}
       <div className="lg:col-span-7 bg-[#161619] light:bg-[#fbfbf9] border-2 border-white light:border-black p-6 md:p-8 shadow-bauhaus">
         <h3 className="font-title text-base font-black text-white light:text-black uppercase tracking-widest border-b-2 border-neutral-800 light:border-black pb-4 mb-6 flex items-center gap-2">
-          <Send className="w-5 h-5 text-[#DC3D24]" /> Dispatch New Transmission
+          <Send className="w-5 h-5 text-[#DC3D24]" /> Send a Message
         </h3>
 
         <form onSubmit={handleSubmit} className="space-y-5">
@@ -161,7 +161,7 @@ export default function ContactForm() {
               rows={5}
               value={message}
               onChange={(e) => setMessage(e.target.value)}
-              placeholder="Describe your design objectives, required parameters, and technological platform stacks."
+              placeholder="Hi Yanshu, I'd like to discuss a project or opportunity..."
               className="w-full font-mono text-xs md:text-sm py-2.5 px-3 bg-black light:bg-[#f5f2eb] text-white light:text-black border-2 border-neutral-800 light:border-black focus:outline-none focus:border-[#DC3D24] transition-colors resize-y"
             />
           </div>
@@ -180,12 +180,12 @@ export default function ContactForm() {
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                   </svg>
-                  <span>MODEM SENDING...</span>
+                  <span>SENDING...</span>
                 </>
               ) : (
                 <>
                   <Send className="w-4.5 h-4.5" />
-                  <span>TRANSMIT MESSAGE</span>
+                  <span>SEND MESSAGE</span>
                 </>
               )}
             </motion.button>
@@ -197,7 +197,7 @@ export default function ContactForm() {
                 className="flex items-center gap-2 text-emerald-500 light:text-emerald-700 font-mono text-xs md:text-sm font-bold"
               >
                 <CheckCircle className="w-4 h-4" />
-                <span>TRANSMISSION DISPATCHED TO YANSHU'S INBOX! 📩</span>
+                <span>MESSAGE SENT SUCCESSFULLY! 📩</span>
               </motion.div>
             )}
           </div>
@@ -209,7 +209,7 @@ export default function ContactForm() {
         <div>
           <div className="flex items-center justify-between border-b-2 border-neutral-800 light:border-black pb-3 mb-4">
             <h4 className="font-mono text-xs md:text-sm uppercase tracking-wider text-[#E3B448] light:text-blue-700 flex items-center gap-2 font-bold">
-              <Terminal className="w-4 h-4 text-[#2E86AB]" /> Client Guest Message logs
+              <Terminal className="w-4 h-4 text-[#2E86AB]" /> Recent Visitor Messages
             </h4>
             {messageLog.length > 0 && (
               <motion.button
@@ -228,7 +228,7 @@ export default function ContactForm() {
             {messageLog.length === 0 ? (
               <div className="text-center py-12 text-neutral-400 light:text-neutral-600 font-mono text-xs md:text-sm">
                 <HelpCircle className="w-8 h-8 text-neutral-800 light:text-neutral-400 mx-auto mb-2.5" />
-                <span>NO TRANSMISSIONS LOGGED</span>
+                <span>NO MESSAGES YET</span>
                 <p className="text-xs md:text-sm text-neutral-500 light:text-neutral-400 mt-1">Submit a test message using the form to populate this terminal stream instantly!</p>
               </div>
             ) : (
@@ -257,7 +257,7 @@ export default function ContactForm() {
         </div>
 
         <div className="border-t-2 border-neutral-800 light:border-black pt-4 text-xs md:text-sm font-mono text-neutral-500 light:text-neutral-600 mt-4 leading-normal font-bold">
-          <span>* Decoded locally: These logs are retained strictly in your browser session storage, simulating end-to-end telemetry verification.</span>
+          <span>* Stored locally in your browser session storage.</span>
         </div>
       </div>
     </div>

@@ -1,0 +1,61 @@
+<svg width="1280" height="720" viewBox="0 0 1280 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1280" height="720" fill="#09090B"/>
+  
+  <rect x="24" y="24" width="1232" height="672" rx="8" fill="#121215" stroke="#27272A" stroke-width="1.5"/>
+  
+  <text x="48" y="68" fill="#FAFAFA" font-family="'JetBrains Mono', monospace" font-size="16" font-weight="700">Solar Tracker Android App</text>
+  <text x="1060" y="68" fill="#10B981" font-family="'JetBrains Mono', monospace" font-size="12">● Rajkot Site Connected</text>
+  <line x1="48" y1="94" x2="1232" y2="94" stroke="#27272A" stroke-width="1"/>
+
+  <!-- Left Column -->
+  <rect x="48" y="114" width="380" height="558" rx="6" fill="#18181B" stroke="#27272A" stroke-width="1"/>
+  <text x="72" y="146" fill="#A1A1AA" font-family="-apple-system, sans-serif" font-size="12" font-weight="600">APPLICATION SPECS</text>
+
+  <rect x="72" y="165" width="332" height="64" rx="4" fill="#09090B" stroke="#27272A" stroke-width="1"/>
+  <text x="88" y="190" fill="#10B981" font-family="-apple-system, sans-serif" font-size="11" font-weight="600">TARGET PLATFORM</text>
+  <text x="88" y="213" fill="#FAFAFA" font-family="-apple-system, sans-serif" font-size="13">Mobile Smartphone Only (Android Native)</text>
+
+  <rect x="72" y="245" width="332" height="64" rx="4" fill="#09090B" stroke="#27272A" stroke-width="1"/>
+  <text x="88" y="270" fill="#38BDF8" font-family="-apple-system, sans-serif" font-size="11" font-weight="600">UI FRAMEWORK</text>
+  <text x="88" y="293" fill="#FAFAFA" font-family="-apple-system, sans-serif" font-size="13">Kotlin + Jetpack Compose MVVM</text>
+
+  <rect x="72" y="325" width="332" height="64" rx="4" fill="#09090B" stroke="#27272A" stroke-width="1"/>
+  <text x="88" y="350" fill="#F59E0B" font-family="-apple-system, sans-serif" font-size="11" font-weight="600">FIELD TELEMETRY</text>
+  <text x="88" y="373" fill="#FAFAFA" font-family="-apple-system, sans-serif" font-size="13">Rajkot Weather API &amp; Panel Output</text>
+
+  <!-- Right Column -->
+  <rect x="452" y="114" width="780" height="558" rx="6" fill="#18181B" stroke="#27272A" stroke-width="1"/>
+  <text x="476" y="146" fill="#A1A1AA" font-family="-apple-system, sans-serif" font-size="12" font-weight="600">LIVE MOBILE APP INTERFACE</text>
+
+  <!-- Centered Clean Mobile Dashboard Card -->
+  <rect x="476" y="165" width="732" height="480" rx="8" fill="#09090B" stroke="#27272A" stroke-width="1"/>
+  
+  <text x="500" y="196" fill="#FAFAFA" font-family="-apple-system, sans-serif" font-size="16" font-weight="700">Rajkot Solar Site 01</text>
+  <text x="500" y="216" fill="#10B981" font-family="-apple-system, sans-serif" font-size="11" font-weight="600">● Live Power Generation Active</text>
+
+  <!-- Gauge Card -->
+  <rect x="500" y="235" width="330" height="130" rx="6" fill="#18181B" stroke="#F59E0B" stroke-width="1"/>
+  <text x="520" y="262" fill="#A1A1AA" font-family="-apple-system, sans-serif" font-size="11" font-weight="600">CURRENT GENERATION</text>
+  <text x="520" y="310" fill="#F59E0B" font-family="'JetBrains Mono', monospace" font-size="36" font-weight="700">14.8 kW/h</text>
+  <text x="520" y="340" fill="#10B981" font-family="-apple-system, sans-serif" font-size="11">✓ Efficiency: 98.4% Peak</text>
+
+  <!-- Weather Widget -->
+  <rect x="850" y="235" width="338" height="130" rx="6" fill="#18181B" stroke="#38BDF8" stroke-width="1"/>
+  <text x="870" y="262" fill="#A1A1AA" font-family="-apple-system, sans-serif" font-size="11" font-weight="600">RAJKOT WEATHER IRRADIANCE</text>
+  <text x="870" y="310" fill="#38BDF8" font-family="'JetBrains Mono', monospace" font-size="28" font-weight="700">820 W/m²</text>
+  <text x="870" y="340" fill="#E4E4E7" font-family="-apple-system, sans-serif" font-size="11">☀️ Clear Sun • 32°C Ambient</text>
+
+  <!-- Panel Status Grid -->
+  <rect x="500" y="385" width="688" height="235" rx="6" fill="#18181B" stroke="#27272A" stroke-width="1"/>
+  <text x="520" y="415" fill="#A1A1AA" font-family="-apple-system, sans-serif" font-size="11" font-weight="600">SOLAR ARRAY PANELS (8 ACTIVE)</text>
+
+  <rect x="520" y="435" width="150" height="40" rx="4" fill="#064E3B"/><text x="536" y="460" fill="#10B981" font-family="-apple-system, sans-serif" font-size="12" font-weight="600">Panel 1: OK</text>
+  <rect x="686" y="435" width="150" height="40" rx="4" fill="#064E3B"/><text x="702" y="460" fill="#10B981" font-family="-apple-system, sans-serif" font-size="12" font-weight="600">Panel 2: OK</text>
+  <rect x="852" y="435" width="150" height="40" rx="4" fill="#064E3B"/><text x="868" y="460" fill="#10B981" font-family="-apple-system, sans-serif" font-size="12" font-weight="600">Panel 3: OK</text>
+  <rect x="1018" y="435" width="150" height="40" rx="4" fill="#064E3B"/><text x="1034" y="460" fill="#10B981" font-family="-apple-system, sans-serif" font-size="12" font-weight="600">Panel 4: OK</text>
+
+  <rect x="520" y="490" width="150" height="40" rx="4" fill="#064E3B"/><text x="536" y="515" fill="#10B981" font-family="-apple-system, sans-serif" font-size="12" font-weight="600">Panel 5: OK</text>
+  <rect x="686" y="490" width="150" height="40" rx="4" fill="#064E3B"/><text x="702" y="515" fill="#10B981" font-family="-apple-system, sans-serif" font-size="12" font-weight="600">Panel 6: OK</text>
+  <rect x="852" y="490" width="150" height="40" rx="4" fill="#064E3B"/><text x="868" y="515" fill="#10B981" font-family="-apple-system, sans-serif" font-size="12" font-weight="600">Panel 7: OK</text>
+  <rect x="1018" y="490" width="150" height="40" rx="4" fill="#064E3B"/><text x="1034" y="515" fill="#10B981" font-family="-apple-system, sans-serif" font-size="12" font-weight="600">Panel 8: OK</text>
+</svg>
