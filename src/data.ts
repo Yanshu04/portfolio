@@ -46,7 +46,7 @@ export const PROJECTS: Project[] = [
     image: "/assets/modern_ai_voice_interface_v1.png",
     imageAlt: "Vaani Online Voice AI API Preview",
     tags: ["FastAPI", "Groq", "Whisper", "Edge TTS"],
-    liveUrl: "https://vaani-online.onrender.com/docs",
+    liveUrl: "https://vaani-online.vercel.app/",
     githubUrl: "https://github.com/Yanshu04/vaani-online",
     highlights: [
       "Streams AI chat responses in real-time via Server-Sent Events (SSE) with Groq-powered LLM inference.",
