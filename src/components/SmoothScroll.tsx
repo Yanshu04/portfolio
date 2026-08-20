@@ -14,7 +14,7 @@ export default function SmoothScroll() {
     }
 
     const lenis = new Lenis({
-      duration: 1.1,
+      duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Exponential ease-out
       orientation: "vertical",
       gestureOrientation: "vertical",
@@ -31,6 +31,8 @@ export default function SmoothScroll() {
       },
     });
 
+    (window as any).__lenis = lenis;
+
     let animationFrameId: number;
 
     function raf(time: number) {
@@ -44,11 +46,19 @@ export default function SmoothScroll() {
     const handleAnchorClick = (e: MouseEvent) => {
       const target = e.target as HTMLElement | null;
       const anchor = target?.closest("a");
-      if (anchor && anchor.hash && anchor.origin === window.location.origin) {
-        const targetElement = document.querySelector(anchor.hash);
-        if (targetElement) {
+      if (anchor) {
+        const href = anchor.getAttribute("href");
+        if (href === "#") {
           e.preventDefault();
-          lenis.scrollTo(targetElement as HTMLElement, { offset: -70, duration: 1.1 });
+          lenis.scrollTo(0, { duration: 1.2 });
+          return;
+        }
+        if (href && href.startsWith("#")) {
+          const targetElement = document.querySelector(href);
+          if (targetElement) {
+            e.preventDefault();
+            lenis.scrollTo(targetElement as HTMLElement, { offset: -70, duration: 1.2 });
+          }
         }
       }
     };
@@ -56,6 +66,7 @@ export default function SmoothScroll() {
     document.addEventListener("click", handleAnchorClick);
 
     return () => {
+      delete (window as any).__lenis;
       document.removeEventListener("click", handleAnchorClick);
       cancelAnimationFrame(animationFrameId);
       lenis.destroy();

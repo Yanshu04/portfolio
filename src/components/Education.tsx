@@ -4,7 +4,7 @@ import FadeInSection, { staggerChildVariants } from "./FadeInSection";
 
 export default function Education() {
   return (
-    <section className="py-24 md:py-32 px-[8%] md:px-[12%] lg:px-[14%] w-full border-t border-neutral-900 light:border-neutral-200" id="education">
+    <section className="py-20 md:py-28 px-4 sm:px-6 md:px-10 lg:px-12 max-w-7xl mx-auto w-full border-t border-neutral-900 light:border-neutral-200 scroll-mt-20" id="education">
       <FadeInSection className="mb-16">
         <span className="text-[#2E86AB] light:text-blue-800 font-mono text-xs uppercase tracking-widest font-black block mb-2">
           ACADEMIC BACKGROUND

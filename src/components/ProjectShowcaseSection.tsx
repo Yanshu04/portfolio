@@ -48,7 +48,7 @@ export default function ProjectShowcaseSection() {
   };
 
   return (
-    <section className="py-24 md:py-32 px-[8%] md:px-[12%] lg:px-[14%] w-full border-t border-neutral-900 light:border-neutral-200 z-10 relative select-none" id="work">
+    <section className="py-20 md:py-28 px-4 sm:px-6 md:px-10 lg:px-12 max-w-7xl mx-auto w-full border-t border-neutral-900 light:border-neutral-200 z-10 relative select-none scroll-mt-20" id="work">
       {/* Section Header with Category Filter Buttons */}
       <FadeInSection className="mb-10">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-6 border-b-2 border-neutral-800 light:border-neutral-200">

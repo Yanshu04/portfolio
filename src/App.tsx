@@ -236,9 +236,9 @@ export default function App() {
       <Header darkMode={darkMode} onToggleTheme={handleToggleTheme} />
 
       {/* Hero Section */}
-      <section className="relative min-h-screen flex flex-col justify-center items-start px-[8%] md:px-[12%] lg:px-[14%] w-full pt-20 overflow-hidden z-10">
-        {/* 3D Tilt geometric Bauhaus circle — CSS perspective tilt on mousemove, no WebGL */}
-        <Hero3DTilt className="absolute right-[-50px] md:right-[5%] top-[20%] md:top-[15%] w-[280px] h-[280px] md:w-[480px] md:h-[480px] pointer-events-auto z-0">
+      <section className="relative min-h-[90vh] flex flex-col justify-center items-start px-4 sm:px-6 md:px-10 lg:px-12 max-w-7xl mx-auto w-full pt-28 pb-16 overflow-hidden z-10">
+        {/* 3D Tilt geometric Bauhaus circle */}
+        <Hero3DTilt className="absolute right-[-40px] sm:right-0 md:right-[5%] top-[15%] md:top-[12%] w-[240px] h-[240px] sm:w-[320px] sm:h-[320px] md:w-[480px] md:h-[480px] pointer-events-auto z-0 opacity-40 md:opacity-100">
           <div className="relative w-full h-full border border-neutral-900/80 light:border-neutral-200 rounded-full opacity-40 light:opacity-60 pointer-events-none">
             <BackgroundGeometry isDark={darkMode} />
             <div className="absolute inset-4 border border-dashed border-neutral-900/60 light:border-neutral-200/60 rounded-full animate-[spin_90s_linear_infinite]"></div>
@@ -249,28 +249,29 @@ export default function App() {
           </div>
         </Hero3DTilt>
 
-        <div className="w-full relative z-10 space-y-8 max-w-3xl">
+        <div className="w-full relative z-10 space-y-6 sm:space-y-8 max-w-3xl">
           <motion.span
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false, amount: 0.2 }}
             transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-            className="text-[#E53E3E] light:text-[#2B6CB0] font-mono text-xs uppercase tracking-[0.25em] font-black block"
+            className="text-[#E53E3E] light:text-[#2B6CB0] font-mono text-[11px] sm:text-xs uppercase tracking-[0.2em] sm:tracking-[0.25em] font-black block"
           >
             Portfolio 2026 / AI • FULL-STACK ENG
           </motion.span>
           
-          <TypewriterHeroTitle startTyping={!showWelcomeIntro} className="font-title text-4xl sm:text-6xl md:text-8xl font-black uppercase tracking-tight sm:tracking-tighter leading-[0.9] text-white light:text-black" />
+          <TypewriterHeroTitle startTyping={!showWelcomeIntro} className="font-title text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-black uppercase tracking-tight sm:tracking-tighter leading-[0.95] sm:leading-[0.9] text-white light:text-black break-words" />
 
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false, amount: 0.2 }}
             transition={{ duration: 0.5, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            className="border-l-4 border-[#E53E3E] pl-6 max-w-2xl"
+            className="border-l-4 border-[#E53E3E] pl-4 sm:pl-6 max-w-2xl"
           >
-            <p className="text-[17px] md:text-[19px] text-neutral-300 light:text-neutral-700 leading-relaxed font-sans font-medium">
-              I build intelligent AI systems—from industrial computer vision and machine learning applications to modern software that solves real-world problems.            </p>
+            <p className="text-base sm:text-[17px] md:text-[19px] text-neutral-300 light:text-neutral-700 leading-relaxed font-sans font-medium">
+              I build intelligent AI systems—from industrial computer vision and machine learning applications to modern software that solves real-world problems.
+            </p>
           </motion.div>
 
           <motion.div
@@ -278,13 +279,13 @@ export default function App() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false, amount: 0.2 }}
             transition={{ duration: 0.5, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="flex flex-col sm:flex-row gap-6 pt-4"
+            className="flex flex-col sm:flex-row gap-4 sm:gap-6 pt-2 sm:pt-4"
           >
             <motion.a
               href="#work"
               whileHover={{ scale: 1.04, y: -2 }}
               whileTap={{ scale: 0.96, y: 0 }}
-              className="px-8 py-4 font-mono text-xs font-black uppercase tracking-widest bg-[#E53E3E] text-white border-2 border-white light:border-black shadow-bauhaus-sm transition-all text-center flex items-center justify-center gap-2 cursor-pointer"
+              className="px-6 sm:px-8 py-3.5 sm:py-4 font-mono text-xs font-black uppercase tracking-widest bg-[#E53E3E] text-white border-2 border-white light:border-black shadow-bauhaus-sm transition-all text-center flex items-center justify-center gap-2 cursor-pointer"
             >
               <span>Explore Selected Work</span>
               <ArrowRight className="w-4 h-4" />
@@ -296,7 +297,7 @@ export default function App() {
               rel="noreferrer"
               whileHover={{ scale: 1.04, y: -2 }}
               whileTap={{ scale: 0.96, y: 0 }}
-              className="px-8 py-4 font-mono text-xs font-black uppercase tracking-widest bg-[#D69E2E] text-black border-2 border-white light:border-black shadow-bauhaus-sm transition-all text-center flex items-center justify-center gap-2 cursor-pointer"
+              className="px-6 sm:px-8 py-3.5 sm:py-4 font-mono text-xs font-black uppercase tracking-widest bg-[#D69E2E] text-black border-2 border-white light:border-black shadow-bauhaus-sm transition-all text-center flex items-center justify-center gap-2 cursor-pointer"
             >
               <span>GitHub Codebases</span>
               <ExternalLink className="w-4 h-4 text-black" />
@@ -305,7 +306,7 @@ export default function App() {
         </div>
 
         {/* Anchor link to move down */}
-        <div className="absolute bottom-10 left-6 md:left-24 lg:left-32 animate-bounce z-10">
+        <div className="absolute bottom-6 sm:bottom-10 left-4 sm:left-6 md:left-10 animate-bounce z-10">
           <a href="#work" className="text-[10px] font-mono uppercase tracking-widest text-neutral-500 hover:text-[#E53E3E] light:hover:text-[#2B6CB0] transition-colors">
             ↓ Scroll to explore
           </a>
@@ -321,7 +322,7 @@ export default function App() {
       <ProjectShowcaseSection />
 
       {/* Interactive Playgrounds Section */}
-      <section className="hidden md:block py-24 md:py-32 px-[8%] md:px-[12%] lg:px-[14%] w-full border-t border-neutral-900 light:border-neutral-200 z-10 relative" id="playgrounds">
+      <section className="hidden md:block py-20 md:py-28 px-4 sm:px-6 md:px-10 lg:px-12 max-w-7xl mx-auto w-full border-t border-neutral-900 light:border-neutral-200 z-10 relative scroll-mt-20" id="playgrounds">
         <FadeInSection className="mb-16">
           <span className="text-[#E53E3E] light:text-[#2B6CB0] font-mono text-xs uppercase tracking-widest font-black block mb-2">
             LIVE SIMULATION SANDBOX
@@ -338,7 +339,7 @@ export default function App() {
       </section>
 
       {/* Skills Matrix / How I Work Section */}
-      <section className="py-24 md:py-32 px-[8%] md:px-[12%] lg:px-[14%] w-full border-t border-neutral-900 light:border-neutral-200 z-10 relative" id="skills">
+      <section className="py-20 md:py-28 px-4 sm:px-6 md:px-10 lg:px-12 max-w-7xl mx-auto w-full border-t border-neutral-900 light:border-neutral-200 z-10 relative scroll-mt-20" id="skills">
         <FadeInSection className="mb-16">
           <span className="text-[#D69E2E] light:text-[#2B6CB0] font-mono text-xs uppercase tracking-widest font-black block mb-2">
             ARCHITECTURAL SCHEMATICS
@@ -415,7 +416,7 @@ export default function App() {
       <TechStack />
 
       {/* About Section */}
-      <section className="py-24 md:py-32 px-[8%] md:px-[12%] lg:px-[14%] w-full border-t border-neutral-900 light:border-neutral-200 z-10 relative" id="about">
+      <section className="py-20 md:py-28 px-4 sm:px-6 md:px-10 lg:px-12 max-w-7xl mx-auto w-full border-t border-neutral-900 light:border-neutral-200 z-10 relative scroll-mt-20" id="about">
         <FadeInSection className="mb-16">
           <span className="text-[#2B6CB0] font-mono text-xs uppercase tracking-widest font-black block mb-2">
             BACKGROUND
@@ -485,7 +486,7 @@ export default function App() {
       <Education />
 
       {/* Get In Touch Section containing the interactive Guestbook */}
-      <section className="py-24 md:py-32 px-[8%] md:px-[12%] lg:px-[14%] w-full border-t border-neutral-900 light:border-neutral-200 z-10 relative" id="contact">
+      <section className="py-20 md:py-28 px-4 sm:px-6 md:px-10 lg:px-12 max-w-7xl mx-auto w-full border-t border-neutral-900 light:border-neutral-200 z-10 relative scroll-mt-20" id="contact">
         <FadeInSection className="mb-12 text-center">
           <span className="text-[#E53E3E] font-mono text-xs uppercase tracking-widest font-black block mb-2">
             LET'S CONNECT
@@ -534,7 +535,7 @@ export default function App() {
 
       {/* Footer boundary elements */}
       <FadeInSection>
-        <footer className="bg-[#08080c] light:bg-[#f5f2eb] border-t border-neutral-950 light:border-slate-200 py-16 px-[8%] md:px-[12%] lg:px-[14%] relative z-10">
+        <footer className="bg-[#08080c] light:bg-[#f5f2eb] border-t border-neutral-950 light:border-slate-200 py-12 px-4 sm:px-6 md:px-10 lg:px-12 max-w-7xl mx-auto relative z-10">
           <div className="w-full flex flex-col md:flex-row justify-between items-center gap-8 text-neutral-400 light:text-slate-500">
             <div className="font-mono text-lg font-bold tracking-tighter uppercase text-white light:text-slate-900">
               YS

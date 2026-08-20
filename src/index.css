@@ -11,9 +11,25 @@
 
 /* Global Reset & Theme Transition Styles */
 html, body {
-  scroll-behavior: smooth;
   font-family: var(--font-sans);
   transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Lenis Smooth Scroll Recommended CSS */
+html.lenis, html.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+html.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
 }
 
 /* Sharp Edges / Rectilinear Design Style */

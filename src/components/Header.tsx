@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Sun, Moon, Menu, X, Cpu } from "lucide-react";
-import { motion } from "motion/react";
+import { motion, AnimatePresence } from "motion/react";
 
 interface HeaderProps {
   darkMode: boolean;
@@ -26,6 +26,18 @@ export default function Header({ darkMode, onToggleTheme }: HeaderProps) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isMobileMenuOpen]);
+
   const navLinks = [
     { label: "Work", href: "#work" },
     { label: "Playgrounds", href: "#playgrounds" },
@@ -39,34 +51,35 @@ export default function Header({ darkMode, onToggleTheme }: HeaderProps) {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 h-20 border-b-2 ${isScrolled
-            ? "bg-[#121212]/95 light:bg-[#FAF8F5]/95 backdrop-blur-md h-16 border-white light:border-black"
+        className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 h-20 border-b-2 ${
+          isScrolled
+            ? "bg-[#121212]/95 light:bg-[#FAF8F5]/95 backdrop-blur-md h-16 border-white/20 light:border-black/20 shadow-md"
             : "bg-transparent border-transparent"
-          }`}
+        }`}
       >
-        <div className="w-full px-[8%] md:px-[12%] lg:px-[14%] h-full flex items-center justify-between">
-          {/* Logo Name branding - bold title font */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-between gap-4">
+          {/* Logo Name branding */}
           <motion.a
             href="#"
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
-            className="flex items-center gap-1.5 font-title text-[13px] sm:text-base font-black tracking-tight uppercase select-none whitespace-nowrap"
+            className="flex items-center gap-2 font-title text-sm sm:text-base md:text-lg font-black tracking-tight uppercase select-none shrink-0"
             style={{ color: darkMode ? "#FAF8F5" : "#121212" }}
           >
-            <Cpu className="w-4 h-4 sm:w-5 sm:h-5 text-[#DC3D24]" />
-            <span>YANSHU SHINGALA</span>
+            <Cpu className="w-5 h-5 text-[#DC3D24] shrink-0" />
+            <span className="truncate">YANSHU SHINGALA</span>
           </motion.a>
 
-          {/* Desktop Right Side Control Actions */}
-          <div className="hidden md:flex items-center gap-4 lg:gap-6 xl:gap-8 font-sans">
-            <nav className="flex items-center gap-3.5 lg:gap-5 xl:gap-7 text-xs uppercase tracking-widest font-bold whitespace-nowrap font-mono">
+          {/* Desktop Navigation (visible on large screens >= xl) */}
+          <div className="hidden xl:flex items-center gap-5 xl:gap-7 font-sans shrink-0">
+            <nav className="flex items-center gap-3.5 xl:gap-5 text-xs uppercase tracking-widest font-bold whitespace-nowrap font-mono">
               {navLinks.map((link) => (
                 <motion.a
                   key={link.label}
                   href={link.href}
                   whileHover={{ y: -2, color: "#DC3D24" }}
                   whileTap={{ y: 0 }}
-                  className="text-neutral-400 light:text-neutral-600 transition-colors duration-200"
+                  className="text-neutral-400 light:text-neutral-600 hover:text-white light:hover:text-black transition-colors duration-200"
                 >
                   {link.label}
                 </motion.a>
@@ -81,13 +94,13 @@ export default function Header({ darkMode, onToggleTheme }: HeaderProps) {
               onClick={onToggleTheme}
               whileHover={{ scale: 1.08, rotate: 15 }}
               whileTap={{ scale: 0.92 }}
-              className="p-1.5 border-2 border-white light:border-black hover:bg-neutral-800 light:hover:bg-neutral-200 bg-neutral-950 light:bg-white text-white light:text-black transition-all cursor-pointer"
+              className="p-2 border-2 border-white light:border-black hover:bg-neutral-800 light:hover:bg-neutral-200 bg-neutral-950 light:bg-white text-white light:text-black transition-all cursor-pointer"
               title={darkMode ? "Switch to light mode" : "Switch to dark mode"}
             >
               {darkMode ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
             </motion.button>
 
-            {/* Action Resume button in Bauhaus style */}
+            {/* Action Resume button */}
             <motion.a
               href="yanshu-shingala-resume.pdf"
               download="Yanshu_Shingala_Resume.pdf"
@@ -105,70 +118,84 @@ export default function Header({ darkMode, onToggleTheme }: HeaderProps) {
             </motion.a>
           </div>
 
-          {/* Mobile responsive toggle */}
-          <div className="flex items-center gap-4 md:hidden">
+          {/* Mobile & Tablet responsive controls (< xl) */}
+          <div className="flex items-center gap-3 xl:hidden">
             <motion.button
               onClick={onToggleTheme}
               whileTap={{ scale: 0.9 }}
-              className="p-1.5 border-2 border-white light:border-black bg-neutral-950 light:bg-white text-white light:text-black transition-all"
+              className="p-2 border-2 border-white light:border-black bg-neutral-950 light:bg-white text-white light:text-black transition-all cursor-pointer"
+              title={darkMode ? "Switch to light mode" : "Switch to dark mode"}
             >
-              {darkMode ? <Sun className="w-4.5 h-4.5" /> : <Moon className="w-4.5 h-4.5" />}
+              {darkMode ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
             </motion.button>
 
             <motion.button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               whileTap={{ scale: 0.9 }}
-              className="p-1.5 border-2 border-white light:border-black text-neutral-400 light:text-neutral-600 bg-neutral-950 light:bg-white"
+              className="p-2 border-2 border-white light:border-black text-neutral-300 light:text-neutral-700 bg-neutral-950 light:bg-white cursor-pointer"
+              aria-label="Toggle navigation menu"
             >
-              {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              {isMobileMenuOpen ? <X className="w-5 h-5 text-[#DC3D24]" /> : <Menu className="w-5 h-5" />}
             </motion.button>
           </div>
         </div>
       </header>
 
-      {/* Mobile Drawer Slide Navigation */}
-      {isMobileMenuOpen && (
-        <div className="fixed inset-0 z-40 bg-[#121212]/98 light:bg-[#FAF8F5]/98 flex flex-col justify-center items-center gap-8 h-screen w-screen md:hidden animate-fade-in">
-          {navLinks.filter(link => link.label !== "Playgrounds").map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="text-2xl uppercase tracking-widest font-black font-mono text-neutral-200 light:text-slate-900 hover:text-[#DC3D24] transition-colors"
-            >
-              {link.label}
-            </a>
-          ))}
-
-          <a
-            href="yanshu-shingala-resume.pdf"
-            download="Yanshu_Shingala_Resume.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={() => setIsMobileMenuOpen(false)}
-            className="px-8 py-3.5 border-2 border-white light:border-black font-mono text-sm uppercase font-black tracking-widest mt-4 shadow-bauhaus-sm"
-            style={{
-              backgroundColor: "#E3B448",
-              color: "#121212"
-            }}
+      {/* Mobile / Tablet Full-Screen Drawer Menu */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-40 bg-[#0B0B0C]/98 light:bg-[#FAF8F5]/98 backdrop-blur-lg flex flex-col justify-center items-center px-6 py-24 h-screen w-screen xl:hidden overflow-y-auto"
           >
-            RESUME
-          </a>
+            <div className="flex flex-col items-center gap-5 w-full max-w-xs text-center">
+              {navLinks.map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="text-xl sm:text-2xl uppercase tracking-widest font-black font-mono text-neutral-200 light:text-slate-900 hover:text-[#DC3D24] transition-colors py-1"
+                >
+                  {link.label}
+                </a>
+              ))}
 
-          <a
-            href="#contact"
-            onClick={() => setIsMobileMenuOpen(false)}
-            className="px-8 py-3.5 border-2 border-white light:border-black font-mono text-sm uppercase font-black tracking-widest mt-2 shadow-bauhaus-sm"
-            style={{
-              backgroundColor: "transparent",
-              color: darkMode ? "#FAF8F5" : "#121212",
-              borderColor: darkMode ? "#FAF8F5" : "#121212"
-            }}
-          >
-            GET IN TOUCH
-          </a>
-        </div>
-      )}
+              <div className="w-16 h-[2px] bg-neutral-800 light:bg-neutral-300 my-2"></div>
+
+              <a
+                href="yanshu-shingala-resume.pdf"
+                download="Yanshu_Shingala_Resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="w-full py-3 border-2 border-white light:border-black font-mono text-sm uppercase font-black tracking-widest shadow-bauhaus-sm"
+                style={{
+                  backgroundColor: "#E3B448",
+                  color: "#121212"
+                }}
+              >
+                RESUME
+              </a>
+
+              <a
+                href="#contact"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="w-full py-3 border-2 border-white light:border-black font-mono text-sm uppercase font-black tracking-widest shadow-bauhaus-sm"
+                style={{
+                  backgroundColor: "transparent",
+                  color: darkMode ? "#FAF8F5" : "#121212",
+                  borderColor: darkMode ? "#FAF8F5" : "#121212"
+                }}
+              >
+                GET IN TOUCH
+              </a>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 }

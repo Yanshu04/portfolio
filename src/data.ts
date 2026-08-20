@@ -40,6 +40,26 @@ export const PROJECTS: Project[] = [
     ]
   },
   {
+    id: "vaani-online",
+    title: "Vaani Online",
+    description: "A cloud-deployed, multilingual voice AI REST API supporting English, Hindi, and Gujarati. Chains OpenAI Whisper STT, Groq LLM inference, and Microsoft Edge TTS neural voices into a single real-time streaming pipeline — deployed on Render.",
+    image: "/assets/modern_ai_voice_interface_v1.png",
+    imageAlt: "Vaani Online Voice AI API Preview",
+    tags: ["FastAPI", "Groq", "Whisper", "Edge TTS"],
+    liveUrl: "https://vaani-online.onrender.com/docs",
+    githubUrl: "https://github.com/Yanshu04/vaani-online",
+    highlights: [
+      "Streams AI chat responses in real-time via Server-Sent Events (SSE) with Groq-powered LLM inference.",
+      "Multilingual audio transcription using OpenAI Whisper with configurable model size (tiny → large).",
+      "Neural Text-to-Speech via Edge TTS with 10+ voices across English, Hindi, and Gujarati locales."
+    ],
+    specs: [
+      { label: "LLM Provider", value: "Groq (Cloud Inference)" },
+      { label: "Languages", value: "English · Hindi · Gujarati" },
+      { label: "Deployment", value: "Render (FastAPI + Uvicorn)" }
+    ]
+  },
+  {
     id: "speech-asr",
     title: "Offline Speech ASR",
     description: "A lightweight, fully offline, real-time speech recognition system built from scratch in PyTorch. Runs entirely locally on low-VRAM edge nodes, transcribing English, Hindi, and Gujarati scripts.",
@@ -285,7 +305,9 @@ export const TECH_STACK_GROUPS: TechStackGroup[] = [
     items: [
       "FastAPI",
       "Python",
-      "REST APIs"
+      "REST APIs",
+      "Groq",
+      "Streaming APIs"
     ]
   },
   {
@@ -316,7 +338,8 @@ export const TECH_STACK_GROUPS: TechStackGroup[] = [
       "Sentence-BERT",
       "PyTorch",
       "OpenCV",
-      "Transformers"
+      "Transformers",
+      "Edge TTS"
     ]
   }
 ];
@@ -355,11 +378,12 @@ export const TECH_USAGE_DETAILS: Record<string, TechUsageDetail> = {
     name: "NLP",
     category: "AI & ML",
     accent: "#E53E3E",
-    whereUsed: "Used for natural language parsing, ATS resume score evaluation, named entity extraction (spaCy), keyword ranking, and multilingual prompt pipelines.",
+    whereUsed: "Used for natural language parsing, ATS resume score evaluation, named entity extraction (spaCy), keyword ranking, multilingual prompt pipelines, and cloud-streamed conversational AI.",
     projects: [
       { id: "ai-resume-analyzer", title: "AI Resume Analyzer", tags: ["TypeScript", "FastAPI", "spaCy"] },
       { id: "laika", title: "LAIKA Local AI Assistant", tags: ["FastAPI", "ChromaDB"] },
-      { id: "vaani", title: "Vaani Voice Assistant", tags: ["Whisper", "Ollama", "Transformers"] }
+      { id: "vaani", title: "Vaani Voice Assistant", tags: ["Whisper", "Ollama", "Transformers"] },
+      { id: "vaani-online", title: "Vaani Online", tags: ["Groq", "Whisper", "Edge TTS"] }
     ]
   },
   "RAG": {
@@ -399,21 +423,41 @@ export const TECH_USAGE_DETAILS: Record<string, TechUsageDetail> = {
     name: "FastAPI",
     category: "Backend",
     accent: "#2B6CB0",
-    whereUsed: "Used as the core async Python REST API backend framework for document processing, RAG orchestration, SQLite queries, and streaming AI endpoint responses.",
+    whereUsed: "Used as the core async Python REST API backend framework for document processing, RAG orchestration, SQLite queries, streaming AI endpoint responses, and cloud voice AI services.",
     projects: [
       { id: "laika", title: "LAIKA Local AI Assistant", tags: ["Python", "FastAPI", "SQLite"] },
+      { id: "vaani-online", title: "Vaani Online", tags: ["FastAPI", "Groq", "Edge TTS"] },
       { id: "ai-resume-analyzer", title: "AI Resume Analyzer", tags: ["FastAPI", "spaCy"] },
       { id: "ai-resume-builder", title: "AI Resume Builder", tags: ["FastAPI", "SQLAlchemy"] },
       { id: "devpulse", title: "DevPulse Git Honesty Dashboard", tags: ["FastAPI", "GitPython"] }
+    ]
+  },
+  "Groq": {
+    name: "Groq",
+    category: "Backend",
+    accent: "#2B6CB0",
+    whereUsed: "Used as the cloud LLM inference provider for Vaani Online, enabling ultra-fast, streamed conversational AI responses with low-latency generation across multilingual voice sessions.",
+    projects: [
+      { id: "vaani-online", title: "Vaani Online", tags: ["Groq", "FastAPI", "Streaming"] }
+    ]
+  },
+  "Streaming APIs": {
+    name: "Streaming APIs",
+    category: "Backend",
+    accent: "#2B6CB0",
+    whereUsed: "Used Server-Sent Events (SSE) in Vaani Online to stream AI chat tokens to clients in real-time, enabling a live, incremental response feel in voice assistant sessions.",
+    projects: [
+      { id: "vaani-online", title: "Vaani Online", tags: ["SSE", "FastAPI", "Groq"] }
     ]
   },
   "Python": {
     name: "Python",
     category: "Backend",
     accent: "#2B6CB0",
-    whereUsed: "Used as the primary language for AI model pipelines, machine learning model training (PyTorch / XGBoost), server backends, and data processing.",
+    whereUsed: "Used as the primary language for AI model pipelines, machine learning model training (PyTorch / XGBoost), server backends, cloud voice APIs, and data processing.",
     projects: [
       { id: "laika", title: "LAIKA Local AI Assistant", tags: ["Python", "FastAPI"] },
+      { id: "vaani-online", title: "Vaani Online", tags: ["Python", "FastAPI", "Groq"] },
       { id: "speech-asr", title: "Offline Speech ASR", tags: ["Python", "PyTorch"] },
       { id: "house-predictor", title: "House Price Predictor", tags: ["Python", "XGBoost", "Flask"] },
       { id: "ipl-predication", title: "IPL Match Winner Predictor", tags: ["Python", "scikit-learn"] },
@@ -424,10 +468,11 @@ export const TECH_USAGE_DETAILS: Record<string, TechUsageDetail> = {
     name: "REST APIs",
     category: "Backend",
     accent: "#2B6CB0",
-    whereUsed: "Used to build RESTful web services with strict request/response validation schemas, JSON endpoints, and asynchronous client communication.",
+    whereUsed: "Used to build RESTful web services with strict request/response validation schemas, JSON endpoints, streaming SSE responses, and asynchronous client communication.",
     projects: [
       { id: "house-predictor", title: "House Price Predictor", tags: ["Flask", "Render"] },
       { id: "laika", title: "LAIKA Local AI Assistant", tags: ["FastAPI", "REST"] },
+      { id: "vaani-online", title: "Vaani Online", tags: ["FastAPI", "SSE", "Render"] },
       { id: "solar-tracker", title: "Solar Tracker Android App", tags: ["Kotlin", "REST API"] }
     ]
   },
@@ -531,6 +576,15 @@ export const TECH_USAGE_DETAILS: Record<string, TechUsageDetail> = {
     whereUsed: "Used Hugging Face Transformers for sequence-to-sequence translation (Meta NLLB-200) and speech recognition tokenizers.",
     projects: [
       { id: "vaani", title: "Vaani Voice Assistant", tags: ["Transformers", "NLLB-200", "Whisper"] }
+    ]
+  },
+  "Edge TTS": {
+    name: "Edge TTS",
+    category: "AI Libraries",
+    accent: "#805AD5",
+    whereUsed: "Used Microsoft Edge TTS neural voices in Vaani Online to synthesize lifelike speech across English, Hindi, and Gujarati locales, with configurable speech rate and volume.",
+    projects: [
+      { id: "vaani-online", title: "Vaani Online", tags: ["Edge TTS", "FastAPI", "Multilingual"] }
     ]
   }
 };
