@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "motion/react";
-import FadeInSection, { staggerChildVariants } from "./FadeInSection";
+import FadeInSection, { staggerChildVariants } from "../ui/FadeInSection";
 
 export default function Education() {
   return (

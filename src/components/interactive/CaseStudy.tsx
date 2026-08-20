@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Terminal, ShieldAlert, Cpu, Activity } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
-import ProjectSpecs from "./ProjectSpecs";
-import { Project } from "../types";
+import ProjectSpecs from "../ui/ProjectSpecs";
+import { Project } from "../../types";
 
 interface CaseStudyProps {
   project: Project;

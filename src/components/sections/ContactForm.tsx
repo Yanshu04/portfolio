@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Send, CheckCircle, Terminal, HelpCircle, Trash2 } from "lucide-react";
 import { motion } from "motion/react";
-import { ContactMessage } from "../types";
+import { ContactMessage } from "../../types";
 
 export default function ContactForm() {
   const [name, setName] = useState("");
@@ -27,15 +27,20 @@ export default function ContactForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!name || !email || !message) return;
+    const trimmedName = name.trim();
+    const trimmedEmail = email.trim();
+    const trimmedSubject = subject.trim();
+    const trimmedMessage = message.trim();
+
+    if (!trimmedName || !trimmedEmail || !trimmedMessage) return;
 
     setIsSubmitting(true);
 
     const newMessage: ContactMessage = {
-      name,
-      email,
-      subject: subject || "General Inquiry",
-      message,
+      name: trimmedName,
+      email: trimmedEmail,
+      subject: trimmedSubject || "General Inquiry",
+      message: trimmedMessage,
       timestamp: new Date().toLocaleString()
     };
 

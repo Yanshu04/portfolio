@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { ExternalLink, Code } from "lucide-react";
 import { motion } from "motion/react";
-import { Project } from "../types";
-import CaseStudy from "./CaseStudy";
+import { Project } from "../../types";
+import CaseStudy from "../interactive/CaseStudy";
+import ProjectSpecs from "./ProjectSpecs";
 import { SkeletonBlock } from "./SkeletonShimmer";
 
 const PROJECT_INDEX: Record<string, string> = {
@@ -112,7 +113,7 @@ export default function ProjectCard({ project, isActive = true, layout = "vertic
                   <motion.a
                     href={project.liveUrl}
                     target="_blank"
-                    rel="noreferrer"
+                    rel="noopener noreferrer"
                     whileHover={{ scale: 1.03, x: 2 }}
                     whileTap={{ scale: 0.97 }}
                     transition={{ duration: 0.15 }}
@@ -129,7 +130,7 @@ export default function ProjectCard({ project, isActive = true, layout = "vertic
                   <motion.a
                     href={project.githubUrl}
                     target="_blank"
-                    rel="noreferrer"
+                    rel="noopener noreferrer"
                     whileHover={{ scale: 1.03, x: 2 }}
                     whileTap={{ scale: 0.97 }}
                     transition={{ duration: 0.15 }}

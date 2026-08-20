@@ -40,11 +40,12 @@ export default function Header({ darkMode, onToggleTheme }: HeaderProps) {
 
   const navLinks = [
     { label: "Work", href: "#work" },
-    { label: "Playgrounds", href: "#playgrounds" },
+    { label: "About", href: "#about" },
     { label: "Skills", href: "#skills" },
     { label: "Tech Stack", href: "#tech-stack" },
-    { label: "About", href: "#about" },
+    { label: "Playgrounds", href: "#playgrounds" },
     { label: "Education", href: "#education" },
+    { label: "Experience", href: "#experience" },
     { label: "Contact", href: "#contact" }
   ];
 
@@ -70,9 +71,9 @@ export default function Header({ darkMode, onToggleTheme }: HeaderProps) {
             <span className="truncate">YANSHU SHINGALA</span>
           </motion.a>
 
-          {/* Desktop Navigation (visible on large screens >= xl) */}
-          <div className="hidden xl:flex items-center gap-5 xl:gap-7 font-sans shrink-0">
-            <nav className="flex items-center gap-3.5 xl:gap-5 text-xs uppercase tracking-widest font-bold whitespace-nowrap font-mono">
+          {/* Desktop Navigation (visible on large screens >= lg) */}
+          <div className="hidden lg:flex items-center gap-3.5 xl:gap-5 font-sans shrink-0">
+            <nav className="flex items-center gap-2.5 xl:gap-4 text-[11px] xl:text-xs uppercase tracking-wider font-bold whitespace-nowrap font-mono">
               {navLinks.map((link) => (
                 <motion.a
                   key={link.label}
@@ -118,8 +119,8 @@ export default function Header({ darkMode, onToggleTheme }: HeaderProps) {
             </motion.a>
           </div>
 
-          {/* Mobile & Tablet responsive controls (< xl) */}
-          <div className="flex items-center gap-3 xl:hidden">
+          {/* Mobile & Tablet responsive controls (< lg) */}
+          <div className="flex items-center gap-3 lg:hidden">
             <motion.button
               onClick={onToggleTheme}
               whileTap={{ scale: 0.9 }}
@@ -149,7 +150,7 @@ export default function Header({ darkMode, onToggleTheme }: HeaderProps) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-40 bg-[#0B0B0C]/98 light:bg-[#FAF8F5]/98 backdrop-blur-lg flex flex-col justify-center items-center px-6 py-24 h-screen w-screen xl:hidden overflow-y-auto"
+            className="fixed inset-0 z-40 bg-[#0B0B0C]/98 light:bg-[#FAF8F5]/98 backdrop-blur-lg flex flex-col justify-center items-center px-6 py-24 h-screen w-screen lg:hidden overflow-y-auto"
           >
             <div className="flex flex-col items-center gap-5 w-full max-w-xs text-center">
               {navLinks.map((link) => (

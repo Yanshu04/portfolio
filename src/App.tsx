@@ -19,22 +19,25 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 
-import Header from "./components/Header";
-import ProjectCard from "./components/ProjectCard";
-import ContactForm from "./components/ContactForm";
-import FadeInSection, { staggerChildVariants } from "./components/FadeInSection";
-import Education from "./components/Education";
-import Ticker from "./components/Ticker";
-import FloatingMascotPixel from "./components/FloatingMascotPixel";
-import InteractivePlaygrounds from "./components/InteractivePlaygrounds";
-import BackgroundGeometry from "./components/BackgroundGeometry";
-import Hero3DTilt from "./components/Hero3DTilt";
-import GizmoWelcomeIntro from "./components/GizmoWelcomeIntro";
-import SmoothScroll from "./components/SmoothScroll";
-import { FullPageSkeletonLoader } from "./components/SkeletonShimmer";
-import TypewriterHeroTitle from "./components/TypewriterHeroTitle";
-import TechStack from "./components/TechStack";
-import ProjectShowcaseSection from "./components/ProjectShowcaseSection";
+import Header from "./components/sections/Header";
+import ContactForm from "./components/sections/ContactForm";
+import Education from "./components/sections/Education";
+import Internships from "./components/sections/Internships";
+import TechStack from "./components/sections/TechStack";
+import ProjectShowcaseSection from "./components/sections/ProjectShowcaseSection";
+
+import ProjectCard from "./components/ui/ProjectCard";
+import FadeInSection, { staggerChildVariants } from "./components/ui/FadeInSection";
+import Ticker from "./components/ui/Ticker";
+import { FullPageSkeletonLoader } from "./components/ui/SkeletonShimmer";
+import TypewriterHeroTitle from "./components/ui/TypewriterHeroTitle";
+
+import FloatingMascotPixel from "./components/interactive/FloatingMascotPixel";
+import InteractivePlaygrounds from "./components/interactive/InteractivePlaygrounds";
+import BackgroundGeometry from "./components/interactive/BackgroundGeometry";
+import Hero3DTilt from "./components/interactive/Hero3DTilt";
+import GizmoWelcomeIntro from "./components/interactive/GizmoWelcomeIntro";
+import SmoothScroll from "./components/interactive/SmoothScroll";
 import { PROJECTS, SKILL_CATEGORIES } from "./data";
 
 const gridContainerVariants = {
@@ -294,7 +297,7 @@ export default function App() {
             <motion.a
               href="https://github.com/Yanshu04"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               whileHover={{ scale: 1.04, y: -2 }}
               whileTap={{ scale: 0.96, y: 0 }}
               className="px-6 sm:px-8 py-3.5 sm:py-4 font-mono text-xs font-black uppercase tracking-widest bg-[#D69E2E] text-black border-2 border-white light:border-black shadow-bauhaus-sm transition-all text-center flex items-center justify-center gap-2 cursor-pointer"
@@ -321,21 +324,71 @@ export default function App() {
       {/* Selected Work & Experiments Section */}
       <ProjectShowcaseSection />
 
-      {/* Interactive Playgrounds Section */}
-      <section className="hidden md:block py-20 md:py-28 px-4 sm:px-6 md:px-10 lg:px-12 max-w-7xl mx-auto w-full border-t border-neutral-900 light:border-neutral-200 z-10 relative scroll-mt-20" id="playgrounds">
+      {/* About Section */}
+      <section className="py-20 md:py-28 px-4 sm:px-6 md:px-10 lg:px-12 max-w-7xl mx-auto w-full border-t border-neutral-900 light:border-neutral-200 z-10 relative scroll-mt-20" id="about">
         <FadeInSection className="mb-16">
-          <span className="text-[#E53E3E] light:text-[#2B6CB0] font-mono text-xs uppercase tracking-widest font-black block mb-2">
-            LIVE SIMULATION SANDBOX
+          <span className="text-[#2B6CB0] font-mono text-xs uppercase tracking-widest font-black block mb-2">
+            BACKGROUND
           </span>
           <h2 className="font-title text-[28px] md:text-[40px] font-black uppercase tracking-tight text-white light:text-black mb-4">
-            Interactive Playgrounds
+            About
           </h2>
-          <div className="w-24 h-2 bg-[#2B6CB0]"></div>
+          <div className="w-24 h-2 bg-[#D69E2E]"></div>
         </FadeInSection>
 
-        <FadeInSection>
-          <InteractivePlaygrounds />
-        </FadeInSection>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+          {/* Prose section */}
+          <div className="lg:col-span-7">
+            <FadeInSection className="space-y-6">
+              <p className="text-[17px] md:text-[19px] text-neutral-300 light:text-neutral-800 leading-snug font-sans">
+                I'm a Data &amp; AI/ML Engineer who builds practical machine learning applications, speech processing tools, and high-performance web applications. I focus on developing software that is fast, intuitive, and reliably solves real problems.
+              </p>
+              
+              <p className="text-[17px] md:text-[19px] text-neutral-400 light:text-slate-650 leading-relaxed font-sans">
+                My experience spans end-to-end full-stack integration and machine learning pipelines—from training PyTorch models and building local RAG assistants to deploying REST APIs and responsive frontends.
+              </p>
+            </FadeInSection>
+          </div>
+
+          {/* Statistics counter panel */}
+          <div className="lg:col-span-5 bg-black light:bg-[#fbfbf9] border-2 border-white light:border-black p-8 flex flex-col gap-6 md:flex-row lg:flex-col md:justify-around lg:justify-start shadow-bauhaus">
+            <FadeInSection staggerChildren={0.1}>
+              <motion.div variants={staggerChildVariants} whileHover={{ scale: 1.03, y: -2 }} className="flex items-start gap-5">
+                <div className="w-11 h-11 bg-black light:bg-[#f5f2eb] text-[#E53E3E] border-2 border-[#E53E3E] flex items-center justify-center font-mono font-black">
+                  08
+                </div>
+                <div>
+                  <h4 className="text-[#E53E3E] text-3xl font-mono font-black leading-none">
+                    8+
+                  </h4>
+                  <span className="text-[10px] tracking-widest font-mono uppercase text-neutral-400 light:text-neutral-500 mt-1 block font-bold">
+                    Core AI Projects
+                  </span>
+                </div>
+              </motion.div>
+            </FadeInSection>
+
+            {/* Divider */}
+            <div className="h-[2px] w-full bg-neutral-800 light:bg-black hidden lg:block"></div>
+            <div className="w-[2px] h-12 bg-neutral-800 light:bg-black hidden md:block lg:hidden"></div>
+
+            <FadeInSection staggerChildren={0.1}>
+              <motion.div variants={staggerChildVariants} whileHover={{ scale: 1.03, y: -2 }} className="flex items-start gap-5">
+                <div className="w-11 h-11 bg-black light:bg-[#f5f2eb] text-[#2B6CB0] border-2 border-[#2B6CB0] flex items-center justify-center font-mono font-black">
+                  AI
+                </div>
+                <div>
+                  <h4 className="text-[#2B6CB0] text-3xl font-mono font-black leading-none">
+                    SPECIALIST
+                  </h4>
+                  <span className="text-[10px] tracking-widest font-mono uppercase text-neutral-400 light:text-neutral-500 mt-1 block font-bold">
+                    Focused Specialization
+                  </span>
+                </div>
+              </motion.div>
+            </FadeInSection>
+          </div>
+        </div>
       </section>
 
       {/* Skills Matrix / How I Work Section */}
@@ -415,75 +468,28 @@ export default function App() {
       {/* Technology Stack Section */}
       <TechStack />
 
-      {/* About Section */}
-      <section className="py-20 md:py-28 px-4 sm:px-6 md:px-10 lg:px-12 max-w-7xl mx-auto w-full border-t border-neutral-900 light:border-neutral-200 z-10 relative scroll-mt-20" id="about">
+      {/* Interactive Playgrounds Section */}
+      <section className="hidden md:block py-20 md:py-28 px-4 sm:px-6 md:px-10 lg:px-12 max-w-7xl mx-auto w-full border-t border-neutral-900 light:border-neutral-200 z-10 relative scroll-mt-20" id="playgrounds">
         <FadeInSection className="mb-16">
-          <span className="text-[#2B6CB0] font-mono text-xs uppercase tracking-widest font-black block mb-2">
-            BACKGROUND
+          <span className="text-[#E53E3E] light:text-[#2B6CB0] font-mono text-xs uppercase tracking-widest font-black block mb-2">
+            LIVE SIMULATION SANDBOX
           </span>
           <h2 className="font-title text-[28px] md:text-[40px] font-black uppercase tracking-tight text-white light:text-black mb-4">
-            About
+            Interactive Playgrounds
           </h2>
-          <div className="w-24 h-2 bg-[#D69E2E]"></div>
+          <div className="w-24 h-2 bg-[#2B6CB0]"></div>
         </FadeInSection>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-          {/* Prose section */}
-          <div className="lg:col-span-7">
-            <FadeInSection className="space-y-6">
-              <p className="text-[17px] md:text-[19px] text-neutral-300 light:text-neutral-800 leading-snug font-sans">
-                I'm a Data &amp; AI/ML Engineer who builds practical machine learning applications, speech processing tools, and high-performance web applications. I focus on developing software that is fast, intuitive, and reliably solves real problems.
-              </p>
-              
-              <p className="text-[17px] md:text-[19px] text-neutral-400 light:text-slate-650 leading-relaxed font-sans">
-                My experience spans end-to-end full-stack integration and machine learning pipelines—from training PyTorch models and building local RAG assistants to deploying REST APIs and responsive frontends.
-              </p>
-            </FadeInSection>
-          </div>
-
-          {/* Statistics counter panel */}
-          <div className="lg:col-span-5 bg-black light:bg-[#fbfbf9] border-2 border-white light:border-black p-8 flex flex-col gap-6 md:flex-row lg:flex-col md:justify-around lg:justify-start shadow-bauhaus">
-            <FadeInSection staggerChildren={0.1}>
-              <motion.div variants={staggerChildVariants} whileHover={{ scale: 1.03, y: -2 }} className="flex items-start gap-5">
-                <div className="w-11 h-11 bg-black light:bg-[#f5f2eb] text-[#E53E3E] border-2 border-[#E53E3E] flex items-center justify-center font-mono font-black">
-                  08
-                </div>
-                <div>
-                  <h4 className="text-[#E53E3E] text-3xl font-mono font-black leading-none">
-                    8+
-                  </h4>
-                  <span className="text-[10px] tracking-widest font-mono uppercase text-neutral-400 light:text-neutral-500 mt-1 block font-bold">
-                    Core AI Projects
-                  </span>
-                </div>
-              </motion.div>
-            </FadeInSection>
-
-            {/* Divider */}
-            <div className="h-[2px] w-full bg-neutral-800 light:bg-black hidden lg:block"></div>
-            <div className="w-[2px] h-12 bg-neutral-800 light:bg-black hidden md:block lg:hidden"></div>
-
-            <FadeInSection staggerChildren={0.1}>
-              <motion.div variants={staggerChildVariants} whileHover={{ scale: 1.03, y: -2 }} className="flex items-start gap-5">
-                <div className="w-11 h-11 bg-black light:bg-[#f5f2eb] text-[#2B6CB0] border-2 border-[#2B6CB0] flex items-center justify-center font-mono font-black">
-                  AI
-                </div>
-                <div>
-                  <h4 className="text-[#2B6CB0] text-3xl font-mono font-black leading-none">
-                    SPECIALIST
-                  </h4>
-                  <span className="text-[10px] tracking-widest font-mono uppercase text-neutral-400 light:text-neutral-500 mt-1 block font-bold">
-                    Focused Specialization
-                  </span>
-                </div>
-              </motion.div>
-            </FadeInSection>
-          </div>
-        </div>
+        <FadeInSection>
+          <InteractivePlaygrounds />
+        </FadeInSection>
       </section>
 
       {/* Education Section */}
       <Education />
+
+      {/* Internship Experience Section */}
+      <Internships />
 
       {/* Get In Touch Section containing the interactive Guestbook */}
       <section className="py-20 md:py-28 px-4 sm:px-6 md:px-10 lg:px-12 max-w-7xl mx-auto w-full border-t border-neutral-900 light:border-neutral-200 z-10 relative scroll-mt-20" id="contact">
@@ -522,7 +528,7 @@ export default function App() {
           <motion.a
             href="https://github.com/Yanshu04"
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
             whileHover={{ scale: 1.05, x: 2 }}
             whileTap={{ scale: 0.95 }}
             className="flex items-center gap-2 hover:text-[#E53E3E] light:hover:text-[#2B6CB0] transition-colors"
@@ -557,7 +563,7 @@ export default function App() {
               <motion.a
                 href="https://github.com/Yanshu04"
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 whileHover={{ scale: 1.08 }}
                 whileTap={{ scale: 0.92 }}
                 className="hover:text-[#E53E3E] light:hover:text-[#2B6CB0] transition-all underline decoration-blue-500/50 underline-offset-4"

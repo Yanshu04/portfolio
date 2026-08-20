@@ -2,8 +2,8 @@ import React, { useState, useMemo, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "motion/react";
 import { Cpu, Server, Layout, Database, Sparkles, Layers, X, ExternalLink } from "lucide-react";
-import { TECH_STACK_GROUPS, TECH_USAGE_DETAILS } from "../data";
-import FadeInSection, { staggerChildVariants } from "./FadeInSection";
+import { TECH_STACK_GROUPS, TECH_USAGE_DETAILS } from "../../data";
+import FadeInSection, { staggerChildVariants } from "../ui/FadeInSection";
 
 export default function TechStack() {
   const [selectedTech, setSelectedTech] = useState<string | null>(null);

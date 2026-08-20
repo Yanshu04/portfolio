@@ -1,9 +1,9 @@
 import React, { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { ChevronDown, ChevronUp, ExternalLink, Code, ShieldAlert, Cpu, Activity, Terminal } from "lucide-react";
-import { PROJECTS } from "../data";
-import CaseStudy from "./CaseStudy";
-import FadeInSection from "./FadeInSection";
+import { PROJECTS } from "../../data";
+import CaseStudy from "../interactive/CaseStudy";
+import FadeInSection from "../ui/FadeInSection";
 
 export default function ProjectShowcaseSection() {
   const [selectedFilter, setSelectedFilter] = useState<"ALL" | "AI_ML" | "FULL_STACK" | "MOBILE_EDGE">("ALL");
@@ -173,7 +173,7 @@ export default function ProjectShowcaseSection() {
                                 <motion.a
                                   href={project.liveUrl}
                                   target="_blank"
-                                  rel="noreferrer"
+                                  rel="noopener noreferrer"
                                   whileHover={{ scale: 1.04, y: -2 }}
                                   whileTap={{ scale: 0.96 }}
                                   className="px-4 py-2 bg-[#E53E3E] text-white border-2 border-white light:border-black font-black uppercase tracking-wider shadow-bauhaus-sm flex items-center gap-2 cursor-pointer"
@@ -187,7 +187,7 @@ export default function ProjectShowcaseSection() {
                                 <motion.a
                                   href={project.githubUrl}
                                   target="_blank"
-                                  rel="noreferrer"
+                                  rel="noopener noreferrer"
                                   whileHover={{ scale: 1.04, y: -2 }}
                                   whileTap={{ scale: 0.96 }}
                                   className="px-4 py-2 bg-black light:bg-white text-white light:text-black border-2 border-white light:border-black font-black uppercase tracking-wider shadow-bauhaus-sm flex items-center gap-2 cursor-pointer"
